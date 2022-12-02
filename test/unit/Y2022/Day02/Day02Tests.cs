@@ -14,7 +14,7 @@ public class Day02Tests
         var actual = runner.RunPart1(input);
 
         // Assert
-        actual.Should().Be(0);
+        actual.Should().Be(15);
     }
 
     [Fact]
@@ -29,7 +29,7 @@ public class Day02Tests
         var actual = runner.RunPart1(input);
 
         // Assert
-        actual.Should().Be(0);
+        actual.Should().Be(13_809);
     }
 
     [Fact]
@@ -44,7 +44,7 @@ public class Day02Tests
         var actual = runner.RunPart2(input);
 
         // Assert
-        actual.Should().Be(0);
+        actual.Should().Be(12);
     }
 
     [Fact]
@@ -59,8 +59,8 @@ public class Day02Tests
         var actual = runner.RunPart2(input);
 
         // Assert
-        actual.Should().Be(0);
+        actual.Should().Be(12_316);
     }
 
-    static IAoCRunner<string, int> CreateRunner() => new AoC.Y2022.Day02.Day02();
+    static IAoCRunner<string[], int> CreateRunner() => new AoC.Y2022.Day02.Day02();
 }
