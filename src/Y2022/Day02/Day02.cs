@@ -13,7 +13,7 @@ public class Day02 : IAoCRunner<string[], int>
     public string[] ParseInput(string[] puzzleInput) => puzzleInput;
 
     public int RunPart1(string[] input) => input
-        .Sum(t => t switch
+        .Sum(static t => t switch
         {
             "A X" => RockPoints     + TiePoints,    // rock ties with rock
             "B X" => RockPoints     + LosePoints,   // rock loses to paper
@@ -28,7 +28,7 @@ public class Day02 : IAoCRunner<string[], int>
         });
 
     public int RunPart2(string[] input) => input
-        .Sum(t => t switch
+        .Sum(static t => t switch
         {
             "A X" => LosePoints + ScissorsPoints,   // rock beats scissors
             "B X" => LosePoints + RockPoints,       // paper beats rock
