@@ -1,4 +1,5 @@
 using static MoreLinq.Extensions.BatchExtension;
+using static MoreLinq.Extensions.FoldExtension;
 
 namespace AoC.Y2022.Day03;
 
@@ -15,20 +16,18 @@ public class Day03 : IAoCRunner<string[], int>
         .Sum(n => n
             .Item1
             .Intersect(n.Item2)
-            .Apply(GetPriority));
+            .Fold(GetPriority));
 
     public int RunPart2(string[] input) => input
-        .Select(l => (IEnumerable<char>)l.ToCharArray())
         .Batch(3)
         .Sum(b => b
-            .Aggregate((r, c) => r.Intersect(c))
-            .Apply(GetPriority));
+            .Fold((x, y, z) => x.Intersect(y).Intersect(z))
+            .Fold(GetPriority));
 
-    static int GetPriority(IEnumerable<char> items) => items
-        .Single() switch
-        {
-            var c and >= 'a' and <= 'z' => c - 'a' + 1,
-            var c and >= 'A' and <= 'Z' => c - 'A' + 27,
-            var c => throw new InvalidOperationException($"Unexpected char in input: {c}")
-        };
+    static int GetPriority(char item) => item switch
+    {
+        >= 'a' and <= 'z' => item - 'a' + 1,
+        >= 'A' and <= 'Z' => item - 'A' + 27,
+        _ => throw new InvalidOperationException($"Unexpected char in input: {item}")
+    };
 }
