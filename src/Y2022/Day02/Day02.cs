@@ -21,7 +21,7 @@ public class Day02 : IAoCRunner<string[], int>
             "A Y" => PaperPoints    + WinPoints,    // paper beats rock
             "B Y" => PaperPoints    + TiePoints,    // paper ties with paper
             "C Y" => PaperPoints    + LosePoints,   // paper loses to scissors
-            "A Z" => ScissorsPoints + LosePoints,   // scissors loses to scissors
+            "A Z" => ScissorsPoints + LosePoints,   // scissors loses to rock
             "B Z" => ScissorsPoints + WinPoints,    // scissors beats paper
             "C Z" => ScissorsPoints + TiePoints,    // scissors ties with scissors
             _ => throw new InvalidOperationException("Invalid input")
