@@ -62,5 +62,5 @@ public class Day10Tests
         actual.Should().Be(0);
     }
 
-    static IAoCRunner<string, int> CreateRunner() => new AoC.Y2022.Day10.Day10();
+    static IAoCRunner<string[], int> CreateRunner() => new AoC.Y2022.Day10.Day10();
 }
