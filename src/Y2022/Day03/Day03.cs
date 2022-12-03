@@ -8,12 +8,12 @@ public class Day03 : IAoCRunner<string[], int>
     public string[] ParseInput(string[] puzzleInput) => puzzleInput;
 
     public int RunPart1(string[] input) => input
-        .Select(l =>
+        .Select(static l =>
         {
             var midpoint = l.Length >> 1;
             return (l[..midpoint], l[midpoint..]);
         })
-        .Sum(n => n
+        .Sum(static n => n
             .Item1
             .Intersect(n.Item2)
             .Fold(GetPriority));
@@ -21,7 +21,7 @@ public class Day03 : IAoCRunner<string[], int>
     public int RunPart2(string[] input) => input
         .Batch(3)
         .Sum(b => b
-            .Fold((x, y, z) => x.Intersect(y).Intersect(z))
+            .Fold(static (x, y, z) => x.Intersect(y).Intersect(z))
             .Fold(GetPriority));
 
     static int GetPriority(char item) => item switch
