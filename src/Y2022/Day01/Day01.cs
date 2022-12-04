@@ -4,7 +4,7 @@ namespace AoC.Y2022.Day01;
 
 public class Day01 : IAoCRunner<IReadOnlyList<IReadOnlyList<int>>, int>
 {
-    public IReadOnlyList<IReadOnlyList<int>> ParseInput(string[] puzzleInput) => puzzleInput
+    public IReadOnlyList<IReadOnlyList<int>> ParseInput(IEnumerable<string> puzzleInput) => puzzleInput
         .Split(
             static l => l == string.Empty,
             static ls => (IReadOnlyList<int>)ls

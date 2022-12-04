@@ -1,29 +1,26 @@
+using System.Globalization;
+using static MoreLinq.Extensions.FoldExtension;
+
 namespace AoC.Y2022.Day04;
 
-public class Day04 : IAoCRunner<(int, int, int, int)[], int>
+public partial class Day04 : IAoCRunner<IEnumerable<(int, int, int, int)>, int>
 {
-    public (int, int, int, int)[] ParseInput(string[] puzzleInput) => puzzleInput
-        .Select(static l =>
-        {
-            var match = Regex.Match(l, @"(\d+)-(\d+),(\d+)-(\d+)");
-            Debug.Assert(match.Success);
+    [GeneratedRegex(@"(\d+)")]
+    private static partial Regex IntegerRegex();
 
-            return (
-                int.Parse(match.Groups[1].Value),
-                int.Parse(match.Groups[2].Value),
-                int.Parse(match.Groups[3].Value),
-                int.Parse(match.Groups[4].Value)
-            );
-        })
-        .ToArray();
+    public IEnumerable<(int, int, int, int)> ParseInput(IEnumerable<string> puzzleInput) => puzzleInput
+        .Select(static l => IntegerRegex()
+            .Matches(l)
+            .Select(m => int.Parse(m.Value, CultureInfo.CurrentCulture))
+            .Fold((a, b, x, y) => (a, b, x, y)));
 
-    public int RunPart1((int, int, int, int)[] input) => input
+    public int RunPart1(IEnumerable<(int, int, int, int)> input) => input
         .Select(GetRangesAndOverlap)
         .Count(static t =>
             t.overlap.Length == t.elf1Range.Length ||
             t.overlap.Length == t.elf2Range.Length);
 
-    public int RunPart2((int, int, int, int)[] input) => input
+    public int RunPart2(IEnumerable<(int, int, int, int)> input) => input
         .Select(GetRangesAndOverlap)
         .Count(static t => t.overlap.Length != 0);
 

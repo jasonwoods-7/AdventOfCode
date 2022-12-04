@@ -4,10 +4,10 @@ namespace AoC.Tests.Helpers;
 
 public static class InputHelpers
 {
-    public static string[] ReadInputFile(
+    public static IEnumerable<string> ReadInputFile(
         string fileName = "input.txt",
         [CallerFilePath] string callerFilePath = "") =>
-        File.ReadAllLines(
+        File.ReadLines(
             Path.Combine(
                 Path.GetDirectoryName(callerFilePath)!,
                 fileName));

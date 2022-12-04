@@ -1,6 +1,6 @@
 namespace AoC.Y2022.Day02;
 
-public class Day02 : IAoCRunner<string[], int>
+public class Day02 : IAoCRunner<IEnumerable<string>, int>
 {
     const int RockPoints = 1;
     const int PaperPoints = 2;
@@ -10,9 +10,9 @@ public class Day02 : IAoCRunner<string[], int>
     const int TiePoints = 3;
     const int WinPoints = 6;
 
-    public string[] ParseInput(string[] puzzleInput) => puzzleInput;
+    public IEnumerable<string> ParseInput(IEnumerable<string> puzzleInput) => puzzleInput;
 
-    public int RunPart1(string[] input) => input
+    public int RunPart1(IEnumerable<string> input) => input
         .Sum(static t => t switch
         {
             "A X" => RockPoints     + TiePoints,    // rock ties with rock
@@ -27,7 +27,7 @@ public class Day02 : IAoCRunner<string[], int>
             _ => throw new InvalidOperationException("Invalid input")
         });
 
-    public int RunPart2(string[] input) => input
+    public int RunPart2(IEnumerable<string> input) => input
         .Sum(static t => t switch
         {
             "A X" => LosePoints + ScissorsPoints,   // rock beats scissors

@@ -3,11 +3,11 @@ using static MoreLinq.Extensions.FoldExtension;
 
 namespace AoC.Y2022.Day03;
 
-public class Day03 : IAoCRunner<string[], int>
+public class Day03 : IAoCRunner<IEnumerable<string>, int>
 {
-    public string[] ParseInput(string[] puzzleInput) => puzzleInput;
+    public IEnumerable<string> ParseInput(IEnumerable<string> puzzleInput) => puzzleInput;
 
-    public int RunPart1(string[] input) => input
+    public int RunPart1(IEnumerable<string> input) => input
         .Select(static l =>
         {
             var midpoint = l.Length >> 1;
@@ -18,7 +18,7 @@ public class Day03 : IAoCRunner<string[], int>
             .Intersect(n.Item2)
             .Fold(GetPriority));
 
-    public int RunPart2(string[] input) => input
+    public int RunPart2(IEnumerable<string> input) => input
         .Batch(3)
         .Sum(b => b
             .Fold(static (x, y, z) => x.Intersect(y).Intersect(z))
