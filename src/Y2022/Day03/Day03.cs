@@ -26,8 +26,8 @@ public class Day03 : IAoCRunner<string[], int>
 
     static int GetPriority(char item) => item switch
     {
-        >= 'a' and <= 'z' => item - 'a' + 1,
-        >= 'A' and <= 'Z' => item - 'A' + 27,
+        >= 'a' and <= 'z' => item - ('a' - 1),
+        >= 'A' and <= 'Z' => item - ('A' - 27),
         _ => throw new InvalidOperationException($"Unexpected char in input: {item}")
     };
 }
