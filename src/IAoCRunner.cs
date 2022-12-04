@@ -2,7 +2,7 @@
 
 public interface IAoCRunner<TInput, out TResult>
 {
-    TInput ParseInput(string[] puzzleInput);
+    TInput ParseInput(IEnumerable<string> puzzleInput);
 
     TResult RunPart1(TInput input);
 
