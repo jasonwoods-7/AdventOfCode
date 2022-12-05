@@ -2,12 +2,13 @@ using static MoreLinq.Extensions.ChooseExtension;
 using static MoreLinq.Extensions.FoldExtension;
 using static MoreLinq.Extensions.SplitExtension;
 using Cargo = System.Collections.Immutable.ImmutableDictionary<int, System.Collections.Immutable.ImmutableStack<char>>;
+using Instruction = System.ValueTuple<int, int, int>;
 
 namespace AoC.Y2022.Day05;
 
-public class Day05 : IAoCRunner<(Cargo, (int, int, int)[]), string>
+public class Day05 : IAoCRunner<(Cargo, Instruction[]), string>
 {
-    public (Cargo, (int, int, int)[]) ParseInput(IEnumerable<string> puzzleInput) => puzzleInput
+    public (Cargo, Instruction[]) ParseInput(IEnumerable<string> puzzleInput) => puzzleInput
         .Split(static l => l == string.Empty)
         .Fold(static (cargo, instructions) =>
         {
@@ -28,11 +29,11 @@ public class Day05 : IAoCRunner<(Cargo, (int, int, int)[]), string>
             return (parsedCargo, parsedInstructions);
         });
 
-    public string RunPart1((Cargo, (int, int, int)[]) input) => MoveCrates(
+    public string RunPart1((Cargo, Instruction[]) input) => MoveCrates(
         input.Item1,
-        static (instructions, cargo) =>
+        static (instruction, cargo) =>
         {
-            var (count, source, destination) = instructions;
+            var (count, source, destination) = instruction;
 
             var nextCargo = cargo;
 
@@ -46,11 +47,11 @@ public class Day05 : IAoCRunner<(Cargo, (int, int, int)[]), string>
         },
         input.Item2);
 
-    public string RunPart2((Cargo, (int, int, int)[]) input) => MoveCrates(
+    public string RunPart2((Cargo, Instruction[]) input) => MoveCrates(
         input.Item1,
-        static (instructions, cargo) =>
+        static (instruction, cargo) =>
         {
-            var (count, source, destination) = instructions;
+            var (count, source, destination) = instruction;
 
             var nextCargo = cargo;
 
@@ -73,19 +74,16 @@ public class Day05 : IAoCRunner<(Cargo, (int, int, int)[]), string>
 
     static string MoveCrates(
         Cargo cargo,
-        Func<(int, int, int), Cargo, Cargo> calculateMoves,
-        Span<(int, int, int)> instructions)
-    {
-        if (instructions.Length == 0)
+        Func<Instruction, Cargo, Cargo> calculateMoves,
+        Span<Instruction> instructions) =>
+        instructions switch
         {
-            return cargo
+            [] => cargo
                 .OrderBy(static s => s.Key)
-                .Aggregate("", static (s, c) => s + c.Value.Peek());
-        }
-
-        return MoveCrates(
-            calculateMoves(instructions[0], cargo),
-            calculateMoves,
-            instructions[1..]);
-    }
+                .Aggregate("", static (s, c) => s + c.Value.Peek()),
+            [var instruction, .. var rest] => MoveCrates(
+                calculateMoves(instruction, cargo),
+                calculateMoves,
+                rest)
+        };
 }
