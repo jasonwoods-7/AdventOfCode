@@ -1,17 +1,12 @@
-using System.Globalization;
 using static MoreLinq.Extensions.FoldExtension;
 
 namespace AoC.Y2022.Day04;
 
-public partial class Day04 : IAoCRunner<IEnumerable<(int, int, int, int)>, int>
+public class Day04 : IAoCRunner<IEnumerable<(int, int, int, int)>, int>
 {
-    [GeneratedRegex(@"(\d+)")]
-    private static partial Regex IntegerRegex();
-
     public IEnumerable<(int, int, int, int)> ParseInput(IEnumerable<string> puzzleInput) => puzzleInput
-        .Select(static l => IntegerRegex()
-            .Matches(l)
-            .Select(m => int.Parse(m.Value, CultureInfo.CurrentCulture))
+        .Select(static l => l
+            .FindIntegers()
             .Fold((a, b, x, y) => (a, b, x, y)));
 
     public int RunPart1(IEnumerable<(int, int, int, int)> input) => input
