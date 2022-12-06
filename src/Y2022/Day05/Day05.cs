@@ -29,9 +29,8 @@ public class Day05 : IAoCRunner<(Cargo, Instruction[]), string>
             return (parsedCargo, parsedInstructions);
         });
 
-    public string RunPart1((Cargo, Instruction[]) input) => MoveCrates(
-        input.Item1,
-        static (instruction, cargo) =>
+    public string RunPart1((Cargo, Instruction[]) input) => MoveCrates(input,
+        static (cargo, instruction) =>
         {
             var (count, source, destination) = instruction;
 
@@ -44,12 +43,10 @@ public class Day05 : IAoCRunner<(Cargo, Instruction[]), string>
             }
 
             return nextCargo;
-        },
-        input.Item2);
+        });
 
-    public string RunPart2((Cargo, Instruction[]) input) => MoveCrates(
-        input.Item1,
-        static (instruction, cargo) =>
+    public string RunPart2((Cargo, Instruction[]) input) => MoveCrates(input,
+        static (cargo, instruction) =>
         {
             var (count, source, destination) = instruction;
 
@@ -69,21 +66,13 @@ public class Day05 : IAoCRunner<(Cargo, Instruction[]), string>
             }
 
             return nextCargo;
-        },
-        input.Item2);
+        });
 
     static string MoveCrates(
-        Cargo cargo,
-        Func<Instruction, Cargo, Cargo> calculateMoves,
-        Span<Instruction> instructions) =>
-        instructions switch
-        {
-            [] => cargo
-                .OrderBy(static s => s.Key)
-                .Aggregate("", static (s, c) => s + c.Value.Peek()),
-            [var instruction, .. var rest] => MoveCrates(
-                calculateMoves(instruction, cargo),
-                calculateMoves,
-                rest)
-        };
+        (Cargo cargo, Instruction[] instructions) input,
+        Func<Cargo, Instruction, Cargo> calculateMoves) =>
+        input.instructions
+            .Aggregate(input.cargo, calculateMoves, static c => c
+                .OrderBy(static c => c.Key)
+                .Aggregate("", static (s, c) => s + c.Value.Peek()));
 }
