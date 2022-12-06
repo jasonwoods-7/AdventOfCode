@@ -2,19 +2,22 @@
 
 public class Day06Tests
 {
-    [Fact]
-    public void Example_Part1()
+    [Theory]
+    [InlineData("mjqjpqmgbljsphdztnvjfqwrcgsmlb", 7)]
+    [InlineData("bvwbjplbgvbhsrlpgdmjqwftvncz", 5)]
+    [InlineData("nppdvjthqldpwncqszvftbrmjlhg", 6)]
+    [InlineData("nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg", 10)]
+    [InlineData("zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw", 11)]
+    public void Example_Part1(string input, int expected)
     {
         // Arrange
         var runner = CreateRunner();
-
-        var input = runner.ParseInput(InputHelpers.ReadInputFile("example.txt"));
 
         // Act
         var actual = runner.RunPart1(input);
 
         // Assert
-        actual.Should().Be(0);
+        actual.Should().Be(expected);
     }
 
     [Fact]
@@ -29,22 +32,25 @@ public class Day06Tests
         var actual = runner.RunPart1(input);
 
         // Assert
-        actual.Should().Be(0);
+        actual.Should().Be(1_623);
     }
 
-    [Fact]
-    public void Example_Part2()
+    [Theory]
+    [InlineData("mjqjpqmgbljsphdztnvjfqwrcgsmlb", 19)]
+    [InlineData("bvwbjplbgvbhsrlpgdmjqwftvncz", 23)]
+    [InlineData("nppdvjthqldpwncqszvftbrmjlhg", 23)]
+    [InlineData("nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg", 29)]
+    [InlineData("zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw", 26)]
+    public void Example_Part2(string input, int expected)
     {
         // Arrange
         var runner = CreateRunner();
-
-        var input = runner.ParseInput(InputHelpers.ReadInputFile("example.txt"));
 
         // Act
         var actual = runner.RunPart2(input);
 
         // Assert
-        actual.Should().Be(0);
+        actual.Should().Be(expected);
     }
 
     [Fact]
@@ -59,8 +65,8 @@ public class Day06Tests
         var actual = runner.RunPart2(input);
 
         // Assert
-        actual.Should().Be(0);
+        actual.Should().Be(3_774);
     }
 
-    static IAoCRunner<IEnumerable<string>, int> CreateRunner() => new AoC.Y2022.Day06.Day06();
+    static IAoCRunner<string, int> CreateRunner() => new AoC.Y2022.Day06.Day06();
 }
