@@ -1,4 +1,6 @@
-﻿namespace AoC.Tests.Y2022.Day09;
+﻿using AoC.Y2022.Day09;
+
+namespace AoC.Tests.Y2022.Day09;
 
 public class Day09Tests
 {
@@ -14,7 +16,7 @@ public class Day09Tests
         var actual = runner.RunPart1(input);
 
         // Assert
-        actual.Should().Be(0);
+        actual.Should().Be(13);
     }
 
     [Fact]
@@ -29,22 +31,24 @@ public class Day09Tests
         var actual = runner.RunPart1(input);
 
         // Assert
-        actual.Should().Be(0);
+        actual.Should().Be(5_779);
     }
 
-    [Fact]
-    public void Example_Part2()
+    [Theory]
+    [InlineData("example.txt", 1)]
+    [InlineData("example2.txt", 36)]
+    public void Example_Part2(string fileName, int expected)
     {
         // Arrange
         var runner = CreateRunner();
 
-        var input = runner.ParseInput(InputHelpers.ReadInputFile("example.txt"));
+        var input = runner.ParseInput(InputHelpers.ReadInputFile(fileName));
 
         // Act
         var actual = runner.RunPart2(input);
 
         // Assert
-        actual.Should().Be(0);
+        actual.Should().Be(expected);
     }
 
     [Fact]
@@ -59,8 +63,8 @@ public class Day09Tests
         var actual = runner.RunPart2(input);
 
         // Assert
-        actual.Should().Be(0);
+        actual.Should().Be(2_331);
     }
 
-    static IAoCRunner<IEnumerable<string>, int> CreateRunner() => new AoC.Y2022.Day09.Day09();
+    static IAoCRunner<IEnumerable<(Direction, int)>, int> CreateRunner() => new AoC.Y2022.Day09.Day09();
 }
