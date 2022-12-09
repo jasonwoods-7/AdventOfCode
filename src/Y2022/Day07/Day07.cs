@@ -13,7 +13,7 @@ public class Day07 : IAoCRunner<Directory, int>
             {
                 currentDirectory = currentDirectory.Parent!;
             }
-            else if (command.StartsWith("$ cd "))
+            else if (command.StartsWith("$ cd ", StringComparison.Ordinal))
             {
                 var newDirectory = command[5..];
                 currentDirectory = currentDirectory.Subdirectories.First(d => d.Name == newDirectory);
@@ -21,7 +21,7 @@ public class Day07 : IAoCRunner<Directory, int>
             else if (command == "$ ls")
             {
             }
-            else if (command.StartsWith("dir "))
+            else if (command.StartsWith("dir ", StringComparison.Ordinal))
             {
                 var name = command[4..];
                 currentDirectory.Subdirectories.Add(new Directory(name, currentDirectory));
@@ -29,7 +29,7 @@ public class Day07 : IAoCRunner<Directory, int>
             else
             {
                 var split = command.Split(" ");
-                currentDirectory.Files.Add((split[1], int.Parse(split[0])));
+                currentDirectory.Files.Add((split[1], int.Parse(split[0], CultureInfo.CurrentCulture)));
             }
         }
 
