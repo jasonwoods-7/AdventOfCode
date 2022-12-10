@@ -2,14 +2,10 @@
 
 public class AddInstruction : IInstruction
 {
-    public AddInstruction(int value, int cyclesRemaining = 2)
-    {
+    public AddInstruction(int value) =>
         AddValue = value;
-        CyclesRemaining = cyclesRemaining;
-    }
 
     public int AddValue { get; }
-    public int CyclesRemaining { get; }
 
     public T Accept<T>(T visitor)
         where T : IInstructionVisitor<T> =>
