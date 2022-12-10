@@ -1,10 +1,19 @@
+using AnyOfTypes;
+
 namespace AoC.Y2022.Day10;
 
-public class Day10 : IAoCRunner<IEnumerable<string>, int>
+public class Day10 : IAoCRunner<IEnumerable<IInstruction>, AnyOf<int, string>>
 {
-    public IEnumerable<string> ParseInput(IEnumerable<string> puzzleInput) => puzzleInput;
+    public IEnumerable<IInstruction> ParseInput(IEnumerable<string> puzzleInput) => puzzleInput
+        .Select(InstructionFactory.CreateInstruction);
 
-    public int RunPart1(IEnumerable<string> input) => throw new NotImplementedException();
+    public AnyOf<int, string> RunPart1(IEnumerable<IInstruction> input) => input.Aggregate(
+        new SystemState(),
+        (state, instruction) => state.RunInstruction(instruction),
+        state => state.InterestingSum);
 
-    public int RunPart2(IEnumerable<string> input) => throw new NotImplementedException();
+    public AnyOf<int, string> RunPart2(IEnumerable<IInstruction> input) => input.Aggregate(
+        new SystemState(),
+        (state, instruction) => state.RunInstruction(instruction),
+        state => state.RenderConsole());
 }
