@@ -11,6 +11,6 @@ static class InstructionFactory
 
         Debug.Assert(instruction.StartsWith("addx ", StringComparison.Ordinal));
         var value = int.Parse(instruction[5..], CultureInfo.CurrentCulture);
-        return new AddInstruction(value);
+        return new ProcessingInstruction(new AddInstruction(value));
     }
 }

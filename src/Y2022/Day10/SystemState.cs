@@ -27,13 +27,15 @@ sealed class SystemState : IInstructionVisitor<SystemState>
     {
         CommonInstruction();
 
-        if (addInstruction.CyclesRemaining - 1 != 0)
-        {
-            return VisitAdd(new AddInstruction(addInstruction.AddValue, addInstruction.CyclesRemaining - 1));
-        }
-
         _xRegister += addInstruction.AddValue;
         return this;
+    }
+
+    public SystemState VisitProcessing(ProcessingInstruction processingInstruction)
+    {
+        CommonInstruction();
+
+        return processingInstruction.ChildInstruction.Accept(this);
     }
 
     public int InterestingSum { get; private set; }
