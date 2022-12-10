@@ -9,6 +9,7 @@ static class InstructionFactory
             return new NoopInstruction();
         }
 
+        Debug.Assert(instruction.StartsWith("addx ", StringComparison.Ordinal));
         var value = int.Parse(instruction[5..], CultureInfo.CurrentCulture);
         return new AddInstruction(value);
     }
