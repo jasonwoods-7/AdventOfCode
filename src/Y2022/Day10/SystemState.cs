@@ -17,25 +17,30 @@ sealed class SystemState : IInstructionVisitor<SystemState>
         InterestingSum = 0;
     }
 
-    public SystemState VisitNoop()
-    {
-        CommonInstruction();
-        return this;
-    }
+    public SystemState VisitNoop() => this;
 
     public SystemState VisitAdd(AddInstruction addInstruction)
     {
-        CommonInstruction();
-
         _xRegister += addInstruction.AddValue;
         return this;
     }
 
-    public SystemState VisitProcessing(ProcessingInstruction processingInstruction)
+    public SystemState VisitCycle(CycleInstruction cycleInstruction)
     {
-        CommonInstruction();
+        if (IsInterestingCycle(_currentCycle))
+        {
+            InterestingSum += _currentCycle * _xRegister;
+        }
 
-        return processingInstruction.ChildInstruction.Accept(this);
+        _console[_currentCycle - 1] = ((_currentCycle - 1) % 40) switch
+        {
+            var i when _xRegister - 1 == i || _xRegister + 0 == i || _xRegister + 1 == i => true,
+            _ => false
+        };
+
+        ++_currentCycle;
+
+        return cycleInstruction.ChildInstruction.Accept(this);
     }
 
     public int InterestingSum { get; private set; }
@@ -54,22 +59,6 @@ sealed class SystemState : IInstructionVisitor<SystemState>
         }
 
         return builder.ToString();
-    }
-
-    void CommonInstruction()
-    {
-        if (IsInterestingCycle(_currentCycle))
-        {
-            InterestingSum += _currentCycle * _xRegister;
-        }
-
-        _console[_currentCycle - 1] = ((_currentCycle - 1) % 40) switch
-        {
-            var i when _xRegister - 1 == i || _xRegister + 0 == i || _xRegister + 1 == i => true,
-            _ => false
-        };
-
-        ++_currentCycle;
     }
 
     static bool IsInterestingCycle(int currentCycle) => currentCycle switch

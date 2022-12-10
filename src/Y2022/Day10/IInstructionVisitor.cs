@@ -5,5 +5,5 @@ public interface IInstructionVisitor<out TSelf>
 {
     TSelf VisitNoop();
     TSelf VisitAdd(AddInstruction addInstruction);
-    TSelf VisitProcessing(ProcessingInstruction processingInstruction);
+    TSelf VisitCycle(CycleInstruction cycleInstruction);
 }

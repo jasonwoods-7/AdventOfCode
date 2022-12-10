@@ -6,11 +6,18 @@ static class InstructionFactory
     {
         if (instruction == "noop")
         {
-            return new NoopInstruction();
+            return CreateCycle(1, new NoopInstruction());
         }
 
         Debug.Assert(instruction.StartsWith("addx ", StringComparison.Ordinal));
         var value = int.Parse(instruction[5..], CultureInfo.CurrentCulture);
-        return new ProcessingInstruction(new AddInstruction(value));
+        return CreateCycle(2, new AddInstruction(value));
     }
+
+    static IInstruction CreateCycle(int cyclesRemaining, IInstruction accumulate) =>
+        cyclesRemaining switch
+        {
+            0 => accumulate,
+            _ => CreateCycle(cyclesRemaining - 1, new CycleInstruction(accumulate))
+        };
 }
