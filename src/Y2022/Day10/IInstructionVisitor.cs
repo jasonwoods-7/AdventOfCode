@@ -1,7 +1,7 @@
 ﻿namespace AoC.Y2022.Day10;
 
-public interface ISystemStateVisitor<out TSelf>
-    where TSelf : ISystemStateVisitor<TSelf>
+public interface IInstructionVisitor<out TSelf>
+    where TSelf : IInstructionVisitor<TSelf>
 {
     TSelf VisitNoop();
     TSelf VisitAdd(AddInstruction addInstruction);

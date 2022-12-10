@@ -2,7 +2,7 @@
 
 public class NoopInstruction : IInstruction
 {
-    public T Accept<T>(T state)
-        where T : ISystemStateVisitor<T> =>
-        state.VisitNoop();
+    public T Accept<T>(T visitor)
+        where T : IInstructionVisitor<T> =>
+        visitor.VisitNoop();
 }

@@ -2,5 +2,5 @@
 
 public interface IInstruction
 {
-    T Accept<T>(T state) where T : ISystemStateVisitor<T>;
+    T Accept<T>(T visitor) where T : IInstructionVisitor<T>;
 }

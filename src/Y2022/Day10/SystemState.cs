@@ -3,7 +3,7 @@ using System.Text;
 
 namespace AoC.Y2022.Day10;
 
-sealed class SystemState : ISystemStateVisitor<SystemState>
+sealed class SystemState : IInstructionVisitor<SystemState>
 {
     int _currentCycle;
     int _xRegister;
