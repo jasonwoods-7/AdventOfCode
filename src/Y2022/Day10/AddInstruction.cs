@@ -11,7 +11,7 @@ public class AddInstruction : IInstruction
     public int AddValue { get; }
     public int CyclesRemaining { get; }
 
-    public T Accept<T>(T state)
-        where T : ISystemStateVisitor<T> =>
-        state.VisitAdd(this);
+    public T Accept<T>(T visitor)
+        where T : IInstructionVisitor<T> =>
+        visitor.VisitAdd(this);
 }
