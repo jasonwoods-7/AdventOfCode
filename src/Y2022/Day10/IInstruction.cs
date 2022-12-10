@@ -2,9 +2,5 @@
 
 public interface IInstruction
 {
-    int CyclesRemaining { get; }
-
-    IInstruction AdvanceInstruction();
-
-    int MutateState(int oldState);
+    T Accept<T>(T state) where T : ISystemStateVisitor<T>;
 }

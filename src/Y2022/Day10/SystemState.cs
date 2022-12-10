@@ -1,59 +1,73 @@
-﻿using System.Text;
+﻿using System.Collections;
+using System.Text;
 
 namespace AoC.Y2022.Day10;
 
-class SystemState
+sealed class SystemState : ISystemStateVisitor<SystemState>
 {
     int _currentCycle;
     int _xRegister;
-    readonly StringBuilder _console;
+    readonly BitArray _console;
 
     public SystemState()
     {
         _currentCycle = 1;
         _xRegister = 1;
-        _console = new StringBuilder();
+        _console = new BitArray(240, false);
         InterestingSum = 0;
     }
 
-    public SystemState RunInstruction(IInstruction instruction)
+    public SystemState VisitNoop()
     {
-        var processedInstruction = instruction.AdvanceInstruction();
+        CommonInstruction();
+        return this;
+    }
 
-        if (IsInterestingCycle(_currentCycle))
+    public SystemState VisitAdd(AddInstruction addInstruction)
+    {
+        CommonInstruction();
+
+        if (addInstruction.CyclesRemaining - 1 != 0)
         {
-            InterestingSum += _currentCycle * _xRegister;
+            return VisitAdd(new AddInstruction(addInstruction.AddValue, addInstruction.CyclesRemaining - 1));
         }
 
-        _console.Append(((_currentCycle - 1) % 40) switch
-        {
-            var i when _xRegister - 1 == i || _xRegister + 0 == i || _xRegister + 1 == i => "#",
-            _ => "."
-        });
-
-        ++_currentCycle;
-
-        if (processedInstruction.CyclesRemaining == 0)
-        {
-            _xRegister = processedInstruction.MutateState(_xRegister);
-            return this;
-        }
-
-        return RunInstruction(processedInstruction);
+        _xRegister += addInstruction.AddValue;
+        return this;
     }
 
     public int InterestingSum { get; private set; }
 
     public string RenderConsole()
     {
-        var builder = new StringBuilder(_console.ToString());
+        var builder = new StringBuilder();
 
-        for (var i = 240; i > 0; i -= 40)
+        for (var i = 0; i < 240; ++i)
         {
-            builder.Insert(i, Environment.NewLine);
+            builder.Append(_console[i] ? "#" : " ");
+            if ((i + 1) % 40 == 0)
+            {
+                builder.AppendLine();
+            }
         }
 
         return builder.ToString();
+    }
+
+    void CommonInstruction()
+    {
+        if (IsInterestingCycle(_currentCycle))
+        {
+            InterestingSum += _currentCycle * _xRegister;
+        }
+
+        _console[_currentCycle - 1] = ((_currentCycle - 1) % 40) switch
+        {
+            var i when _xRegister - 1 == i || _xRegister + 0 == i || _xRegister + 1 == i => true,
+            _ => false
+        };
+
+        ++_currentCycle;
     }
 
     static bool IsInterestingCycle(int currentCycle) => currentCycle switch
