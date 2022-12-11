@@ -1,10 +1,10 @@
 ﻿namespace AoC.Y2022.Day10;
 
-public class CycleInstruction : IInstruction
+public class CycleInstructionDecorator : IInstruction
 {
     public IInstruction ChildInstruction { get; }
 
-    public CycleInstruction(IInstruction childInstruction) =>
+    public CycleInstructionDecorator(IInstruction childInstruction) =>
         ChildInstruction = childInstruction;
 
     public T Accept<T>(T visitor)
