@@ -22,7 +22,7 @@ public class Day05 : IAoCRunner<(Cargo, Instruction[]), string>
 
             var parsedInstructions = instructions
                 .Select(static l => l
-                    .FindIntegers()
+                    .FindNumbers<int>()
                     .Fold(static (a, b, c) => (a, b, c)))
                 .ToArray();
 

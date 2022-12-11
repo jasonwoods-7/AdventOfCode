@@ -1,4 +1,6 @@
-﻿namespace AoC.Tests.Y2022.Day11;
+﻿using AoC.Y2022.Day11;
+
+namespace AoC.Tests.Y2022.Day11;
 
 public class Day11Tests
 {
@@ -14,7 +16,7 @@ public class Day11Tests
         var actual = runner.RunPart1(input);
 
         // Assert
-        actual.Should().Be(0);
+        actual.Should().Be(10_605);
     }
 
     [Fact]
@@ -29,7 +31,7 @@ public class Day11Tests
         var actual = runner.RunPart1(input);
 
         // Assert
-        actual.Should().Be(0);
+        actual.Should().Be(111_210);
     }
 
     [Fact]
@@ -44,7 +46,7 @@ public class Day11Tests
         var actual = runner.RunPart2(input);
 
         // Assert
-        actual.Should().Be(0);
+        actual.Should().Be(2_713_310_158);
     }
 
     [Fact]
@@ -59,8 +61,8 @@ public class Day11Tests
         var actual = runner.RunPart2(input);
 
         // Assert
-        actual.Should().Be(0);
+        actual.Should().Be(15_447_387_620);
     }
 
-    static IAoCRunner<IEnumerable<string>, int> CreateRunner() => new AoC.Y2022.Day11.Day11();
+    static IAoCRunner<IReadOnlyDictionary<int, Monkey>, long> CreateRunner() => new AoC.Y2022.Day11.Day11();
 }

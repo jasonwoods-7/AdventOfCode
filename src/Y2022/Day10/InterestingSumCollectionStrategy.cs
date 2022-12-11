@@ -1,6 +1,6 @@
 ﻿namespace AoC.Y2022.Day10;
 
-class InterestingSumCollectionStrategy : ICollectionStrategy
+sealed class InterestingSumCollectionStrategy : ICollectionStrategy
 {
     public int InterestingSum { get; private set; }
 
