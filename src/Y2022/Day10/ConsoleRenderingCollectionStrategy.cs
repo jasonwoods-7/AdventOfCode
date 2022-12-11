@@ -3,7 +3,7 @@ using System.Text;
 
 namespace AoC.Y2022.Day10;
 
-class ConsoleRenderingCollectionStrategy : ICollectionStrategy
+sealed class ConsoleRenderingCollectionStrategy : ICollectionStrategy
 {
     readonly BitArray _console;
 

@@ -5,7 +5,9 @@ public static partial class StringExtensions
     [GeneratedRegex(@"(\d+)")]
     private static partial Regex IntegerRegex();
 
-    public static IEnumerable<int> FindIntegers(this string source) => IntegerRegex()
-        .Matches(source)
-        .Select(m => int.Parse(m.Value, CultureInfo.CurrentCulture));
+    public static IEnumerable<T> FindNumbers<T>(this string source)
+        where T : IParsable<T> =>
+        IntegerRegex()
+            .Matches(source)
+            .Select(m => T.Parse(m.Value, CultureInfo.CurrentCulture));
 }
