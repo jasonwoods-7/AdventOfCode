@@ -4,13 +4,7 @@ sealed class Reducer
 {
     readonly long _divisor;
 
-    public Reducer(long divisor)
-    {
-        _divisor = divisor;
-        Reduce = ReduceInternal;
-    }
+    public Reducer(long divisor) => _divisor = divisor;
 
-    public Func<long, long> Reduce { get; }
-
-    long ReduceInternal(long value) => Math.DivRem(value, _divisor).Remainder;
+    public long Reduce(long value) => Math.DivRem(value, _divisor).Remainder;
 }
