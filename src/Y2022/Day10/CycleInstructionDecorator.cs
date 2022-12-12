@@ -2,12 +2,12 @@
 
 public class CycleInstructionDecorator : IInstruction
 {
-    public IInstruction ChildInstruction { get; }
+    readonly IInstruction _childInstruction;
 
     public CycleInstructionDecorator(IInstruction childInstruction) =>
-        ChildInstruction = childInstruction;
+        _childInstruction = childInstruction;
 
     public T Accept<T>(T visitor)
         where T : IInstructionVisitor<T> =>
-        visitor.VisitCycle(this);
+        _childInstruction.Accept(visitor.VisitCycle(this));
 }

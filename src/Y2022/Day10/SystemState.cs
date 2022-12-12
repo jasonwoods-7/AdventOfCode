@@ -26,6 +26,6 @@ sealed class SystemState<T> : IInstructionVisitor<SystemState<T>>
     public SystemState<T> VisitCycle(CycleInstructionDecorator cycleInstructionDecorator)
     {
         CollectionStrategy.Collect(_currentCycle++, _xRegister);
-        return cycleInstructionDecorator.ChildInstruction.Accept(this);
+        return this;
     }
 }
