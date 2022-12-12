@@ -2,7 +2,7 @@
 
 public class Day15Tests
 {
-    [Fact]
+    // [Fact]
     public void Example_Part1()
     {
         // Arrange
@@ -17,7 +17,7 @@ public class Day15Tests
         actual.Should().Be(0);
     }
 
-    [Fact]
+    // [Fact]
     public void Part1()
     {
         // Arrange
@@ -32,7 +32,7 @@ public class Day15Tests
         actual.Should().Be(0);
     }
 
-    [Fact]
+    // [Fact]
     public void Example_Part2()
     {
         // Arrange
@@ -47,7 +47,7 @@ public class Day15Tests
         actual.Should().Be(0);
     }
 
-    [Fact]
+    // [Fact]
     public void Part2()
     {
         // Arrange
