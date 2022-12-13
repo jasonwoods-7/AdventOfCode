@@ -1,8 +1,10 @@
-﻿namespace AoC.Tests.Y2022.Day13;
+﻿using AoC.Y2022.Day13;
+
+namespace AoC.Tests.Y2022.Day13;
 
 public class Day13Tests
 {
-    // [Fact]
+    [Fact]
     public void Example_Part1()
     {
         // Arrange
@@ -14,10 +16,10 @@ public class Day13Tests
         var actual = runner.RunPart1(input);
 
         // Assert
-        actual.Should().Be(0);
+        actual.Should().Be(13);
     }
 
-    // [Fact]
+    [Fact]
     public void Part1()
     {
         // Arrange
@@ -29,10 +31,10 @@ public class Day13Tests
         var actual = runner.RunPart1(input);
 
         // Assert
-        actual.Should().Be(0);
+        actual.Should().Be(6_656);
     }
 
-    // [Fact]
+    [Fact]
     public void Example_Part2()
     {
         // Arrange
@@ -44,10 +46,10 @@ public class Day13Tests
         var actual = runner.RunPart2(input);
 
         // Assert
-        actual.Should().Be(0);
+        actual.Should().Be(140);
     }
 
-    // [Fact]
+    [Fact]
     public void Part2()
     {
         // Arrange
@@ -59,8 +61,8 @@ public class Day13Tests
         var actual = runner.RunPart2(input);
 
         // Assert
-        actual.Should().Be(0);
+        actual.Should().Be(19_716);
     }
 
-    static IAoCRunner<IEnumerable<string>, int> CreateRunner() => new AoC.Y2022.Day13.Day13();
+    static IAoCRunner<IEnumerable<(Packet, Packet)>, int> CreateRunner() => new AoC.Y2022.Day13.Day13();
 }
