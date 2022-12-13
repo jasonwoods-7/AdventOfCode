@@ -49,7 +49,7 @@ public class Day12Tests
         actual.Should().Be(29);
     }
 
-    [Fact(Skip = "Not optimized")]
+    [Fact]
     public void Part2()
     {
         // Arrange
