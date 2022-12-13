@@ -1,6 +1,3 @@
-using static MoreLinq.Extensions.ChooseExtension;
-using static MoreLinq.Extensions.FoldExtension;
-using static MoreLinq.Extensions.SplitExtension;
 using Cargo = System.Collections.Immutable.ImmutableDictionary<int, System.Collections.Immutable.ImmutableStack<char>>;
 using Instruction = System.ValueTuple<int, int, int>;
 

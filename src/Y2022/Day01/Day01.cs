@@ -1,6 +1,4 @@
-﻿using static MoreLinq.Extensions.SplitExtension;
-
-namespace AoC.Y2022.Day01;
+﻿namespace AoC.Y2022.Day01;
 
 public class Day01 : IAoCRunner<IReadOnlyList<IReadOnlyList<int>>, int>
 {

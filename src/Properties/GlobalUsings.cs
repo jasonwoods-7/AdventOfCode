@@ -5,3 +5,4 @@ global using System.Text.RegularExpressions;
 global using AoC.Extensions;
 global using LanguageExt;
 global using static LanguageExt.Prelude;
+global using SuperLinq;
