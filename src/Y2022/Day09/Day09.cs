@@ -1,5 +1,3 @@
-using static MoreLinq.Extensions.FoldExtension;
-
 namespace AoC.Y2022.Day09;
 
 public class Day09 : IAoCRunner<IEnumerable<(Direction, int)>, int>

@@ -1,7 +1,3 @@
-using static MoreLinq.Extensions.ChooseExtension;
-using static MoreLinq.Extensions.IndexExtension;
-using static MoreLinq.Extensions.WindowExtension;
-
 namespace AoC.Y2022.Day06;
 
 public class Day06 : IAoCRunner<string, int>
@@ -15,6 +11,6 @@ public class Day06 : IAoCRunner<string, int>
     static int FindStartOfMessageMarker(string input, int windowSize) => input
         .Window(windowSize)
         .Index()
-        .Choose(p => (p.Value.ToHashSet().Count == windowSize, p.Key + windowSize))
+        .Choose(p => (p.item.ToHashSet().Count == windowSize, p.index + windowSize))
         .First();
 }

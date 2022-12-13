@@ -1,6 +1,3 @@
-using static MoreLinq.Extensions.BatchExtension;
-using static MoreLinq.Extensions.FoldExtension;
-
 namespace AoC.Y2022.Day03;
 
 public class Day03 : IAoCRunner<IEnumerable<string>, int>

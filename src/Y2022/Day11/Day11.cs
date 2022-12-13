@@ -1,6 +1,3 @@
-using static MoreLinq.Extensions.FoldExtension;
-using static MoreLinq.Extensions.SplitExtension;
-
 namespace AoC.Y2022.Day11;
 
 public class Day11 : IAoCRunner<IReadOnlyDictionary<int, Monkey>, long>
