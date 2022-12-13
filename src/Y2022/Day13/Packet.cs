@@ -1,4 +1,4 @@
-﻿using AnyOfTypes;
+using AnyOfTypes;
 
 namespace AoC.Y2022.Day13;
 

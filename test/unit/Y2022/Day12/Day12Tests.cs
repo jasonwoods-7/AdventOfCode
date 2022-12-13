@@ -1,4 +1,4 @@
-﻿using AoC.Y2022.Day12;
+using AoC.Y2022.Day12;
 
 namespace AoC.Tests.Y2022.Day12;
 

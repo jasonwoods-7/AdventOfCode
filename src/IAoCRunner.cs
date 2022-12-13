@@ -1,4 +1,4 @@
-﻿namespace AoC;
+namespace AoC;
 
 public interface IAoCRunner<TInput, out TResult>
 {
