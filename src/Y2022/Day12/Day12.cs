@@ -40,7 +40,10 @@ public class Day12 : IAoCRunner<(Node, Node), int>
     {
         var (startPos, endPos) = input;
 
-        return FindDistanceTo(startPos, endPos);
+        return SuperEnumerable.GetShortestPathCost<Node, int>(
+            startPos,
+            static (n, c) => n.AdjacentNodes.Select(a => (a, c + 1)),
+            endPos);
     }
 
     public int RunPart2((Node, Node) input)
@@ -70,52 +73,11 @@ public class Day12 : IAoCRunner<(Node, Node), int>
             }
         }
 
-        return PotentialStartPositions(startPos, visitedNodes)
-            .Aggregate(int.MaxValue, (m, n) => Math.Min(m, FindDistanceTo(n, endPos, m)));
-    }
-
-    static int FindDistanceTo(Node startPos, Node endPos, int minFound = int.MaxValue)
-    {
-        var distances = new Dictionary<Node, int>();
-
-        FindDistance(
-            startPos,
-            distances,
-            0,
-            ImmutableHashSet<Node>.Empty,
-            minFound);
-
-        return distances.TryGetValue(endPos, out var result)
-            ? result
-            : int.MaxValue;
-    }
-
-    static void FindDistance(
-        Node currentNode,
-        Dictionary<Node, int> distances,
-        int distance,
-        ImmutableHashSet<Node> visitedNodes,
-        int minFound)
-    {
-        if (visitedNodes.Contains(currentNode) ||
-            distance > minFound ||
-            (distances.TryGetValue(currentNode, out var dist) &&
-            dist <= distance))
-        {
-            return;
-        }
-
-        distances[currentNode] = distance;
-        var currentVisited = visitedNodes.Add(currentNode);
-
-        foreach (var adjacent in currentNode.AdjacentNodes)
-        {
-            FindDistance(
-                adjacent,
-                distances,
-                distance + 1,
-                currentVisited,
-                minFound);
-        }
+        return PotentialStartPositions(startPos, visitedNodes).Min(n => Try(() =>
+            SuperEnumerable.GetShortestPathCost<Node, int>(
+                n,
+                static (n, c) => n.AdjacentNodes.Select(a => (a, c + 1)),
+                endPos))
+            .IfFail(int.MaxValue));
     }
 }
