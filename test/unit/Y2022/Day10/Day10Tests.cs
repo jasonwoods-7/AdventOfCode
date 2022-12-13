@@ -1,4 +1,4 @@
-﻿using AnyOfTypes;
+using AnyOfTypes;
 using AoC.Y2022.Day10;
 
 namespace AoC.Tests.Y2022.Day10;

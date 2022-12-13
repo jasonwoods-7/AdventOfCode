@@ -1,4 +1,4 @@
-﻿namespace AoC.Y2022.Day13;
+namespace AoC.Y2022.Day13;
 
 public class PacketComparer : IComparer<Packet>
 {

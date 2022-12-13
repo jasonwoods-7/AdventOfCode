@@ -1,4 +1,4 @@
-﻿namespace AoC.Y2022.Day12;
+namespace AoC.Y2022.Day12;
 
 [DebuggerDisplay("{DebuggerDisplay,nq}")]
 public class Node

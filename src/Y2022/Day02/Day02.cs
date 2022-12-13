@@ -15,12 +15,12 @@ public class Day02 : IAoCRunner<IEnumerable<string>, int>
     public int RunPart1(IEnumerable<string> input) => input
         .Sum(static t => t switch
         {
-            "A X" => RockPoints     + TiePoints,    // rock ties with rock
-            "B X" => RockPoints     + LosePoints,   // rock loses to paper
-            "C X" => RockPoints     + WinPoints,    // rock beats scissors
-            "A Y" => PaperPoints    + WinPoints,    // paper beats rock
-            "B Y" => PaperPoints    + TiePoints,    // paper ties with paper
-            "C Y" => PaperPoints    + LosePoints,   // paper loses to scissors
+            "A X" => RockPoints + TiePoints,    // rock ties with rock
+            "B X" => RockPoints + LosePoints,   // rock loses to paper
+            "C X" => RockPoints + WinPoints,    // rock beats scissors
+            "A Y" => PaperPoints + WinPoints,    // paper beats rock
+            "B Y" => PaperPoints + TiePoints,    // paper ties with paper
+            "C Y" => PaperPoints + LosePoints,   // paper loses to scissors
             "A Z" => ScissorsPoints + LosePoints,   // scissors loses to rock
             "B Z" => ScissorsPoints + WinPoints,    // scissors beats paper
             "C Z" => ScissorsPoints + TiePoints,    // scissors ties with scissors
@@ -33,12 +33,12 @@ public class Day02 : IAoCRunner<IEnumerable<string>, int>
             "A X" => LosePoints + ScissorsPoints,   // rock beats scissors
             "B X" => LosePoints + RockPoints,       // paper beats rock
             "C X" => LosePoints + PaperPoints,      // scissors beats paper
-            "A Y" => TiePoints  + RockPoints,       // rock ties with rock
-            "B Y" => TiePoints  + PaperPoints,      // paper ties with paper
-            "C Y" => TiePoints  + ScissorsPoints,   // scissors ties with scissors
-            "A Z" => WinPoints  + PaperPoints,      // rock loses to paper
-            "B Z" => WinPoints  + ScissorsPoints,   // paper loses to scissors
-            "C Z" => WinPoints  + RockPoints,       // scissors loses to rock
+            "A Y" => TiePoints + RockPoints,       // rock ties with rock
+            "B Y" => TiePoints + PaperPoints,      // paper ties with paper
+            "C Y" => TiePoints + ScissorsPoints,   // scissors ties with scissors
+            "A Z" => WinPoints + PaperPoints,      // rock loses to paper
+            "B Z" => WinPoints + ScissorsPoints,   // paper loses to scissors
+            "C Z" => WinPoints + RockPoints,       // scissors loses to rock
             _ => throw new InvalidOperationException("Invalid input")
         });
 }

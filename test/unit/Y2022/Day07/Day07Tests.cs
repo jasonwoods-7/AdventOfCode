@@ -1,4 +1,4 @@
-﻿namespace AoC.Tests.Y2022.Day07;
+namespace AoC.Tests.Y2022.Day07;
 
 public class Day07Tests
 {

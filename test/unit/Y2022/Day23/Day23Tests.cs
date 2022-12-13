@@ -1,9 +1,9 @@
-﻿namespace AoC.Tests.Y2022.Day23;
+namespace AoC.Tests.Y2022.Day23;
 
 public class Day23Tests
 {
     // [Fact]
-    public void Example_Part1()
+    public static void Example_Part1()
     {
         // Arrange
         var runner = CreateRunner();
@@ -18,7 +18,7 @@ public class Day23Tests
     }
 
     // [Fact]
-    public void Part1()
+    public static void Part1()
     {
         // Arrange
         var runner = CreateRunner();
@@ -33,7 +33,7 @@ public class Day23Tests
     }
 
     // [Fact]
-    public void Example_Part2()
+    public static void Example_Part2()
     {
         // Arrange
         var runner = CreateRunner();
@@ -48,7 +48,7 @@ public class Day23Tests
     }
 
     // [Fact]
-    public void Part2()
+    public static void Part2()
     {
         // Arrange
         var runner = CreateRunner();

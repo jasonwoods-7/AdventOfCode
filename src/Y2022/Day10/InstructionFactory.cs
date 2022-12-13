@@ -1,4 +1,4 @@
-﻿namespace AoC.Y2022.Day10;
+namespace AoC.Y2022.Day10;
 
 static class InstructionFactory
 {

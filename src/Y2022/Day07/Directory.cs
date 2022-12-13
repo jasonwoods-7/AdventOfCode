@@ -1,4 +1,4 @@
-﻿namespace AoC.Y2022.Day07;
+namespace AoC.Y2022.Day07;
 
 public class Directory
 {

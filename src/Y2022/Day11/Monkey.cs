@@ -1,4 +1,4 @@
-﻿namespace AoC.Y2022.Day11;
+namespace AoC.Y2022.Day11;
 
 public class Monkey
 {
