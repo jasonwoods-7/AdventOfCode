@@ -2,27 +2,33 @@ namespace AoC.Extensions;
 
 public static class CoordExtensions
 {
+    public static Coord AboveLeft(this Coord source) => new(source.X - 1, source.Y - 1);
+    public static Coord Above(this Coord source) => source with { Y = source.Y - 1 };
+    public static Coord AboveRight(this Coord source) => new(source.X + 1, source.Y - 1);
+    public static Coord Left(this Coord source) => source with { X = source.X - 1 };
+    public static Coord Right(this Coord source) => source with { X = source.X + 1 };
+    public static Coord BelowLeft(this Coord source) => new(source.X - 1, source.Y + 1);
+    public static Coord Below(this Coord source) => source with { Y = source.Y + 1 };
+    public static Coord BelowRight(this Coord source) => new(source.X + 1, source.Y + 1);
+
     public static IEnumerable<Coord> Adjacent(this Coord source)
     {
-        yield return new Coord(source.X - 1, source.Y - 1); // above-left
-        yield return source with { Y = source.Y - 1 };      // above
-        yield return new Coord(source.X + 1, source.Y - 1); // above-right
-
-        yield return source with { X = source.X - 1 };      // left
-        //yield return source;                              // current
-        yield return source with { X = source.X + 1 };      // right
-
-        yield return new Coord(source.X - 1, source.Y + 1); // below-left
-        yield return source with { Y = source.Y + 1 };      // below
-        yield return new Coord(source.X + 1, source.Y + 1); // below-right
+        yield return source.AboveLeft();
+        yield return source.Above();
+        yield return source.AboveRight();
+        yield return source.Left();
+        yield return source.Right();
+        yield return source.BelowLeft();
+        yield return source.Below();
+        yield return source.BelowRight();
     }
 
     public static IEnumerable<Coord> Neighbors(this Coord source)
     {
-        yield return source with { Y = source.Y - 1 };  // above
-        yield return source with { X = source.X - 1 };  // left
-        yield return source with { X = source.X + 1 };  // right
-        yield return source with { Y = source.Y + 1 };  // below
+        yield return source.Above();
+        yield return source.Left();
+        yield return source.Right();
+        yield return source.Below();
     }
 
     public static IEnumerable<Coord3d> Adjacent(this Coord3d source)
