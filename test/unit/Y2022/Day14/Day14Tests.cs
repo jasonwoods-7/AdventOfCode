@@ -49,7 +49,7 @@ public class Day14Tests
         actual.Should().Be(93);
     }
 
-    [Fact(Skip = "Not optimized")]
+    [Fact]
     public void Part2()
     {
         // Arrange
@@ -64,5 +64,5 @@ public class Day14Tests
         actual.Should().Be(29_044);
     }
 
-    static IAoCRunner<ImmutableHashSet<Coord>, int> CreateRunner() => new AoC.Y2022.Day14.Day14();
+    static IAoCRunner<Dictionary<Coord, char>, int> CreateRunner() => new AoC.Y2022.Day14.Day14();
 }

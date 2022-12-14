@@ -1,10 +1,10 @@
 namespace AoC.Y2022.Day14;
 
-public class Day14 : IAoCRunner<ImmutableHashSet<Coord>, int>
+public class Day14 : IAoCRunner<Dictionary<Coord, char>, int>
 {
     static readonly Coord InitialCoord = new(500, 0);
 
-    public ImmutableHashSet<Coord> ParseInput(IEnumerable<string> puzzleInput) => puzzleInput
+    public Dictionary<Coord, char> ParseInput(IEnumerable<string> puzzleInput) => puzzleInput
         .Select(static l => l
             .Split(" -> ")
             .Select(static p => p
@@ -14,90 +14,66 @@ public class Day14 : IAoCRunner<ImmutableHashSet<Coord>, int>
                     int.Parse(y, CultureInfo.CurrentCulture)))))
         .SelectMany(static cs => cs
             .Window(2)
-            .SelectMany(ws => ws
+            .SelectMany(static ws => ws
                 .Fold(static (w1, w2) =>
                 {
                     Debug.Assert(w1.X == w2.X || w1.Y == w2.Y);
 
-                    var positions = new List<Coord>();
+                    var delta = new Coord(Math.Sign(w2.X - w1.X), Math.Sign(w2.Y - w1.Y));
 
-                    if (w1.X == w2.X)
-                    {
-                        var minY = Math.Min(w1.Y, w2.Y);
-                        var maxY = Math.Max(w1.Y, w2.Y);
-
-                        for (var counter = minY; counter <= maxY; ++counter)
-                        {
-                            positions.Add(w1 with { Y = counter });
-                        }
-                    }
-                    else
-                    {
-                        var minX = Math.Min(w1.X, w2.X);
-                        var maxX = Math.Max(w1.X, w2.X);
-
-                        for (var counter = minX; counter <= maxX; ++counter)
-                        {
-                            positions.Add(w1 with { X = counter });
-                        }
-                    }
-
-                    return positions;
+                    return EnumerableExtensions.Range(w1, w2 + delta, c => c + delta);
                 })))
-        .ToImmutableHashSet();
+        .Distinct()
+        .ToDictionary(c => c, _ => '#');
 
-    public int RunPart1(ImmutableHashSet<Coord> input)
+    public int RunPart1(Dictionary<Coord, char> input)
     {
-        var sandPos = ImmutableHashSet<Coord>.Empty;
-
         // ReSharper disable ConvertToLocalFunction
-        Func<Coord, ImmutableHashSet<Coord>, bool> isOccupied = static (c, a) => a.Contains(c);
+        Func<Coord, IReadOnlyDictionary<Coord, char>, bool> isOccupied = static (c, a) => a.ContainsKey(c);
 
-        var maxY = input.MaxBy(static c => c.Y).Y;
-        Func<Coord, ImmutableHashSet<Coord>, bool> exitCondition = (c, _) => c.Y > maxY;
+        var maxY = input.Keys.MaxBy(static c => c.Y).Y;
+        Func<Coord, IReadOnlyDictionary<Coord, char>, bool> exitCondition = (c, _) => c.Y > maxY;
         // ReSharper restore ConvertToLocalFunction
 
-        while (FindRestingPosition(
-            new Coord(500, 0),
-            input.Union(sandPos),
-            isOccupied,
-            exitCondition) is { IsSome: true } restingPosition)
-        {
-            sandPos = sandPos.Add(restingPosition.IfNone(default(Coord)));
-        }
-
-        return sandPos.Count;
+        return GetSandCount(input, isOccupied, exitCondition);
     }
 
-    public int RunPart2(ImmutableHashSet<Coord> input)
+    public int RunPart2(Dictionary<Coord, char> input)
     {
-        var sandPos = ImmutableHashSet<Coord>.Empty;
-
         // ReSharper disable ConvertToLocalFunction
-        var maxY = input.MaxBy(static c => c.Y).Y;
+        var maxY = input.Keys.MaxBy(static c => c.Y).Y;
+        Func<Coord, IReadOnlyDictionary<Coord, char>, bool> isOccupied =
+            (c, a) => a.ContainsKey(c) || c.Y == maxY + 2;
 
-        Func<Coord, ImmutableHashSet<Coord>, bool> isOccupied = (c, a) => a.Contains(c) || c.Y == maxY + 2;
-
-        Func<Coord, ImmutableHashSet<Coord>, bool> exitCondition = static (c, a) => c == InitialCoord && a.Contains(c);
+        Func<Coord, IReadOnlyDictionary<Coord, char>, bool> exitCondition =
+            static (c, a) => c == InitialCoord && a.ContainsKey(c);
         // ReSharper restore ConvertToLocalFunction
 
+        return GetSandCount(input, isOccupied, exitCondition);
+    }
+
+    static int GetSandCount(
+        Dictionary<Coord, char> caveMap,
+        Func<Coord, IReadOnlyDictionary<Coord, char>, bool> isOccupied,
+        Func<Coord, IReadOnlyDictionary<Coord, char>, bool> exitCondition)
+    {
         while (FindRestingPosition(
-            new Coord(500, 0),
-            input.Union(sandPos),
+            InitialCoord,
+            caveMap,
             isOccupied,
             exitCondition) is { IsSome: true } restingPosition)
         {
-            sandPos = sandPos.Add(restingPosition.IfNone(default(Coord)));
+            caveMap[restingPosition.IfNone(Coord.Empty)] = 'o';
         }
 
-        return sandPos.Count;
+        return caveMap.Count(c => c.Value == 'o');
     }
 
     static Option<Coord> FindRestingPosition(
         Coord current,
-        ImmutableHashSet<Coord> currentlyOccupied,
-        Func<Coord, ImmutableHashSet<Coord>, bool> isOccupied,
-        Func<Coord, ImmutableHashSet<Coord>, bool> exitCondition)
+        IReadOnlyDictionary<Coord, char> currentlyOccupied,
+        Func<Coord, IReadOnlyDictionary<Coord, char>, bool> isOccupied,
+        Func<Coord, IReadOnlyDictionary<Coord, char>, bool> exitCondition)
     {
         if (exitCondition(current, currentlyOccupied))
         {
