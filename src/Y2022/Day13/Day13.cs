@@ -34,6 +34,6 @@ public class Day13 : IAoCRunner<IEnumerable<(Packet, Packet)>, int>
             .Order(comparer)
             .Index()
             .Choose(p => (ReferenceEquals(p.item, decoder1) || ReferenceEquals(p.item, decoder2), p.index + 1))
-            .Fold((i1, i2) => i1 * i2);
+            .Product();
     }
 }
