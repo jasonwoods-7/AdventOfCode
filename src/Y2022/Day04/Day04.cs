@@ -4,7 +4,8 @@ public class Day04 : IAoCRunner<IEnumerable<(int, int, int, int)>, int>
 {
     public IEnumerable<(int, int, int, int)> ParseInput(IEnumerable<string> puzzleInput) => puzzleInput
         .Select(static l => l
-            .FindNumbers<int>()
+            .Split(',', '-')
+            .Select(int.Parse)
             .Fold((a, b, x, y) => (a, b, x, y)));
 
     public int RunPart1(IEnumerable<(int, int, int, int)> input) => input
