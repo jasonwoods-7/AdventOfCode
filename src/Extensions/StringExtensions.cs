@@ -4,7 +4,7 @@ namespace AoC.Extensions;
 
 public static partial class StringExtensions
 {
-    [GeneratedRegex(@"((?:\d+)(?:\.\d+)?)")]
+    [GeneratedRegex(@"((?:-?\d+)(?:\.\d+)?)")]
     private static partial Regex NumberRegex();
 
     public static IEnumerable<T> FindNumbers<T>(this string source)

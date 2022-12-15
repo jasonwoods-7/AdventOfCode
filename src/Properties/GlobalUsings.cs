@@ -5,5 +5,6 @@ global using System.Text.RegularExpressions;
 global using AoC.Extensions;
 global using AoC.Types;
 global using LanguageExt;
+global using Microsoft.Extensions.Logging;
 global using SuperLinq;
 global using static LanguageExt.Prelude;
