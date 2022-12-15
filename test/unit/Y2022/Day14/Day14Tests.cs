@@ -1,5 +1,3 @@
-using AoC.Types;
-
 namespace AoC.Tests.Y2022.Day14;
 
 public class Day14Tests

@@ -1,4 +1,9 @@
 global using System.Collections.Immutable;
 global using AoC.Tests.Helpers;
+global using AoC.Types;
 global using FluentAssertions;
+global using Microsoft.Extensions.Logging;
+global using Microsoft.Extensions.Logging.Abstractions;
+global using Serilog;
 global using Xunit;
+global using Xunit.Abstractions;

@@ -2,11 +2,11 @@ namespace AoC.Tests.Y2022.Day15;
 
 public class Day15Tests
 {
-    // [Fact]
-    public static void Example_Part1()
+    [Fact]
+    public void Example_Part1()
     {
         // Arrange
-        var runner = CreateRunner();
+        var runner = CreateRunner(10);
 
         var input = runner.ParseInput(InputHelpers.ReadInputFile("example.txt"));
 
@@ -14,14 +14,14 @@ public class Day15Tests
         var actual = runner.RunPart1(input);
 
         // Assert
-        actual.Should().Be(0);
+        actual.Should().Be(26);
     }
 
-    // [Fact]
-    public static void Part1()
+    [Fact]
+    public void Part1()
     {
         // Arrange
-        var runner = CreateRunner();
+        var runner = CreateRunner(2_000_000);
 
         var input = runner.ParseInput(InputHelpers.ReadInputFile());
 
@@ -29,14 +29,14 @@ public class Day15Tests
         var actual = runner.RunPart1(input);
 
         // Assert
-        actual.Should().Be(0);
+        actual.Should().Be(4_876_693);
     }
 
-    // [Fact]
-    public static void Example_Part2()
+    [Fact]
+    public void Example_Part2()
     {
         // Arrange
-        var runner = CreateRunner();
+        var runner = CreateRunner(20);
 
         var input = runner.ParseInput(InputHelpers.ReadInputFile("example.txt"));
 
@@ -44,14 +44,14 @@ public class Day15Tests
         var actual = runner.RunPart2(input);
 
         // Assert
-        actual.Should().Be(0);
+        actual.Should().Be(56_000_011);
     }
 
-    // [Fact]
-    public static void Part2()
+    [Fact]
+    public void Part2()
     {
         // Arrange
-        var runner = CreateRunner();
+        var runner = CreateRunner(4_000_000);
 
         var input = runner.ParseInput(InputHelpers.ReadInputFile());
 
@@ -59,8 +59,9 @@ public class Day15Tests
         var actual = runner.RunPart2(input);
 
         // Assert
-        actual.Should().Be(0);
+        actual.Should().Be(11_645_454_855_041);
     }
 
-    static IAoCRunner<IEnumerable<string>, int> CreateRunner() => new AoC.Y2022.Day15.Day15();
+    static IAoCRunner<IReadOnlyList<(Coord, Coord)>, long> CreateRunner(int yPos) =>
+        new AoC.Y2022.Day15.Day15(yPos, NullLogger<AoC.Y2022.Day15.Day15>.Instance);
 }
