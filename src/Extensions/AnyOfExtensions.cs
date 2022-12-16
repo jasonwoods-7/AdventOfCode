@@ -1,5 +1,3 @@
-using AnyOfTypes;
-
 namespace AoC.Extensions;
 
 public static class AnyOfExtensions

@@ -9,7 +9,7 @@ public static class ModuleInit
     {
         ClipboardAccept.Enable();
 
-        DerivePathInfo((sourceFile, projectDirectory, type, method) =>
+        DerivePathInfo((sourceFile, _, type, method) =>
             new PathInfo(
                 Path.Combine(Path.GetDirectoryName(sourceFile)!, "VerifyResults"),
                 type.IsNested

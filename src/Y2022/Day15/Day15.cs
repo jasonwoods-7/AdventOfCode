@@ -1,15 +1,18 @@
 namespace AoC.Y2022.Day15;
 
+public readonly record struct Part1Data(int Value);
+public readonly record struct Part2Data(int Value);
+
 public class Day15 : IAoCRunner<IReadOnlyList<(Coord, Coord)>, long>
 {
-    readonly int _yPosOrMax;
+    readonly AnyOf<Part1Data, Part2Data> _data;
     readonly ILogger<Day15> _logger;
 
     public Day15(
-        int yPosOrMax,
+        AnyOf<Part1Data, Part2Data> data,
         ILogger<Day15> logger)
     {
-        _yPosOrMax = yPosOrMax;
+        _data = data;
         _logger = logger;
     }
 
@@ -22,6 +25,9 @@ public class Day15 : IAoCRunner<IReadOnlyList<(Coord, Coord)>, long>
     {
         var seenX = new System.Collections.Generic.HashSet<int>();
 
+        Debug.Assert(_data.IsFirst);
+        var yPos = _data.First.Value;
+
         foreach (var (signal, beacon) in input)
         {
             var distance = signal.ManhattanDistanceTo(beacon);
@@ -30,12 +36,12 @@ public class Day15 : IAoCRunner<IReadOnlyList<(Coord, Coord)>, long>
             {
                 var y = distance - x;
 
-                if (signal.Y + y == _yPosOrMax)
+                if (signal.Y + y == yPos)
                 {
                     seenX.Add(signal.X + x);
                     seenX.Add(signal.X - x);
                 }
-                else if (signal.Y - y == _yPosOrMax)
+                else if (signal.Y - y == yPos)
                 {
                     seenX.Add(signal.X + x);
                     seenX.Add(signal.X - x);
@@ -47,13 +53,14 @@ public class Day15 : IAoCRunner<IReadOnlyList<(Coord, Coord)>, long>
 
         return seenX.Max()
             - seenX.Min()
-            - input.Select(b => b.Item2).Distinct().Count(b => b.Y == _yPosOrMax)
+            - input.Select(b => b.Item2).Distinct().Count(b => b.Y == yPos)
             + 1;
     }
 
     public long RunPart2(IReadOnlyList<(Coord, Coord)> input)
     {
-        var distressBeacon = FindDistressBeacon(input);
+        Debug.Assert(_data.IsSecond);
+        var distressBeacon = FindDistressBeacon(input, _data.Second.Value);
 
         return (distressBeacon.X * 4_000_000L) + distressBeacon.Y;
     }
@@ -66,7 +73,7 @@ public class Day15 : IAoCRunner<IReadOnlyList<(Coord, Coord)>, long>
             return testCoord.ManhattanDistanceTo(signal) <= distance;
         });
 
-    Coord FindDistressBeacon(IReadOnlyList<(Coord, Coord)> input)
+    static Coord FindDistressBeacon(IReadOnlyList<(Coord, Coord)> input, int max)
     {
         var distances = input
             .GroupBy(t => t.Item1, t => t.Item1.ManhattanDistanceTo(t.Item2))
@@ -92,8 +99,8 @@ public class Day15 : IAoCRunner<IReadOnlyList<(Coord, Coord)>, long>
                 {
                     foreach (var neighbor in coord.Neighbors())
                     {
-                        if (0 <= neighbor.X && neighbor.X <= _yPosOrMax &&
-                            0 <= neighbor.Y && neighbor.Y <= _yPosOrMax &&
+                        if (0 <= neighbor.X && neighbor.X <= max &&
+                            0 <= neighbor.Y && neighbor.Y <= max &&
                             !IsSeen(distances, neighbor) &&
                             neighbor.Neighbors().All(n => IsSeen(distances, n)))
                         {

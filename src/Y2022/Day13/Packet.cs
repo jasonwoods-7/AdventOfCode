@@ -1,5 +1,3 @@
-using AnyOfTypes;
-
 namespace AoC.Y2022.Day13;
 
 public class Packet
