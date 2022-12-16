@@ -1,3 +1,6 @@
+using AnyOfTypes;
+using AoC.Y2022.Day15;
+
 namespace AoC.Tests.Y2022.Day15;
 
 public class Day15Tests
@@ -6,7 +9,7 @@ public class Day15Tests
     public void Example_Part1()
     {
         // Arrange
-        var runner = CreateRunner(10);
+        var runner = CreateRunner(new Part1Data(10));
 
         var input = runner.ParseInput(InputHelpers.ReadInputFile("example.txt"));
 
@@ -21,7 +24,7 @@ public class Day15Tests
     public void Part1()
     {
         // Arrange
-        var runner = CreateRunner(2_000_000);
+        var runner = CreateRunner(new Part1Data(2_000_000));
 
         var input = runner.ParseInput(InputHelpers.ReadInputFile());
 
@@ -36,7 +39,7 @@ public class Day15Tests
     public void Example_Part2()
     {
         // Arrange
-        var runner = CreateRunner(20);
+        var runner = CreateRunner(new Part2Data(20));
 
         var input = runner.ParseInput(InputHelpers.ReadInputFile("example.txt"));
 
@@ -51,7 +54,7 @@ public class Day15Tests
     public void Part2()
     {
         // Arrange
-        var runner = CreateRunner(4_000_000);
+        var runner = CreateRunner(new Part2Data(4_000_000));
 
         var input = runner.ParseInput(InputHelpers.ReadInputFile());
 
@@ -62,6 +65,6 @@ public class Day15Tests
         actual.Should().Be(11_645_454_855_041);
     }
 
-    static IAoCRunner<IReadOnlyList<(Coord, Coord)>, long> CreateRunner(int yPos) =>
-        new AoC.Y2022.Day15.Day15(yPos, NullLogger<AoC.Y2022.Day15.Day15>.Instance);
+    static IAoCRunner<IReadOnlyList<(Coord, Coord)>, long> CreateRunner(AnyOf<Part1Data, Part2Data> data) =>
+        new AoC.Y2022.Day15.Day15(data, NullLogger<AoC.Y2022.Day15.Day15>.Instance);
 }

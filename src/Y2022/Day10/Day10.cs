@@ -1,5 +1,3 @@
-using AnyOfTypes;
-
 namespace AoC.Y2022.Day10;
 
 public class Day10 : IAoCRunner<IEnumerable<IInstruction>, AnyOf<int, string>>
