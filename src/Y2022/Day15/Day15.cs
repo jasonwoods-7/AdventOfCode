@@ -23,7 +23,7 @@ public class Day15 : IAoCRunner<IReadOnlyList<(Coord, Coord)>, long>
 
     public long RunPart1(IReadOnlyList<(Coord, Coord)> input)
     {
-        var seenX = new System.Collections.Generic.HashSet<int>();
+        var seenX = new System.Collections.Generic.HashSet<long>();
 
         Debug.Assert(_data.IsFirst);
         var yPos = _data.First.Value;
@@ -65,7 +65,7 @@ public class Day15 : IAoCRunner<IReadOnlyList<(Coord, Coord)>, long>
         return (distressBeacon.X * 4_000_000L) + distressBeacon.Y;
     }
 
-    static bool IsSeen(IReadOnlyList<(Coord, int)> signals, Coord testCoord) => signals
+    static bool IsSeen(IReadOnlyList<(Coord, long)> signals, Coord testCoord) => signals
         .Any(t =>
         {
             var (signal, distance) = t;

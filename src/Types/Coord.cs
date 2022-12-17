@@ -2,12 +2,12 @@ using System.Numerics;
 
 namespace AoC.Types;
 
-public readonly record struct Coord(int X, int Y)
+public readonly record struct Coord(long X, long Y)
     : IAdditionOperators<Coord, Coord, Coord>
     , IAdditiveIdentity<Coord, Coord>
     , IEqualityOperators<Coord, Coord, bool>
 {
-    public int ManhattanDistanceTo(Coord other) =>
+    public long ManhattanDistanceTo(Coord other) =>
         Math.Abs(X - other.X) + Math.Abs(Y - other.Y);
 
     // ReSharper disable once UnassignedReadonlyField
