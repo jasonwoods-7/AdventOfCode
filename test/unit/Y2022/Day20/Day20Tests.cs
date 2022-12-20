@@ -2,8 +2,8 @@ namespace AoC.Tests.Y2022.Day20;
 
 public class Day20Tests
 {
-    // [Fact]
-    public static void Example_Part1()
+    [Fact]
+    public void Example_Part1()
     {
         // Arrange
         var runner = CreateRunner();
@@ -14,11 +14,11 @@ public class Day20Tests
         var actual = runner.RunPart1(input);
 
         // Assert
-        actual.Should().Be(0);
+        actual.Should().Be(3);
     }
 
-    // [Fact]
-    public static void Part1()
+    [Fact]
+    public void Part1()
     {
         // Arrange
         var runner = CreateRunner();
@@ -29,11 +29,11 @@ public class Day20Tests
         var actual = runner.RunPart1(input);
 
         // Assert
-        actual.Should().Be(0);
+        actual.Should().Be(9_866);
     }
 
-    // [Fact]
-    public static void Example_Part2()
+    [Fact]
+    public void Example_Part2()
     {
         // Arrange
         var runner = CreateRunner();
@@ -44,11 +44,11 @@ public class Day20Tests
         var actual = runner.RunPart2(input);
 
         // Assert
-        actual.Should().Be(0);
+        actual.Should().Be(1_623_178_306);
     }
 
-    // [Fact]
-    public static void Part2()
+    [Fact]
+    public void Part2()
     {
         // Arrange
         var runner = CreateRunner();
@@ -59,8 +59,8 @@ public class Day20Tests
         var actual = runner.RunPart2(input);
 
         // Assert
-        actual.Should().Be(0);
+        actual.Should().Be(12_374_299_815_791);
     }
 
-    static IAoCRunner<IEnumerable<string>, int> CreateRunner() => new AoC.Y2022.Day20.Day20();
+    static IAoCRunner<IReadOnlyList<long>, long> CreateRunner() => new AoC.Y2022.Day20.Day20();
 }

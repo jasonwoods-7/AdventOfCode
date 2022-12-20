@@ -1,10 +1,48 @@
 namespace AoC.Y2022.Day20;
 
-public class Day20 : IAoCRunner<IEnumerable<string>, int>
+public class Day20 : IAoCRunner<IReadOnlyList<long>, long>
 {
-    public IEnumerable<string> ParseInput(IEnumerable<string> puzzleInput) => puzzleInput;
+    public IReadOnlyList<long> ParseInput(IEnumerable<string> puzzleInput) => puzzleInput
+        .Select(l => long.Parse(l, CultureInfo.CurrentCulture))
+        .ToList();
 
-    public int RunPart1(IEnumerable<string> input) => throw new NotImplementedException();
+    public long RunPart1(IReadOnlyList<long> input) => Solve(input, 1, 1);
 
-    public int RunPart2(IEnumerable<string> input) => throw new NotImplementedException();
+    public long RunPart2(IReadOnlyList<long> input) => Solve(input, 811_589_153, 10);
+
+    static long Solve(IReadOnlyList<long> input, long decryptionKey, int rounds)
+    {
+        var length = input.Count - 1;
+
+        var circularList = new CircularList(input.Select(i => i * decryptionKey));
+
+        using var listEnumerator = circularList.GetEnumerator();
+
+        while (rounds-- > 0)
+        {
+            while (listEnumerator.MoveNext())
+            {
+                listEnumerator.Current.Mix(length);
+            }
+
+            listEnumerator.Reset();
+        }
+
+        var node = circularList.Find(0);
+
+        var sum = 0L;
+
+        for (var i = 0; i < 3; ++i)
+        {
+            var j = 0;
+            while (j++ < 1000)
+            {
+                node = node.Next;
+            }
+
+            sum += node.Value;
+        }
+
+        return sum;
+    }
 }
