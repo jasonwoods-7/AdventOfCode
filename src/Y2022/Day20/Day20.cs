@@ -34,10 +34,8 @@ public class Day20 : IAoCRunner<IReadOnlyList<long>, long>
 
         for (var i = 0; i < 3; ++i)
         {
-            var j = 0;
-            while (j++ < 1000)
+            for (var j = 0; j < 1000; ++j, node = node.Next)
             {
-                node = node.Next;
             }
 
             sum += node.Value;

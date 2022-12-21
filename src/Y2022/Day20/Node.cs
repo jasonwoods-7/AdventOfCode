@@ -1,7 +1,7 @@
 namespace AoC.Y2022.Day20;
 
 [DebuggerDisplay("{Value}")]
-class Node
+sealed class Node
 {
     public long Value { get; }
 
