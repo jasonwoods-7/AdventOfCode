@@ -2,7 +2,7 @@ using System.Collections;
 
 namespace AoC.Y2022.Day20;
 
-class CircularList : IEnumerable<Node>
+sealed class CircularList : IEnumerable<Node>
 {
     readonly Node _head;
 
@@ -56,12 +56,9 @@ class CircularList : IEnumerable<Node>
                 head
             };
 
-            var next = head.Next;
-
-            while (next != head)
+            for (var next = head.Next; next != head; next = next.Next)
             {
                 list.Add(next);
-                next = next.Next;
             }
 
             _enumerator = list.GetEnumerator();
