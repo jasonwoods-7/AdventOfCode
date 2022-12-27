@@ -1,10 +1,16 @@
 namespace AoC.Y2022.Day18;
 
-public class Day18 : IAoCRunner<IEnumerable<string>, int>
+public class Day18 : IAoCRunner<LavaDroplet, int>
 {
-    public IEnumerable<string> ParseInput(IEnumerable<string> puzzleInput) => puzzleInput;
+    public LavaDroplet ParseInput(IEnumerable<string> puzzleInput) => puzzleInput
+        .Select(l => l
+            .FindNumbers<int>()
+            .Fold((x, y, z) => new Coord3d(x, y, z)))
+        .Apply(ps => new LavaDroplet(ps));
 
-    public int RunPart1(IEnumerable<string> input) => throw new NotImplementedException();
+    public int RunPart1(LavaDroplet input) =>
+        input.CountFaces();
 
-    public int RunPart2(IEnumerable<string> input) => throw new NotImplementedException();
+    public int RunPart2(LavaDroplet input) =>
+        input.ExternalArea();
 }
