@@ -1,34 +1,33 @@
 namespace AoC.Y2023.Day01;
 
-public partial class Day01 : IAoCRunner<IReadOnlyList<string>, int>
+public class Day01 : IAoCRunner<IReadOnlyList<string>, int>
 {
     public IReadOnlyList<string> ParseInput(IEnumerable<string> puzzleInput) => puzzleInput.ToList();
 
-    public int RunPart1(IReadOnlyList<string> input) => input
-        .Sum(static l => l
-            .Choose(static c => (char.IsDigit(c), c - '0'))
-            .ToList()
-            .Apply(static d => (d[0] * 10) + d[^1]));
+    public int RunPart1(IReadOnlyList<string> input) =>
+        Solve(input, @"\d");
 
-    [GeneratedRegex("[1-9]|(?=(one|two|three|four|five|six|seven|eight|nine))")]
-    private static partial Regex NumbersRegex();
+    public int RunPart2(IReadOnlyList<string> input) =>
+        Solve(input, @"\d|one|two|three|four|five|six|seven|eight|nine");
 
-    public int RunPart2(IReadOnlyList<string> input) => input
-        .Sum(static l => NumbersRegex()
-            .Matches(l)
-            .Choose(static m => m.Groups.OfType<Group>().Last(g => g.Success).Value switch
-            {
-                "1" or "one" => (true, 1),
-                "2" or "two" => (true, 2),
-                "3" or "three" => (true, 3),
-                "4" or "four" => (true, 4),
-                "5" or "five" => (true, 5),
-                "6" or "six" => (true, 6),
-                "7" or "seven" => (true, 7),
-                "8" or "eight" => (true, 8),
-                "9" or "nine" => (true, 9),
-                _ => (false, 0)
-            })
-            .ToList()
-            .Apply(static d => (d[0] * 10) + d[^1]));
+    static int Solve(IReadOnlyList<string> input, string regEx) => (
+        from l in input
+        let f = Regex.Match(l, regEx)
+        let t = Regex.Match(l, regEx, RegexOptions.RightToLeft)
+        select (ParseValue(f.Value) * 10) + ParseValue(t.Value)
+        ).Sum();
+
+    static int ParseValue(string match) => match switch
+    {
+        "one" => 1,
+        "two" => 2,
+        "three" => 3,
+        "four" => 4,
+        "five" => 5,
+        "six" => 6,
+        "seven" => 7,
+        "eight" => 8,
+        "nine" => 9,
+        _ => int.Parse(match, CultureInfo.CurrentCulture)
+    };
 }
