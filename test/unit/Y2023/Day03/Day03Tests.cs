@@ -62,5 +62,5 @@ public class Day03Tests
         result.Should().Be(91_031_374);
     }
 
-    static IAoCRunner<(IReadOnlyList<AoC.Y2023.Day03.Number>, IReadOnlyList<AoC.Y2023.Day03.Symbol>), int> CreateRunner() => new AoC.Y2023.Day03.Day03();
+    static IAoCRunner<AoC.Y2023.Day03.Parsed, int> CreateRunner() => new AoC.Y2023.Day03.Day03();
 }

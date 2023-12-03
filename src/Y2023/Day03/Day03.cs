@@ -2,13 +2,14 @@ namespace AoC.Y2023.Day03;
 
 public record Number(int StartX, int EndX, int Y, int Value);
 public record Symbol(Coord Coord, char Value);
+public record Parsed(IReadOnlyList<Number> Numbers, IReadOnlyList<Symbol> Symbols);
 
-public partial class Day03 : IAoCRunner<(IReadOnlyList<Number> numbers, IReadOnlyList<Symbol> symbols), int>
+public partial class Day03 : IAoCRunner<Parsed, int>
 {
     [GeneratedRegex(@"(\d+)|([^.])")]
     private static partial Regex Schematic();
 
-    public (IReadOnlyList<Number>, IReadOnlyList<Symbol>) ParseInput(IEnumerable<string> puzzleInput)
+    public Parsed ParseInput(IEnumerable<string> puzzleInput)
     {
         var numbers = new List<Number>();
         var symbols = new List<Symbol>();
@@ -43,19 +44,19 @@ public partial class Day03 : IAoCRunner<(IReadOnlyList<Number> numbers, IReadOnl
             y++;
         }
 
-        return (numbers, symbols);
+        return new Parsed(numbers, symbols);
     }
 
-    public int RunPart1((IReadOnlyList<Number> numbers, IReadOnlyList<Symbol> symbols) input)
+    public int RunPart1(Parsed input)
     {
         var symbolCoords = input
-            .symbols
+            .Symbols
             .Select(s => s.Coord)
             .SelectMany(c => c.Adjacent())
             .ToHashSet();
 
         return input
-            .numbers
+            .Numbers
             .Where(n => SuperEnumerable
                 .Sequence(n.StartX, n.EndX)
                 .Select(x => new Coord(x, n.Y))
@@ -63,16 +64,16 @@ public partial class Day03 : IAoCRunner<(IReadOnlyList<Number> numbers, IReadOnl
             .Sum(n => n.Value);
     }
 
-    public int RunPart2((IReadOnlyList<Number> numbers, IReadOnlyList<Symbol> symbols) input)
+    public int RunPart2(Parsed input)
     {
         var gears = input
-            .symbols
+            .Symbols
             .Where(s => s.Value == '*')
             .Select(g => g.Coord)
             .ToImmutableHashSet();
 
         return input
-            .numbers
+            .Numbers
             .Choose(n =>
             {
                 var adj = SuperEnumerable
