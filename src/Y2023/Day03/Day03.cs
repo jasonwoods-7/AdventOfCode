@@ -2,50 +2,56 @@ namespace AoC.Y2023.Day03;
 
 public record Number(int StartX, int EndX, int Y, int Value);
 public record Symbol(Coord Coord, char Value);
-public record Parsed(IReadOnlyList<Number> Numbers, IReadOnlyList<Symbol> Symbols);
+public record Parsed(ImmutableList<Number> Numbers, ImmutableList<Symbol> Symbols)
+    : IMonoid<Parsed>
+{
+    public static Parsed Empty() => new(ImmutableList<Number>.Empty, ImmutableList<Symbol>.Empty);
+
+    public Parsed Append(Parsed other) => new(
+        this.Numbers.AddRange(other.Numbers),
+        this.Symbols.AddRange(other.Symbols));
+}
 
 public partial class Day03 : IAoCRunner<Parsed, int>
 {
     [GeneratedRegex(@"(\d+)|([^.])")]
     private static partial Regex Schematic();
 
-    public Parsed ParseInput(IEnumerable<string> puzzleInput)
-    {
-        var numbers = new List<Number>();
-        var symbols = new List<Symbol>();
+    public Parsed ParseInput(IEnumerable<string> puzzleInput) => puzzleInput
+        .Index()
+        .Aggregate(
+            Parsed.Empty(),
+            static (result, current) => result.Append(Schematic()
+                .Matches(current.item)
+                .Partition(
+                    static m => m.Groups[1].Success,
+                    (ns, ss) =>
+                    {
+                        var numbers = ns
+                            .Select(n =>
+                            {
+                                var group = n.Groups[1];
+                                var x1 = group.Index;
+                                var x2 = x1 + group.Length - 1;
+                                var value = int.Parse(group.Value, CultureInfo.CurrentCulture);
 
-        var y = 0;
+                                return new Number(x1, x2, current.index, value);
+                            })
+                            .ToImmutableList();
 
-        foreach (var line in puzzleInput)
-        {
-            var matches = Schematic().Matches(line);
+                        var symbols = ss
+                            .Select(s =>
+                            {
+                                var group = s.Groups[2];
+                                var x = group.Index;
+                                var value = group.Value[0];
 
-            foreach (Match match in matches)
-            {
-                if (match.Groups[1].Success)
-                {
-                    var group = match.Groups[1];
-                    var x1 = group.Index;
-                    var x2 = x1 + group.Length - 1;
-                    var value = int.Parse(group.Value, CultureInfo.CurrentCulture);
+                                return new Symbol(new Coord(x, current.index), value);
+                            })
+                            .ToImmutableList();
 
-                    numbers.Add(new Number(x1, x2, y, value));
-                }
-                else
-                {
-                    var group = match.Groups[2];
-                    var x = group.Index;
-                    var value = group.Value[0];
-
-                    symbols.Add(new Symbol(new Coord(x, y), value));
-                }
-            }
-
-            y++;
-        }
-
-        return new Parsed(numbers, symbols);
-    }
+                        return new Parsed(numbers, symbols);
+                    })));
 
     public int RunPart1(Parsed input)
     {
