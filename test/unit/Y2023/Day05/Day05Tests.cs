@@ -17,7 +17,7 @@ public class Day05Tests
         result.Should().Be(35L);
     }
 
-    [Fact]
+    [SkippableFact]
     public void Part1()
     {
         // Arrange
@@ -47,7 +47,7 @@ public class Day05Tests
         result.Should().Be(46L);
     }
 
-    [Fact(Skip = "Not optimized")]
+    [SkippableFact(Skip = "Not optimized")]
     public void Part2()
     {
         // Arrange
