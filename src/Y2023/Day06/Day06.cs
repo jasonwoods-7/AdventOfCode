@@ -21,7 +21,7 @@ public class Day06 : IAoCRunner<IReadOnlyList<Race>, long>
         .Aggregate(
             (time: "", distance: ""),
             (result, race) => (result.time + race.Time, result.distance + race.Distance),
-            result => new Race(long.Parse(result.time, CultureInfo.CurrentCulture), long.Parse(result.distance, CultureInfo.CurrentCulture)))
+            result => new Race(result.time.ParseNumber<long>(), result.distance.ParseNumber<long>()))
         .Apply(r => Range(r.Time - 1)
             .AsParallel()
             .Count(i => i * (r.Time - i) > r.Distance));

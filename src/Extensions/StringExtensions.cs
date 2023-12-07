@@ -12,4 +12,8 @@ public static partial class StringExtensions
         NumberRegex()
             .Matches(source)
             .Select(m => T.Parse(m.Value, CultureInfo.CurrentCulture));
+
+    public static T ParseNumber<T>(this string source)
+        where T : IParsable<T>, INumber<T> =>
+        T.Parse(source, CultureInfo.CurrentCulture);
 }
