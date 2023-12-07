@@ -19,7 +19,7 @@ public class Day16Tests
         actual.Should().Be(1_651);
     }
 
-    [Fact]
+    [SkippableFact]
     public void Part1()
     {
         // Arrange
@@ -49,7 +49,7 @@ public class Day16Tests
         actual.Should().Be(1_706); // example answer should be 1707, but my algo keeps getting this value. 🤷‍♂️
     }
 
-    [Fact]
+    [SkippableFact]
     public void Part2()
     {
         // Arrange

@@ -22,7 +22,7 @@ public class Day10Tests
         actual.First.Should().Be(13_140);
     }
 
-    [Fact]
+    [SkippableFact]
     public void Part1()
     {
         // Arrange
@@ -54,7 +54,7 @@ public class Day10Tests
         return Verify(actual.Second);
     }
 
-    [Fact]
+    [SkippableFact]
     public Task Part2()
     {
         // Arrange

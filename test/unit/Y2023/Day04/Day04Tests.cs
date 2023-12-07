@@ -17,7 +17,7 @@ public class Day04Tests
         result.Should().Be(13);
     }
 
-    [Fact]
+    [SkippableFact]
     public void Part1()
     {
         // Arrange
@@ -47,7 +47,7 @@ public class Day04Tests
         result.Should().Be(30);
     }
 
-    [Fact]
+    [SkippableFact]
     public void Part2()
     {
         // Arrange

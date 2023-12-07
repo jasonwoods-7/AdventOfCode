@@ -4,7 +4,7 @@ namespace AoC.Tests.Y2023.Day01;
 
 public class Day01Tests
 {
-    [Fact]
+    [SkippableFact]
     public void Part1()
     {
         // Arrange
@@ -43,7 +43,7 @@ public class Day01Tests
         result.Should().Be(281);
     }
 
-    [Fact]
+    [SkippableFact]
     public void Part2()
     {
         // Arrange

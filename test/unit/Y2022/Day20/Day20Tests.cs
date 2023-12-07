@@ -17,7 +17,7 @@ public class Day20Tests
         actual.Should().Be(3);
     }
 
-    [Fact]
+    [SkippableFact]
     public void Part1()
     {
         // Arrange
@@ -47,7 +47,7 @@ public class Day20Tests
         actual.Should().Be(1_623_178_306);
     }
 
-    [Fact]
+    [SkippableFact]
     public void Part2()
     {
         // Arrange

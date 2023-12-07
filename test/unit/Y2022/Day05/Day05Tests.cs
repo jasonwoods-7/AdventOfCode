@@ -17,7 +17,7 @@ public class Day05Tests
         actual.Should().Be("CMZ");
     }
 
-    [Fact]
+    [SkippableFact]
     public void Part1()
     {
         // Arrange
@@ -47,7 +47,7 @@ public class Day05Tests
         actual.Should().Be("MCD");
     }
 
-    [Fact]
+    [SkippableFact]
     public void Part2()
     {
         // Arrange
