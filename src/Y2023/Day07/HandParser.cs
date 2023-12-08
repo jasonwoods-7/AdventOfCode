@@ -2,7 +2,7 @@
 
 partial record Hand
 {
-    public static Hand ParseHand(string rawHand, Func<Card[], HandKind> scorer, Card jCard)
+    public static Hand ParseHand(string rawHand, Card jCard)
     {
         var parts = rawHand.Split(' ');
 
@@ -27,41 +27,17 @@ partial record Hand
 
         var bet = parts[1].ParseNumber<int>();
 
-        var kind = scorer(cards);
+        var kind = HandScorer(cards);
 
         return new Hand(cards, bet, kind);
     }
 
-    public static HandKind Part1Scorer(Card[] cards)
-    {
-        var hand = cards
-            .GroupBy(c => c)
-            .Select(g => g.Count())
-            .OrderByDescending(c => c)
-            .ToList();
-
-        return hand switch
-        {
-            [5] => HandKind.FiveOfAKind,
-            [4, 1] => HandKind.FourOfAKind,
-            [3, 2] => HandKind.FullHouse,
-            [3, 1, 1] => HandKind.ThreeOfAKind,
-            [2, 2, 1] => HandKind.TwoPair,
-            [2, 1, 1, 1] => HandKind.OnePair,
-            _ => HandKind.HighCard
-        };
-    }
-
-    public static HandKind Part2Scorer(Card[] cards)
-    {
-        var hand = cards
-            .Where(c => c != Card.Joker)
-            .GroupBy(c => c)
-            .Select(g => g.Count())
-            .OrderByDescending(c => c)
-            .ToList();
-
-        return hand switch
+    static HandKind HandScorer(Card[] cards) => cards
+        .Where(static c => c != Card.Joker)
+        .GroupBy(static c => c)
+        .Select(static g => g.Count())
+        .OrderByDescending(static c => c)
+        .ToArray() switch
         {
             [5] => HandKind.FiveOfAKind,
             [4] => HandKind.FiveOfAKind,
@@ -84,5 +60,4 @@ partial record Hand
             [1, 1, 1, 1, 1] => HandKind.HighCard,
             _ => throw new InvalidOperationException(string.Join(", ", cards))
         };
-    }
 }
