@@ -43,7 +43,7 @@ public class Day11Tests
         var input = runner.ParseInput(InputHelpers.ReadInputFile("example.txt"));
 
         // Act
-        var result = runner.RunPart1(input);
+        var result = runner.RunPart2(input);
 
         // Assert
         result.Should().Be(expected);
