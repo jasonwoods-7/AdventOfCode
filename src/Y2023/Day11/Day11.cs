@@ -2,7 +2,12 @@
 
 public record Galaxy(IReadOnlyList<Coord> Coords)
 {
-    public Galaxy Expand(long multiplier)
+    public long Solve(long multiplier) => Expand(multiplier)
+        .Coords
+        .Subsets(2)
+        .Sum(galaxies => galaxies.Fold((start, end) => start.ManhattanDistanceTo(end)));
+
+    Galaxy Expand(long multiplier)
     {
         var maxX = Coords.MaxBy(c => c.X).X;
 
@@ -38,13 +43,7 @@ public class Day11(long multiplier) : IAoCRunner<Galaxy, long>
         .Choose(t => (t.item == '#', t.coord))
         .Apply(g => new Galaxy(g.ToList()));
 
-    public long RunPart1(Galaxy input) => Solve(input);
+    public long RunPart1(Galaxy input) => input.Solve(1L);
 
-    public long RunPart2(Galaxy input) => Solve(input);
-
-    long Solve(Galaxy input) => input
-        .Expand(multiplier)
-        .Coords
-        .Subsets(2)
-        .Sum(galaxies => galaxies.Fold((start, end) => start.ManhattanDistanceTo(end)));
+    public long RunPart2(Galaxy input) => input.Solve(multiplier);
 }
