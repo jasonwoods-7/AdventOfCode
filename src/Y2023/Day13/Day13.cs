@@ -6,7 +6,7 @@ public class Day13 : IAoCRunner<IReadOnlyList<IReadOnlyDictionary<Coord, char>>,
         .Split(l => l.Length == 0)
         .Select(m => m
             .Index()
-            .SelectMany(y => y.item.Index().Select(x => (new Coord(x.index, y.index), x.item)))
+            .SelectMany(y => y.item.Select((c, x) => (new Coord(x, y.index), c)))
             .ToDictionary())
         .ToList();
 
