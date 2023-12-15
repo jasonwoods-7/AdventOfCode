@@ -1,5 +1,7 @@
 ﻿namespace AoC.Y2023.Day15;
 
+record Lens(string Label, int Value);
+
 public partial class Day15 : IAoCRunner<IEnumerable<string>, int>
 {
     [GeneratedRegex(@"(\w+)(?:(=\d)|(-))")]
@@ -13,7 +15,9 @@ public partial class Day15 : IAoCRunner<IEnumerable<string>, int>
 
     public int RunPart2(IEnumerable<string> input)
     {
-        var boxes = new Dictionary<int, List<(string, int)>>();
+        var boxes = Enumerable
+            .Range(0, 256)
+            .ToDictionary(i => i, _ => new List<Lens>());
 
         foreach (var current in input)
         {
@@ -24,40 +28,30 @@ public partial class Day15 : IAoCRunner<IEnumerable<string>, int>
 
             if (match.Groups[2].Success)
             {
-                AddLens(match.Groups[2].Value[1..].ParseNumber<int>(), boxes, hash, label);
+                AddLens(match.Groups[2].Value[1..].ParseNumber<int>(), boxes[hash], label);
             }
             else
             {
-                if (boxes.TryGetValue(hash, out var value))
-                {
-                    value.RemoveAll(t => t.Item1 == label);
-                }
+                boxes[hash].RemoveAll(l => l.Label == label);
             }
         }
 
         return boxes
-            .Sum(b => b.Value.Index(1).Sum(t => (b.Key + 1) * t.index * t.item.Item2));
+            .Sum(b => b.Value.Index(1).Sum(t => (b.Key + 1) * t.index * t.item.Value));
     }
 
     static int Hash(string label) => label.Aggregate(0, (result, current) => ((result + current) * 17) & 0xFF);
 
-    static void AddLens(int lens, Dictionary<int, List<(string, int)>> boxes, int hash, string label)
+    static void AddLens(int lens, List<Lens> box, string label)
     {
-        if (boxes.TryGetValue(hash, out var value))
+        var existing = box.FindIndex(t => t.Label == label);
+        if (existing != -1)
         {
-            var existing = value.FindIndex(t => t.Item1 == label);
-            if (existing != -1)
-            {
-                value[existing] = (label, lens);
-            }
-            else
-            {
-                value.Add((label, lens));
-            }
+            box[existing] = new Lens(label, lens);
         }
         else
         {
-            boxes.Add(hash, [(label, lens)]);
+            box.Add(new Lens(label, lens));
         }
     }
 }
