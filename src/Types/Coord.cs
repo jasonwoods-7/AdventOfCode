@@ -11,6 +11,9 @@ public readonly record struct Coord(long X, long Y)
     public long ManhattanDistanceTo(Coord other) =>
         Math.Abs(X - other.X) + Math.Abs(Y - other.Y);
 
+    public void Deconstruct(out long x, out long y) =>
+        (x, y) = (X, Y);
+
     // ReSharper disable once UnassignedReadonlyField
     public static readonly Coord Empty;
 
