@@ -15,8 +15,11 @@ public readonly record struct Coord(long X, long Y)
     public void Deconstruct(out long x, out long y) =>
         (x, y) = (X, Y);
 
-    // ReSharper disable once UnassignedReadonlyField
-    public static readonly Coord Empty;
+    public static readonly Coord Empty = (0, 0);
+    public static readonly Coord Up = (0, -1);
+    public static readonly Coord Left = (-1, 0);
+    public static readonly Coord Down = (0, 1);
+    public static readonly Coord Right = (1, 0);
 
     /// <inheritdoc />
     public static Coord operator +(Coord left, Coord right) =>
@@ -33,7 +36,6 @@ public readonly record struct Coord(long X, long Y)
     public static Coord operator -(Coord value) =>
         new(-value.X, -value.Y);
 
-    public static implicit operator Coord((int, int) tuple) => new(tuple.Item1, tuple.Item2);
     public static implicit operator Coord((long, long) tuple) => new(tuple.Item1, tuple.Item2);
 }
 
