@@ -23,6 +23,6 @@ public class Day17 : IAoCRunner<int[][], int>
                 .Neighbors(minStraight, maxStraight)
                 .Where(n => 0 <= n.Position.X && n.Position.X < maxX && 0 <= n.Position.Y && n.Position.Y < maxY)
                 .Select(c => (c, cost + map[c.Position.Y][c.Position.X])),
-            c => c.Position == destination);
+            c => c.Position == destination && c.StraightMoves >= minStraight);
     }
 }
