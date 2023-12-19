@@ -8,7 +8,7 @@ public class Day12Tests
     public void Example_Part1()
     {
         // Arrange
-        var runner = CreateRunner(false);
+        var runner = CreateRunner();
 
         var input = runner.ParseInput(InputHelpers.ReadInputFile("example.txt"));
 
@@ -23,7 +23,7 @@ public class Day12Tests
     public void Part1()
     {
         // Arrange
-        var runner = CreateRunner(false);
+        var runner = CreateRunner();
 
         var input = runner.ParseInput(InputHelpers.ReadInputFile());
 
@@ -34,11 +34,11 @@ public class Day12Tests
         result.Should().Be(7_169);
     }
 
-    [Fact(Skip = "Not optimized")]
+    [Fact]
     public void Example_Part2()
     {
         // Arrange
-        var runner = CreateRunner(true);
+        var runner = CreateRunner();
 
         var input = runner.ParseInput(InputHelpers.ReadInputFile("example.txt"));
 
@@ -55,7 +55,7 @@ public class Day12Tests
     public void AdditionalExamples_Part2(string notes, int expected)
     {
         // Arrange
-        var runner = CreateRunner(true);
+        var runner = CreateRunner();
 
         var input = runner.ParseInput(notes);
 
@@ -66,5 +66,20 @@ public class Day12Tests
         result.Should().Be(expected);
     }
 
-    static IAoCRunner<IReadOnlyList<AoC.Y2023.Day12.Row>, int> CreateRunner(bool part2) => new AoC.Y2023.Day12.Day12(part2);
+    [SkippableFact]
+    public void Part2()
+    {
+        // Arrange
+        var runner = CreateRunner();
+
+        var input = runner.ParseInput(InputHelpers.ReadInputFile());
+
+        // Act
+        var result = runner.RunPart2(input);
+
+        // Assert
+        result.Should().Be(1_738_259_948_652L);
+    }
+
+    static IAoCRunner<IReadOnlyList<AoC.Y2023.Day12.Row>, long> CreateRunner() => new AoC.Y2023.Day12.Day12();
 }
