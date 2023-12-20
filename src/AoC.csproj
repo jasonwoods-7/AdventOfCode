@@ -12,6 +12,11 @@
 
   <ItemGroup>
     <PackageReference Include="AnyOf" Version="0.3.0" />
+    <PackageReference Include="Dunet" Version="1.10.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="JetBrains.Annotations" Version="2023.3.0" />
     <PackageReference Include="LanguageExt.Core" Version="4.4.7" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.0" />
     <PackageReference Include="SuperLinq" Version="5.4.0" />
