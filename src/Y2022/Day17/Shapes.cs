@@ -4,38 +4,33 @@ partial class Day17
 {
     static IEnumerable<IReadOnlyList<Coord>> Shapes()
     {
-        var horizontalLine = CreateShape(new[]
-        {
+        var horizontalLine = CreateShape([
             "####"
-        });
+        ]);
 
-        var plus = CreateShape(new[]
-        {
+        var plus = CreateShape([
             " # ",
             "###",
             " # "
-        });
+        ]);
 
-        var backwardsL = CreateShape(new[]
-        {
+        var backwardsL = CreateShape([
             "  #",
             "  #",
             "###"
-        });
+        ]);
 
-        var verticalLine = CreateShape(new[]
-        {
+        var verticalLine = CreateShape([
             "#",
             "#",
             "#",
             "#"
-        });
+        ]);
 
-        var block = CreateShape(new[]
-        {
+        var block = CreateShape([
             "##",
             "##"
-        });
+        ]);
 
         while (true)
         {

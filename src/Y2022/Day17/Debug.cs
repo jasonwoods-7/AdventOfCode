@@ -4,6 +4,7 @@ namespace AoC.Y2022.Day17;
 
 partial class Day17
 {
+    // ReSharper disable once UnusedMember.Local
     static string RenderGrid(IReadOnlySet<Coord> grid)
     {
         var minY = grid.MinBy(c => c.Y).Y;

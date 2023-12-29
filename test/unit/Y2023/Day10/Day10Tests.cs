@@ -2,7 +2,9 @@
 
 namespace AoC.Tests.Y2023.Day10;
 
-public class Day10Tests(ITestOutputHelper outputHelper)
+[SuppressMessage("ReSharper", "AsyncApostle.AsyncMethodNamingHighlighting")]
+[SuppressMessage("ReSharper", "AsyncApostle.ConfigureAwaitHighlighting")]
+public class Day10Tests(ITestOutputHelper outputHelper) : AoCRunnerTests<AoC.Y2023.Day10.Day10>
 {
     readonly ILoggerFactory _loggerFactory = outputHelper.CreateLoggerFactory();
 
@@ -28,7 +30,7 @@ public class Day10Tests(ITestOutputHelper outputHelper)
     public void Example_Part1(string map, int expected)
     {
         // Arrange
-        var runner = CreateRunner(_loggerFactory);
+        var runner = CreateRunner(_loggerFactory.CreateLogger<AoC.Y2023.Day10.Day10>());
 
         var input = runner.ParseInput(map);
 
@@ -39,13 +41,12 @@ public class Day10Tests(ITestOutputHelper outputHelper)
         result.Should().Be(expected);
     }
 
-    [SkippableFact]
-    public void Part1()
+    public override async Task Part1()
     {
         // Arrange
-        var runner = CreateRunner(_loggerFactory);
+        var runner = CreateRunner(_loggerFactory.CreateLogger<AoC.Y2023.Day10.Day10>());
 
-        var input = runner.ParseInput(InputHelpers.ReadInputFile());
+        var input = runner.ParseInput(await InputHelpers.ReadInputFileAsync());
 
         // Act
         var result = runner.RunPart1(input);
@@ -112,7 +113,7 @@ public class Day10Tests(ITestOutputHelper outputHelper)
     public void Example_Part2(string map, int expected)
     {
         // Arrange
-        var runner = CreateRunner(_loggerFactory);
+        var runner = CreateRunner(_loggerFactory.CreateLogger<AoC.Y2023.Day10.Day10>());
 
         var input = runner.ParseInput(map);
 
@@ -123,13 +124,12 @@ public class Day10Tests(ITestOutputHelper outputHelper)
         result.Should().Be(expected);
     }
 
-    [SkippableFact]
-    public void Part2()
+    public override async Task Part2()
     {
         // Arrange
-        var runner = CreateRunner(_loggerFactory);
+        var runner = CreateRunner(_loggerFactory.CreateLogger<AoC.Y2023.Day10.Day10>());
 
-        var input = runner.ParseInput(InputHelpers.ReadInputFile());
+        var input = runner.ParseInput(await InputHelpers.ReadInputFileAsync());
 
         // Act
         var result = runner.RunPart2(input);
@@ -137,7 +137,4 @@ public class Day10Tests(ITestOutputHelper outputHelper)
         // Assert
         result.Should().Be(459);
     }
-
-    static IAoCRunner<IReadOnlyDictionary<Coord, char>, int> CreateRunner(ILoggerFactory loggerFactory) =>
-        new AoC.Y2023.Day10.Day10(loggerFactory.CreateLogger<AoC.Y2023.Day10.Day10>());
 }

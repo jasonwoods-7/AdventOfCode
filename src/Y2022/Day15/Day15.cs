@@ -3,18 +3,14 @@ namespace AoC.Y2022.Day15;
 public readonly record struct Part1Data(int Value);
 public readonly record struct Part2Data(int Value);
 
-public class Day15 : IAoCRunner<IReadOnlyList<(Coord, Coord)>, long>
+public class Day15(
+    AnyOf<Part1Data, Part2Data> data,
+    ILogger<Day15> logger)
+    : IAoCRunner<IReadOnlyList<(Coord, Coord)>, long>
 {
-    readonly AnyOf<Part1Data, Part2Data> _data;
-    readonly ILogger<Day15> _logger;
-
-    public Day15(
-        AnyOf<Part1Data, Part2Data> data,
-        ILogger<Day15> logger)
-    {
-        _data = data;
-        _logger = logger;
-    }
+    readonly AnyOf<Part1Data, Part2Data> _data = data;
+    // ReSharper disable once UnusedMember.Local
+    readonly ILogger<Day15> _logger = logger;
 
     public IReadOnlyList<(Coord, Coord)> ParseInput(IEnumerable<string> puzzleInput) => puzzleInput
         .Select(static l => l.FindNumbers<int>())

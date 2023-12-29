@@ -158,7 +158,7 @@ public partial class Day16 : IAoCRunner<IReadOnlyDictionary<string, Valve>, int>
             }
         }
 
-        flow += (flow * timeRemaining);
+        flow += flow * timeRemaining;
 
         return flow;
     }

@@ -1,14 +1,16 @@
 ﻿namespace AoC.Tests.Y2023.Day16;
 
-public class Day16Tests
+[SuppressMessage("ReSharper", "AsyncApostle.AsyncMethodNamingHighlighting")]
+[SuppressMessage("ReSharper", "AsyncApostle.ConfigureAwaitHighlighting")]
+public class Day16Tests : AoCRunnerTests<AoC.Y2023.Day16.Day16>
 {
     [Fact]
-    public void Example_Part1()
+    public async Task Example_Part1()
     {
         // Arrange
         var runner = CreateRunner();
 
-        var input = runner.ParseInput(InputHelpers.ReadInputFile("example.txt"));
+        var input = runner.ParseInput(await InputHelpers.ReadInputFileAsync("example.txt"));
 
         // Act
         var result = runner.RunPart1(input);
@@ -17,13 +19,12 @@ public class Day16Tests
         result.Should().Be(46);
     }
 
-    [SkippableFact]
-    public void Part1()
+    public override async Task Part1()
     {
         // Arrange
         var runner = CreateRunner();
 
-        var input = runner.ParseInput(InputHelpers.ReadInputFile());
+        var input = runner.ParseInput(await InputHelpers.ReadInputFileAsync());
 
         // Act
         var result = runner.RunPart1(input);
@@ -33,12 +34,12 @@ public class Day16Tests
     }
 
     [Fact]
-    public void Example_Part2()
+    public async Task Example_Part2()
     {
         // Arrange
         var runner = CreateRunner();
 
-        var input = runner.ParseInput(InputHelpers.ReadInputFile("example.txt"));
+        var input = runner.ParseInput(await InputHelpers.ReadInputFileAsync("example.txt"));
 
         // Act
         var result = runner.RunPart2(input);
@@ -47,13 +48,12 @@ public class Day16Tests
         result.Should().Be(51);
     }
 
-    [SkippableFact]
-    public void Part2()
+    public override async Task Part2()
     {
         // Arrange
         var runner = CreateRunner();
 
-        var input = runner.ParseInput(InputHelpers.ReadInputFile());
+        var input = runner.ParseInput(await InputHelpers.ReadInputFileAsync());
 
         // Act
         var result = runner.RunPart2(input);
@@ -61,6 +61,4 @@ public class Day16Tests
         // Assert
         result.Should().Be(8_026);
     }
-
-    static IAoCRunner<char[][], int> CreateRunner() => new AoC.Y2023.Day16.Day16();
 }

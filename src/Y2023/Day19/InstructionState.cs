@@ -2,7 +2,7 @@
 
 namespace AoC.Y2023.Day19;
 
-class InstructionState(InstructionState? parent = null) : IState
+sealed class InstructionState(InstructionState? parent = null) : IState
 {
     string? _name;
     char? _inequality;

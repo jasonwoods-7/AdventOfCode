@@ -22,7 +22,7 @@ public static class ModuleInit
 
         Configuration = Host
             .CreateDefaultBuilder()
-            .ConfigureAppConfiguration((context, config) => config.AddUserSecrets(typeof(ModuleInit).Assembly))
+            .ConfigureAppConfiguration((_, config) => config.AddUserSecrets(typeof(ModuleInit).Assembly))
             .Build()
             .Services
             .GetRequiredService<IConfiguration>();

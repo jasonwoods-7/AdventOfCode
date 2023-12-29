@@ -1,18 +1,17 @@
-using AnyOfTypes;
-using AoC.Y2022.Day10;
-
 namespace AoC.Tests.Y2022.Day10;
 
+[SuppressMessage("ReSharper", "AsyncApostle.AsyncMethodNamingHighlighting")]
+[SuppressMessage("ReSharper", "AsyncApostle.ConfigureAwaitHighlighting")]
 [UsesVerify]
-public class Day10Tests
+public class Day10Tests : AoCRunnerTests<AoC.Y2022.Day10.Day10>
 {
     [Fact]
-    public void Example_Part1()
+    public async Task Example_Part1()
     {
         // Arrange
         var runner = CreateRunner();
 
-        var input = runner.ParseInput(InputHelpers.ReadInputFile("example.txt"));
+        var input = runner.ParseInput(await InputHelpers.ReadInputFileAsync("example.txt"));
 
         // Act
         var actual = runner.RunPart1(input);
@@ -22,13 +21,12 @@ public class Day10Tests
         actual.First.Should().Be(13_140);
     }
 
-    [SkippableFact]
-    public void Part1()
+    public override async Task Part1()
     {
         // Arrange
         var runner = CreateRunner();
 
-        var input = runner.ParseInput(InputHelpers.ReadInputFile());
+        var input = runner.ParseInput(await InputHelpers.ReadInputFileAsync());
 
         // Act
         var actual = runner.RunPart1(input);
@@ -39,36 +37,33 @@ public class Day10Tests
     }
 
     [Fact]
-    public Task Example_Part2()
+    public async Task Example_Part2()
     {
         // Arrange
         var runner = CreateRunner();
 
-        var input = runner.ParseInput(InputHelpers.ReadInputFile("example.txt"));
+        var input = runner.ParseInput(await InputHelpers.ReadInputFileAsync("example.txt"));
 
         // Act
         var actual = runner.RunPart2(input);
 
         // Assert
         actual.IsSecond.Should().BeTrue();
-        return Verify(actual.Second);
+        await Verify(actual.Second);
     }
 
-    [SkippableFact]
-    public Task Part2()
+    public override async Task Part2()
     {
         // Arrange
         var runner = CreateRunner();
 
-        var input = runner.ParseInput(InputHelpers.ReadInputFile());
+        var input = runner.ParseInput(await InputHelpers.ReadInputFileAsync());
 
         // Act
         var actual = runner.RunPart2(input);
 
         // Assert
         actual.IsSecond.Should().BeTrue();
-        return Verify(actual.Second);
+        await Verify(actual.Second);
     }
-
-    static IAoCRunner<IEnumerable<IInstruction>, AnyOf<int, string>> CreateRunner() => new AoC.Y2022.Day10.Day10();
 }

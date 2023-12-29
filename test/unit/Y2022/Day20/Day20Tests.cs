@@ -1,14 +1,16 @@
 namespace AoC.Tests.Y2022.Day20;
 
-public class Day20Tests
+[SuppressMessage("ReSharper", "AsyncApostle.AsyncMethodNamingHighlighting")]
+[SuppressMessage("ReSharper", "AsyncApostle.ConfigureAwaitHighlighting")]
+public class Day20Tests : AoCRunnerTests<AoC.Y2022.Day20.Day20>
 {
     [Fact]
-    public void Example_Part1()
+    public async Task Example_Part1()
     {
         // Arrange
         var runner = CreateRunner();
 
-        var input = runner.ParseInput(InputHelpers.ReadInputFile("example.txt"));
+        var input = runner.ParseInput(await InputHelpers.ReadInputFileAsync("example.txt"));
 
         // Act
         var actual = runner.RunPart1(input);
@@ -17,13 +19,12 @@ public class Day20Tests
         actual.Should().Be(3);
     }
 
-    [SkippableFact]
-    public void Part1()
+    public override async Task Part1()
     {
         // Arrange
         var runner = CreateRunner();
 
-        var input = runner.ParseInput(InputHelpers.ReadInputFile());
+        var input = runner.ParseInput(await InputHelpers.ReadInputFileAsync());
 
         // Act
         var actual = runner.RunPart1(input);
@@ -33,12 +34,12 @@ public class Day20Tests
     }
 
     [Fact]
-    public void Example_Part2()
+    public async Task Example_Part2()
     {
         // Arrange
         var runner = CreateRunner();
 
-        var input = runner.ParseInput(InputHelpers.ReadInputFile("example.txt"));
+        var input = runner.ParseInput(await InputHelpers.ReadInputFileAsync("example.txt"));
 
         // Act
         var actual = runner.RunPart2(input);
@@ -47,13 +48,12 @@ public class Day20Tests
         actual.Should().Be(1_623_178_306);
     }
 
-    [SkippableFact]
-    public void Part2()
+    public override async Task Part2()
     {
         // Arrange
         var runner = CreateRunner();
 
-        var input = runner.ParseInput(InputHelpers.ReadInputFile());
+        var input = runner.ParseInput(await InputHelpers.ReadInputFileAsync());
 
         // Act
         var actual = runner.RunPart2(input);
@@ -61,6 +61,4 @@ public class Day20Tests
         // Assert
         actual.Should().Be(12_374_299_815_791);
     }
-
-    static IAoCRunner<IReadOnlyList<long>, long> CreateRunner() => new AoC.Y2022.Day20.Day20();
 }

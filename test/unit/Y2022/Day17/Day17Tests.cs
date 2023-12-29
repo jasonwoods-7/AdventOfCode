@@ -1,19 +1,18 @@
 namespace AoC.Tests.Y2022.Day17;
 
-public class Day17Tests
+[SuppressMessage("ReSharper", "AsyncApostle.AsyncMethodNamingHighlighting")]
+[SuppressMessage("ReSharper", "AsyncApostle.ConfigureAwaitHighlighting")]
+public class Day17Tests(ITestOutputHelper outputHelper) : AoCRunnerTests<AoC.Y2022.Day17.Day17>
 {
-    readonly ILoggerFactory _loggerFactory;
-
-    public Day17Tests(ITestOutputHelper outputHelper) =>
-        _loggerFactory = outputHelper.CreateLoggerFactory();
+    readonly ILoggerFactory _loggerFactory = outputHelper.CreateLoggerFactory();
 
     [Fact]
-    public void Example_Part1()
+    public async Task Example_Part1()
     {
         // Arrange
-        var runner = CreateRunner();
+        var runner = CreateRunner(_loggerFactory.CreateLogger<AoC.Y2022.Day17.Day17>());
 
-        var input = runner.ParseInput(InputHelpers.ReadInputFile("example.txt"));
+        var input = runner.ParseInput(await InputHelpers.ReadInputFileAsync("example.txt"));
 
         // Act
         var actual = runner.RunPart1(input);
@@ -22,13 +21,12 @@ public class Day17Tests
         actual.Should().Be(3_068);
     }
 
-    [SkippableFact]
-    public void Part1()
+    public override async Task Part1()
     {
         // Arrange
-        var runner = CreateRunner();
+        var runner = CreateRunner(_loggerFactory.CreateLogger<AoC.Y2022.Day17.Day17>());
 
-        var input = runner.ParseInput(InputHelpers.ReadInputFile());
+        var input = runner.ParseInput(await InputHelpers.ReadInputFileAsync());
 
         // Act
         var actual = runner.RunPart1(input);
@@ -38,12 +36,12 @@ public class Day17Tests
     }
 
     [Fact]
-    public void Example_Part2()
+    public async Task Example_Part2()
     {
         // Arrange
-        var runner = CreateRunner();
+        var runner = CreateRunner(_loggerFactory.CreateLogger<AoC.Y2022.Day17.Day17>());
 
-        var input = runner.ParseInput(InputHelpers.ReadInputFile("example.txt"));
+        var input = runner.ParseInput(await InputHelpers.ReadInputFileAsync("example.txt"));
 
         // Act
         var actual = runner.RunPart2(input);
@@ -52,13 +50,12 @@ public class Day17Tests
         actual.Should().Be(1_514_285_714_288);
     }
 
-    [SkippableFact]
-    public void Part2()
+    public override async Task Part2()
     {
         // Arrange
-        var runner = CreateRunner();
+        var runner = CreateRunner(_loggerFactory.CreateLogger<AoC.Y2022.Day17.Day17>());
 
-        var input = runner.ParseInput(InputHelpers.ReadInputFile());
+        var input = runner.ParseInput(await InputHelpers.ReadInputFileAsync());
 
         // Act
         var actual = runner.RunPart2(input);
@@ -66,7 +63,4 @@ public class Day17Tests
         // Assert
         actual.Should().Be(1_560_932_944_615);
     }
-
-    IAoCRunner<IEnumerable<Func<Coord, Coord>>, long> CreateRunner() =>
-        new AoC.Y2022.Day17.Day17(_loggerFactory.CreateLogger<AoC.Y2022.Day17.Day17>());
 }

@@ -1,14 +1,16 @@
 namespace AoC.Tests.Y2023.Day05;
 
-public class Day05Tests
+[SuppressMessage("ReSharper", "AsyncApostle.AsyncMethodNamingHighlighting")]
+[SuppressMessage("ReSharper", "AsyncApostle.ConfigureAwaitHighlighting")]
+public class Day05Tests : AoCRunnerTests<AoC.Y2023.Day05.Day05>
 {
     [Fact]
-    public void Example_Part1()
+    public async Task Example_Part1()
     {
         // Arrange
         var runner = CreateRunner();
 
-        var input = runner.ParseInput(InputHelpers.ReadInputFile("example.txt"));
+        var input = runner.ParseInput(await InputHelpers.ReadInputFileAsync("example.txt"));
 
         // Act
         var result = runner.RunPart1(input);
@@ -17,13 +19,12 @@ public class Day05Tests
         result.Should().Be(35L);
     }
 
-    [SkippableFact]
-    public void Part1()
+    public override async Task Part1()
     {
         // Arrange
         var runner = CreateRunner();
 
-        var input = runner.ParseInput(InputHelpers.ReadInputFile());
+        var input = runner.ParseInput(await InputHelpers.ReadInputFileAsync());
 
         // Act
         var result = runner.RunPart1(input);
@@ -33,12 +34,12 @@ public class Day05Tests
     }
 
     [Fact]
-    public void Example_Part2()
+    public async Task Example_Part2()
     {
         // Arrange
         var runner = CreateRunner();
 
-        var input = runner.ParseInput(InputHelpers.ReadInputFile("example.txt"));
+        var input = runner.ParseInput(await InputHelpers.ReadInputFileAsync("example.txt"));
 
         // Act
         var result = runner.RunPart2(input);
@@ -48,12 +49,12 @@ public class Day05Tests
     }
 
     [SkippableFact(Skip = "Not optimized")]
-    public void Part2()
+    public override async Task Part2()
     {
         // Arrange
         var runner = CreateRunner();
 
-        var input = runner.ParseInput(InputHelpers.ReadInputFile());
+        var input = runner.ParseInput(await InputHelpers.ReadInputFileAsync());
 
         // Act
         var result = runner.RunPart2(input);
@@ -61,6 +62,4 @@ public class Day05Tests
         // Assert
         result.Should().Be(79_874_951L);
     }
-
-    static IAoCRunner<AoC.Y2023.Day05.Parsed, long> CreateRunner() => new AoC.Y2023.Day05.Day05();
 }

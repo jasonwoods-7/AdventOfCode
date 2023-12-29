@@ -50,7 +50,7 @@ public class NumberHelperTests
     }
 
     [Theory]
-    [InlineData(new long[] { 3, 5, 7}, new long[] { 2, 3, 2}, 23)]
+    [InlineData(new long[] { 3, 5, 7 }, new long[] { 2, 3, 2 }, 23)]
     public void ChineseRemainderTheorem(long[] n, long[] a, long expected)
     {
         // Arrange

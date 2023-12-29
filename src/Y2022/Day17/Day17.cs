@@ -1,12 +1,9 @@
 namespace AoC.Y2022.Day17;
 
-public partial class Day17 : IAoCRunner<IEnumerable<Func<Coord, Coord>>, long>
+public partial class Day17(ILogger<Day17> logger) : IAoCRunner<IEnumerable<Func<Coord, Coord>>, long>
 {
-    readonly ILogger<Day17> _logger;
-
-    public Day17(
-        ILogger<Day17> logger) =>
-        _logger = logger;
+    // ReSharper disable once UnusedMember.Local
+    readonly ILogger<Day17> _logger = logger;
 
     public IEnumerable<Func<Coord, Coord>> ParseInput(IEnumerable<string> puzzleInput)
     {
@@ -62,7 +59,7 @@ public partial class Day17 : IAoCRunner<IEnumerable<Func<Coord, Coord>>, long>
             {
                 var (height, rock) = result.IfNone((0, 0));
                 var repeatHeight = -(minY - height);
-                var repeatRocks = (r + 1) - rock;
+                var repeatRocks = r + 1 - rock;
 
                 var (multiplier, _) = Math.DivRem(totalRocks - r, repeatRocks);
                 r += repeatRocks * multiplier;

@@ -1,6 +1,6 @@
 ﻿namespace AoC.Y2023.Day15;
 
-record Lens(string Label, int Value);
+sealed record Lens(string Label, int Value);
 
 public partial class Day15 : IAoCRunner<IEnumerable<string>, int>
 {

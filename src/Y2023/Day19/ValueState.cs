@@ -1,6 +1,6 @@
 ﻿namespace AoC.Y2023.Day19;
 
-class ValueState(InstructionState instructionState) : IState
+sealed class ValueState(InstructionState instructionState) : IState
 {
     public IState OnReadToken(string name)
     {

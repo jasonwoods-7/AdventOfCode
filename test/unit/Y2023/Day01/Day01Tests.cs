@@ -2,15 +2,16 @@ using AoC.Tests.Extensions;
 
 namespace AoC.Tests.Y2023.Day01;
 
-public class Day01Tests
+[SuppressMessage("ReSharper", "AsyncApostle.AsyncMethodNamingHighlighting")]
+[SuppressMessage("ReSharper", "AsyncApostle.ConfigureAwaitHighlighting")]
+public class Day01Tests : AoCRunnerTests<AoC.Y2023.Day01.Day01>
 {
-    [SkippableFact]
-    public void Part1()
+    public override async Task Part1()
     {
         // Arrange
         var runner = CreateRunner();
 
-        var input = runner.ParseInput(InputHelpers.ReadInputFile());
+        var input = runner.ParseInput(await InputHelpers.ReadInputFileAsync());
 
         // Act
         var result = runner.RunPart1(input);
@@ -43,13 +44,12 @@ public class Day01Tests
         result.Should().Be(281);
     }
 
-    [SkippableFact]
-    public void Part2()
+    public override async Task Part2()
     {
         // Arrange
         var runner = CreateRunner();
 
-        var input = runner.ParseInput(InputHelpers.ReadInputFile());
+        var input = runner.ParseInput(await InputHelpers.ReadInputFileAsync());
 
         // Act
         var result = runner.RunPart2(input);
@@ -57,6 +57,4 @@ public class Day01Tests
         // Assert
         result.Should().Be(53_868);
     }
-
-    static IAoCRunner<IReadOnlyList<string>, int> CreateRunner() => new AoC.Y2023.Day01.Day01();
 }

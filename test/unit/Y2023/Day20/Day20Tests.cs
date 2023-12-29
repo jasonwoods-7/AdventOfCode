@@ -1,16 +1,18 @@
 ﻿namespace AoC.Tests.Y2023.Day20;
 
-public class Day20Tests
+[SuppressMessage("ReSharper", "AsyncApostle.AsyncMethodNamingHighlighting")]
+[SuppressMessage("ReSharper", "AsyncApostle.ConfigureAwaitHighlighting")]
+public class Day20Tests : AoCRunnerTests<AoC.Y2023.Day20.Day20>
 {
     [Theory]
     [InlineData("example1.txt", 32_000_000L)]
     [InlineData("example2.txt", 11_687_500L)]
-    public void Example_Part1(string fileName, long expected)
+    public async Task Example_Part1(string fileName, long expected)
     {
         // Arrange
         var runner = CreateRunner();
 
-        var input = runner.ParseInput(InputHelpers.ReadInputFile(fileName));
+        var input = runner.ParseInput(await InputHelpers.ReadInputFileAsync(fileName));
 
         // Act
         var result = runner.RunPart1(input);
@@ -19,13 +21,12 @@ public class Day20Tests
         result.Should().Be(expected);
     }
 
-    [SkippableFact]
-    public void Part1()
+    public override async Task Part1()
     {
         // Arrange
         var runner = CreateRunner();
 
-        var input = runner.ParseInput(InputHelpers.ReadInputFile());
+        var input = runner.ParseInput(await InputHelpers.ReadInputFileAsync());
 
         // Act
         var result = runner.RunPart1(input);
@@ -34,13 +35,12 @@ public class Day20Tests
         result.Should().Be(825_167_435L);
     }
 
-    [SkippableFact]
-    public void Part2()
+    public override async Task Part2()
     {
         // Arrange
         var runner = CreateRunner();
 
-        var input = runner.ParseInput(InputHelpers.ReadInputFile());
+        var input = runner.ParseInput(await InputHelpers.ReadInputFileAsync());
 
         // Act
         var result = runner.RunPart2(input);
@@ -48,6 +48,4 @@ public class Day20Tests
         // Assert
         result.Should().Be(225_514_321_828_633L);
     }
-
-    static IAoCRunner<IReadOnlyDictionary<string, AoC.Y2023.Day20.Module>, long> CreateRunner() => new AoC.Y2023.Day20.Day20();
 }

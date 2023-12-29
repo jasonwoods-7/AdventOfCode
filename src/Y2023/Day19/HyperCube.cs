@@ -1,6 +1,6 @@
 ﻿namespace AoC.Y2023.Day19;
 
-record HyperCube(Range X, Range M, Range A, Range S)
+sealed record HyperCube(Range X, Range M, Range A, Range S)
 {
     public (HyperCube, HyperCube) SplitCube(int splitAt, string dimension) => dimension switch
     {

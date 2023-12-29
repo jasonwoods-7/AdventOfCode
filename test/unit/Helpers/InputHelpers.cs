@@ -5,12 +5,13 @@ using AoC.Tests.Properties;
 
 namespace AoC.Tests.Helpers;
 
+[SuppressMessage("ReSharper", "AsyncApostle.ConfigureAwaitHighlighting")]
 public static partial class InputHelpers
 {
     [GeneratedRegex(@"Y(\d+)[/\\]Day(\d+)")]
     private static partial Regex PathRegex();
 
-    public static IEnumerable<string> ReadInputFile(
+    public static async Task<IEnumerable<string>> ReadInputFileAsync(
         string fileName = "input.txt",
         [CallerFilePath] string callerFilePath = "")
     {
@@ -27,7 +28,7 @@ public static partial class InputHelpers
 
             if (session is not null && match.Success)
             {
-                DownloadInput(session, match, fullFileName);
+                await DownloadInputAsync(session, match, fullFileName);
 
                 exists = true;
             }
@@ -38,7 +39,7 @@ public static partial class InputHelpers
         return File.ReadLines(fullFileName);
     }
 
-    static void DownloadInput(string session, Match match, string fullFileName)
+    static async Task DownloadInputAsync(string session, Match match, string fullFileName)
     {
         var aocUri = new Uri("https://adventofcode.com");
 
@@ -52,18 +53,14 @@ public static partial class InputHelpers
         });
         client.BaseAddress = aocUri;
 
-        var response = client
-            .GetAsync($"{match.Groups[1].Value}/day/{match.Groups[2].Value.TrimStart('0')}/input")
-            .GetAwaiter()
-            .GetResult();
+        var response = await client
+            .GetAsync($"{match.Groups[1].Value}/day/{match.Groups[2].Value.TrimStart('0')}/input");
 
-        var text = response
+        var text = await response
             .EnsureSuccessStatusCode()
             .Content
-            .ReadAsStringAsync()
-            .GetAwaiter()
-            .GetResult();
+            .ReadAsStringAsync();
 
-        File.WriteAllText(fullFileName, text);
+        await File.WriteAllTextAsync(fullFileName, text);
     }
 }

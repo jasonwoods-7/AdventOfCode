@@ -1,4 +1,5 @@
 global using System.Collections.Immutable;
+global using System.Diagnostics.CodeAnalysis;
 global using AoC.Tests.Helpers;
 global using AoC.Types;
 global using FluentAssertions;

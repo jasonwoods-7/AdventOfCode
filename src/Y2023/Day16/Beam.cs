@@ -1,6 +1,6 @@
 ﻿namespace AoC.Y2023.Day16;
 
-record Beam(Coord Current, Coord Direction)
+sealed record Beam(Coord Current, Coord Direction)
 {
     public static readonly Coord North = new(0, -1);
     public static readonly Coord West = new(-1, 0);

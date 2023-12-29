@@ -1,6 +1,6 @@
 ﻿namespace AoC.Y2023.Day17;
 
-record Crucible(Coord Position, Coord Direction, int StraightMoves)
+sealed record Crucible(Coord Position, Coord Direction, int StraightMoves)
 {
     public static readonly Crucible Empty = new((0, 0), (0, 0), 0);
 

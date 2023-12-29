@@ -1,14 +1,15 @@
 ﻿namespace AoC.Tests.Y2023.Day08;
 
-public class Day08Tests
+[SuppressMessage("ReSharper", "AsyncApostle.AsyncMethodNamingHighlighting")]
+[SuppressMessage("ReSharper", "AsyncApostle.ConfigureAwaitHighlighting")]
+public class Day08Tests : AoCRunnerTests<AoC.Y2023.Day08.Day08>
 {
-    [SkippableFact]
-    public void Part1()
+    public override async Task Part1()
     {
         // Arrange
         var runner = CreateRunner();
 
-        var input = runner.ParseInput(InputHelpers.ReadInputFile());
+        var input = runner.ParseInput(await InputHelpers.ReadInputFileAsync());
 
         // Act
         var result = runner.RunPart1(input);
@@ -17,13 +18,12 @@ public class Day08Tests
         result.Should().Be(18_023L);
     }
 
-    [SkippableFact]
-    public void Part2()
+    public override async Task Part2()
     {
         // Arrange
         var runner = CreateRunner();
 
-        var input = runner.ParseInput(InputHelpers.ReadInputFile());
+        var input = runner.ParseInput(await InputHelpers.ReadInputFileAsync());
 
         // Act
         var result = runner.RunPart2(input);
@@ -31,6 +31,4 @@ public class Day08Tests
         // Assert
         result.Should().Be(14_449_445_933_179L);
     }
-
-    static IAoCRunner<AoC.Y2023.Day08.Parsed, long> CreateRunner() => new AoC.Y2023.Day08.Day08();
 }

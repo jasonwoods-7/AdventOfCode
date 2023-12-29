@@ -1,16 +1,16 @@
-using AoC.Y2022.Day16;
-
 namespace AoC.Tests.Y2022.Day16;
 
-public class Day16Tests
+[SuppressMessage("ReSharper", "AsyncApostle.AsyncMethodNamingHighlighting")]
+[SuppressMessage("ReSharper", "AsyncApostle.ConfigureAwaitHighlighting")]
+public class Day16Tests : AoCRunnerTests<AoC.Y2022.Day16.Day16>
 {
     [Fact]
-    public void Example_Part1()
+    public async Task Example_Part1()
     {
         // Arrange
         var runner = CreateRunner();
 
-        var input = runner.ParseInput(InputHelpers.ReadInputFile("example.txt"));
+        var input = runner.ParseInput(await InputHelpers.ReadInputFileAsync("example.txt"));
 
         // Act
         var actual = runner.RunPart1(input);
@@ -19,13 +19,12 @@ public class Day16Tests
         actual.Should().Be(1_651);
     }
 
-    [SkippableFact]
-    public void Part1()
+    public override async Task Part1()
     {
         // Arrange
         var runner = CreateRunner();
 
-        var input = runner.ParseInput(InputHelpers.ReadInputFile());
+        var input = runner.ParseInput(await InputHelpers.ReadInputFileAsync());
 
         // Act
         var actual = runner.RunPart1(input);
@@ -35,12 +34,12 @@ public class Day16Tests
     }
 
     [Fact]
-    public void Example_Part2()
+    public async Task Example_Part2()
     {
         // Arrange
         var runner = CreateRunner();
 
-        var input = runner.ParseInput(InputHelpers.ReadInputFile("example.txt"));
+        var input = runner.ParseInput(await InputHelpers.ReadInputFileAsync("example.txt"));
 
         // Act
         var actual = runner.RunPart2(input);
@@ -49,13 +48,12 @@ public class Day16Tests
         actual.Should().Be(1_706); // example answer should be 1707, but my algo keeps getting this value. 🤷‍♂️
     }
 
-    [SkippableFact]
-    public void Part2()
+    public override async Task Part2()
     {
         // Arrange
         var runner = CreateRunner();
 
-        var input = runner.ParseInput(InputHelpers.ReadInputFile());
+        var input = runner.ParseInput(await InputHelpers.ReadInputFileAsync());
 
         // Act
         var actual = runner.RunPart2(input);
@@ -63,6 +61,4 @@ public class Day16Tests
         // Assert
         actual.Should().Be(2_741);
     }
-
-    static IAoCRunner<IReadOnlyDictionary<string, Valve>, int> CreateRunner() => new AoC.Y2022.Day16.Day16();
 }
