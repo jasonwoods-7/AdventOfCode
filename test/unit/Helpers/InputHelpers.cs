@@ -2,12 +2,33 @@ using System.Net;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using AoC.Tests.Properties;
+using static LanguageExt.Prelude;
 
 namespace AoC.Tests.Helpers;
 
 [SuppressMessage("ReSharper", "AsyncApostle.ConfigureAwaitHighlighting")]
 public static partial class InputHelpers
 {
+    static readonly Func<string, HttpClient> HttpClient;
+
+    static InputHelpers() =>
+        HttpClient = memo<string, HttpClient>(session =>
+        {
+            var aocUri = new Uri("https://adventofcode.com");
+
+            var cookieContainer = new CookieContainer();
+            cookieContainer.Add(aocUri, new Cookie("session", session));
+
+            var client = new HttpClient(new HttpClientHandler
+            {
+                CookieContainer = cookieContainer,
+                AutomaticDecompression = DecompressionMethods.All
+            });
+            client.BaseAddress = aocUri;
+
+            return client;
+        });
+
     [GeneratedRegex(@"Y(\d+)[/\\]Day(\d+)")]
     private static partial Regex PathRegex();
 
@@ -41,20 +62,11 @@ public static partial class InputHelpers
 
     static async Task DownloadInputAsync(string session, Match match, string fullFileName)
     {
-        var aocUri = new Uri("https://adventofcode.com");
+        var year = match.Groups[1].Value;
+        var day = match.Groups[2].Value.TrimStart('0');
 
-        var cookieContainer = new CookieContainer();
-        cookieContainer.Add(aocUri, new Cookie("session", session));
-
-        using var client = new HttpClient(new HttpClientHandler
-        {
-            CookieContainer = cookieContainer,
-            AutomaticDecompression = DecompressionMethods.All
-        });
-        client.BaseAddress = aocUri;
-
-        var response = await client
-            .GetAsync($"{match.Groups[1].Value}/day/{match.Groups[2].Value.TrimStart('0')}/input");
+        var response = await HttpClient(session)
+            .GetAsync($"{year}/day/{day}/input");
 
         var text = await response
             .EnsureSuccessStatusCode()
