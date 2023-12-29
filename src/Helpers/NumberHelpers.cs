@@ -25,6 +25,8 @@ public static class NumberHelpers
             num = mod - (-num % mod);
         }
 
+        Debug.Assert(Coprime(num, mod), "numbers must be co-prime");
+
         var (t, nt) = (0L, 1L);
         var (r, nr) = (mod, num % mod);
 
@@ -42,19 +44,18 @@ public static class NumberHelpers
                 : t;
     }
 
-    public static long ChineseRemainderTheorem(long[] n, long[] a)
+    public static long ChineseRemainderTheorem(long[] numbers, long[] mods)
     {
-#if DEBUG
-        Debug.Assert(n.Length == a.Length);
-#endif
+        Debug.Assert(numbers.Length == mods.Length, "Lengths of arrays are not equal");
+        Debug.Assert(numbers.Aggregate(GreatestCommonDivisor) == 1, "numbers are not co-prime");
 
-        var prod = n.Product();
+        var prod = numbers.Product();
         var sm = 0L;
 
-        for (var i = 0; i < n.Length; i++)
+        for (var i = 0; i < numbers.Length; i++)
         {
-            var p = prod / n[i];
-            sm += a[i] * ModInverse(p, n[i]) * p;
+            var p = prod / numbers[i];
+            sm += mods[i] * ModInverse(p, numbers[i]) * p;
         }
 
         return sm % prod;
