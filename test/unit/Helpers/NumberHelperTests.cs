@@ -19,6 +19,20 @@ public class NumberHelperTests
     }
 
     [Theory]
+    [InlineData(4, 9, 36)]
+    [InlineData(4, 18, 36)]
+    public void LeastCommonMultiple(long num1, long num2, long expected)
+    {
+        // Arrange
+
+        // Act
+        var actual = NumberHelpers.LeastCommonMultiple(num1, num2);
+
+        // Assert
+        actual.Should().Be(expected);
+    }
+
+    [Theory]
     [InlineData(4, 9, true)]
     [InlineData(40, 6, false)]
     public void Coprime(long num1, long num2, bool expected)
