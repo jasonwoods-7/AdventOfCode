@@ -63,7 +63,7 @@ public class Day14 : IAoCRunner<Dictionary<Coord, char>, int>
             isOccupied,
             exitCondition) is { IsSome: true } restingPosition)
         {
-            caveMap[restingPosition.IfNone(Coord.Empty)] = 'o';
+            caveMap[restingPosition.IfNone(Coord.Zero)] = 'o';
         }
 
         return caveMap.Count(c => c.Value == 'o');

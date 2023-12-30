@@ -19,14 +19,14 @@ public static partial class InputHelpers
             var cookieContainer = new CookieContainer();
             cookieContainer.Add(aocUri, new Cookie("session", session));
 
-            var client = new HttpClient(new HttpClientHandler
+            return new HttpClient(new HttpClientHandler
             {
                 CookieContainer = cookieContainer,
                 AutomaticDecompression = DecompressionMethods.All
-            });
-            client.BaseAddress = aocUri;
-
-            return client;
+            })
+            {
+                BaseAddress = aocUri
+            };
         });
 
     [GeneratedRegex(@"Y(\d+)[/\\]Day(\d+)")]
