@@ -7,7 +7,7 @@ public class Day14(ILogger<Day14> logger) : IAoCRunner<Dish, long>
 {
     public Dish ParseInput(IEnumerable<string> puzzleInput) => puzzleInput
         .Index()
-        .SelectMany(y => y.item.Select((c, x) => (new Coord(x, y.index), c)))
+        .SelectMany(y => y.Item.Select((c, x) => (new Coord(x, y.Index), c)))
         .ToDictionary();
 
     public long RunPart1(Dish input)

@@ -4,7 +4,7 @@ public class Day11(long multiplier) : IAoCRunner<Galaxy, long>
 {
     public Galaxy ParseInput(IEnumerable<string> puzzleInput) => puzzleInput
         .Index()
-        .SelectMany(y => y.item.Select((c, x) => (coord: new Coord(x, y.index), item: c)))
+        .SelectMany(y => y.Item.Select((c, x) => (coord: new Coord(x, y.Index), item: c)))
         .Choose(t => (t.item == '#', t.coord))
         .Apply(g => new Galaxy(g.ToList()));
 

@@ -7,7 +7,7 @@ public class Day10(ILogger<Day10> logger)
 {
     public IReadOnlyDictionary<Coord, char> ParseInput(IEnumerable<string> puzzleInput) => puzzleInput
         .Index()
-        .SelectMany(y => y.item.Select((c, x) => (coord: new Coord(x, y.index), item: c)))
+        .SelectMany(y => y.Item.Select((c, x) => (coord: new Coord(x, y.Index), item: c)))
         .Where(t => t.item != '.')
         .ToDictionary(t => t.coord, t => t.item);
 

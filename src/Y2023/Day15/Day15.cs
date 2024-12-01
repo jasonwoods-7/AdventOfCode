@@ -37,7 +37,7 @@ public partial class Day15 : IAoCRunner<IEnumerable<string>, int>
         }
 
         return boxes
-            .Sum(b => b.Value.Index(1).Sum(t => (b.Key + 1) * t.index * t.item.Value));
+            .Sum(b => b.Value.Index(1).Sum(t => (b.Key + 1) * t.Index * t.Item.Value));
     }
 
     static int Hash(string label) => label.Aggregate(0, (result, current) => ((result + current) * 17) & 0xFF);

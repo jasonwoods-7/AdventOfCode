@@ -6,8 +6,8 @@ public class Day01 : IAoCRunner<(IReadOnlyList<int>, IReadOnlyList<int>), int>
         puzzleInput
             .SelectMany(s => s.FindNumbers<int>())
             .Index()
-            .Partition(t => (t.index & 1) == 0)
-            .Apply(r => (r.True.Select(t => t.item).ToList(), r.False.Select(t => t.item).ToList()));
+            .Partition(t => (t.Index & 1) == 0)
+            .Apply(r => (r.True.Select(t => t.Item).ToList(), r.False.Select(t => t.Item).ToList()));
 
     public int RunPart1((IReadOnlyList<int>, IReadOnlyList<int>) input)
     {

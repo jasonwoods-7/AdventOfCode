@@ -22,7 +22,7 @@ public partial class Day03 : IAoCRunner<Parsed, int>
         .Aggregate(
             Parsed.Empty(),
             static (result, current) => result.Append(Schematic()
-                .Matches(current.item)
+                .Matches(current.Item)
                 .Partition(
                     static m => m.Groups[1].Success,
                     (ns, ss) =>
@@ -35,7 +35,7 @@ public partial class Day03 : IAoCRunner<Parsed, int>
                                 var x2 = x1 + group.Length - 1;
                                 var value = int.Parse(group.Value, CultureInfo.CurrentCulture);
 
-                                return new Number(x1, x2, current.index, value);
+                                return new Number(x1, x2, current.Index, value);
                             })
                             .ToImmutableList();
 
@@ -46,7 +46,7 @@ public partial class Day03 : IAoCRunner<Parsed, int>
                                 var x = group.Index;
                                 var value = group.Value[0];
 
-                                return new Symbol(new Coord(x, current.index), value);
+                                return new Symbol(new Coord(x, current.Index), value);
                             })
                             .ToImmutableList();
 

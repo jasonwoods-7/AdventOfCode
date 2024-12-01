@@ -10,7 +10,7 @@ public class Day08 : IAoCRunner<Parsed, long>
         .Split(l => l.Length == 0)
         .Fold((rawSequence, rawMaps) =>
         {
-            var sequence = rawSequence.First();
+            var sequence = rawSequence[0];
 
             var maps = rawMaps
                 .Select(m => (m[..3], m[7..10], m[12..15]))

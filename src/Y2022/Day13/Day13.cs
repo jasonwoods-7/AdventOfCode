@@ -15,9 +15,9 @@ public class Day13 : IAoCRunner<IEnumerable<(Packet, Packet)>, int>
             .Index()
             .Choose(kvp =>
             {
-                var (p1, p2) = kvp.item;
+                var (p1, p2) = kvp.Item;
 
-                return (comparer.Compare(p1, p2) == -1, kvp.index + 1);
+                return (comparer.Compare(p1, p2) == -1, kvp.Index + 1);
             })
             .Sum();
     }
@@ -33,7 +33,7 @@ public class Day13 : IAoCRunner<IEnumerable<(Packet, Packet)>, int>
             .SelectMany(t => new[] { t.Item1, t.Item2 })
             .Order(comparer)
             .Index()
-            .Choose(p => (ReferenceEquals(p.item, decoder1) || ReferenceEquals(p.item, decoder2), p.index + 1))
+            .Choose(p => (ReferenceEquals(p.Item, decoder1) || ReferenceEquals(p.Item, decoder2), p.Index + 1))
             .Product();
     }
 }

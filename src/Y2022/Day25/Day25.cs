@@ -14,11 +14,11 @@ public class Day25 : IAoCRunner<IEnumerable<long>, string>
     static long FromSnafu(string snafu) => snafu
         .Reverse()
         .Index()
-        .Sum(t => (long)Math.Pow(5, t.index) * t.item switch
+        .Sum(t => (long)Math.Pow(5, t.Index) * t.Item switch
         {
             '=' => -2,
             '-' => -1,
-            _ => t.item - '0'
+            _ => t.Item - '0'
         });
 
     static string ToSnafu(long number)

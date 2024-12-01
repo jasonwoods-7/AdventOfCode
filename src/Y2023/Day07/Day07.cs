@@ -12,5 +12,5 @@ public class Day07 : IAoCRunner<IEnumerable<string>, int>
         .Select(l => Hand.ParseHand(l, jCard))
         .Order()
         .Index(1)
-        .Sum(t => t.index * t.item.Bet);
+        .Sum(t => t.Index * t.Item.Bet);
 }

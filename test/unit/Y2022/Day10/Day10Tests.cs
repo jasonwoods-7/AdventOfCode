@@ -2,7 +2,6 @@ namespace AoC.Tests.Y2022.Day10;
 
 [SuppressMessage("ReSharper", "AsyncApostle.AsyncMethodNamingHighlighting")]
 [SuppressMessage("ReSharper", "AsyncApostle.ConfigureAwaitHighlighting")]
-[UsesVerify]
 public class Day10Tests : AoCRunnerTests<AoC.Y2022.Day10.Day10>
 {
     [Fact]
