@@ -4,10 +4,11 @@ public class Day01 : IAoCRunner<(IReadOnlyList<int>, IReadOnlyList<int>), int>
 {
     public (IReadOnlyList<int>, IReadOnlyList<int>) ParseInput(IEnumerable<string> puzzleInput) =>
         puzzleInput
-            .SelectMany(s => s.FindNumbers<int>())
+            .SelectMany(static s => s.FindNumbers<int>())
             .Index()
-            .Partition(t => (t.Index & 1) == 0)
-            .Apply(r => (r.True.Select(t => t.Item).ToList(), r.False.Select(t => t.Item).ToList()));
+            .Partition(
+                static t => (t.Index & 1) == 0,
+                static (t, f) => (t.Select(static i => i.Item).ToList(), f.Select(static i => i.Item).ToList()));
 
     public int RunPart1((IReadOnlyList<int>, IReadOnlyList<int>) input)
     {
@@ -15,7 +16,7 @@ public class Day01 : IAoCRunner<(IReadOnlyList<int>, IReadOnlyList<int>), int>
         var right = input.Item2.Order().ToList();
 
         return left
-            .Zip(right, (l, r) => Math.Abs(l - r))
+            .Zip(right, static (l, r) => Math.Abs(l - r))
             .Sum();
     }
 
@@ -23,8 +24,8 @@ public class Day01 : IAoCRunner<(IReadOnlyList<int>, IReadOnlyList<int>), int>
     {
         var left = input.Item1;
         var right = input.Item2
-            .GroupBy(i => i)
-            .ToDictionary(g => g.Key, g => g.Count());
+            .GroupBy(static i => i)
+            .ToDictionary(static g => g.Key, static g => g.Count());
 
         return left.Sum(i =>
         {
