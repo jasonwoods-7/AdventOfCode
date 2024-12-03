@@ -29,7 +29,7 @@ public static partial class InputHelpers
             };
         });
 
-    [GeneratedRegex(@"Y(\d+)[/\\]Day(\d+)")]
+    [GeneratedRegex(@"Y(?<year>\d+)[/\\]Day(?<day>\d+)", RegexOptions.ExplicitCapture, 1_000)]
     private static partial Regex PathRegex();
 
     public static async Task<IEnumerable<string>> ReadInputFileAsync(
@@ -62,8 +62,8 @@ public static partial class InputHelpers
 
     static async Task DownloadInputAsync(string session, Match match, string fullFileName)
     {
-        var year = match.Groups[1].Value;
-        var day = match.Groups[2].Value.TrimStart('0');
+        var year = match.Groups["year"].Value;
+        var day = match.Groups["day"].Value.TrimStart('0');
 
         var response = await HttpClient(session)
             .GetAsync($"{year}/day/{day}/input");
