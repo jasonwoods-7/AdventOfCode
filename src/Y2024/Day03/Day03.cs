@@ -5,7 +5,7 @@ public partial class Day03 : IAoCRunner<IReadOnlyList<string>, int>
     [GeneratedRegex(@"mul\((\d{1,3}),(\d{1,3})\)")]
     private partial Regex Part1Instructions();
 
-    [GeneratedRegex(@"mul\((\d{1,3}),(\d{1,3})\)|do\(\)|don't\(\)")]
+    [GeneratedRegex(@"mul\((\d{1,3}),(\d{1,3})\)|do(?:n't)?\(\)")]
     private partial Regex Part2Instructions();
 
     public IReadOnlyList<string> ParseInput(IEnumerable<string> puzzleInput) => puzzleInput.ToList();
