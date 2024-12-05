@@ -59,6 +59,13 @@ public readonly record struct Coord(long X, long Y)
         new(-value.X, -value.Y);
 }
 
+public readonly record struct Bounds(Coord TopLeft, Coord BottomRight)
+{
+    public bool WithinBounds(Coord coord) =>
+        TopLeft.X <= coord.X && coord.X <= BottomRight.X &&
+        TopLeft.Y <= coord.Y && coord.Y <= BottomRight.Y;
+}
+
 [DebuggerDisplay("({X}, {Y}, {Z})")]
 public readonly record struct Coord3d(long X, long Y, long Z)
     : IAdditiveIdentity<Coord3d, Coord3d>
