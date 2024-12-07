@@ -13,39 +13,20 @@ public class Day07 : IAoCRunner<ParsedInput, long>
         })
         .Apply(eqs => new ParsedInput(eqs.ToList()));
 
-    public long RunPart1(ParsedInput input) => input
+    public long RunPart1(ParsedInput input) => Solver(input, (cur, c) => [c * cur, c + cur]);
+
+    public long RunPart2(ParsedInput input) => Solver(input, (cur, c) => [c * cur, c + cur, $"{c}{cur}".ParseNumber<long>()]);
+
+    static long Solver(ParsedInput input, Func<long, long, long[]> next) => input
         .Equations
         .Choose(eq =>
-        {
-            var head = eq.Values.Head();
-            var tail = eq.Values.Tail();
-
-            var values = tail
+            (eq.Values.Tail()
                 .Aggregate(
-                    new List<long> { head },
+                    new List<long> { eq.Values.Head() },
                     (res, cur) => res
-                        .SelectMany(c => new[] { c * cur, c + cur })
-                        .ToList());
-
-            return (values.Contains(eq.Result), eq.Result);
-        })
-        .Sum();
-
-    public long RunPart2(ParsedInput input) => input
-        .Equations
-        .Choose(eq =>
-        {
-            var head = eq.Values.Head();
-            var tail = eq.Values.Tail();
-
-            var values = tail
-                .Aggregate(
-                    new List<long> { head },
-                    (res, cur) => res
-                        .SelectMany(c => new[] { c * cur, c + cur, $"{c}{cur}".ParseNumber<long>() })
-                        .ToList());
-
-            return (values.Contains(eq.Result), eq.Result);
-        })
+                        .SelectMany(c => next(cur, c))
+                        .ToList())
+                .Contains(eq.Result),
+            eq.Result))
         .Sum();
 }
