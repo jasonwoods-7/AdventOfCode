@@ -21,15 +21,12 @@ public class Day02 : IAoCRunner<IReadOnlyList<Report>, int>
             .Any(IsReportSafe));
 
     static bool IsReportSafe(IReadOnlyList<int> levels) => levels
-        .Zip(levels.Skip(1), (x, y) => (Math.Abs(x - y) is 1 or 2 or 3, x < y))
-        .Aggregate((true, 0), (res, t) =>
+        .Zip(levels.Skip(1), (x, y) => (Math.Abs(x - y) is 1 or 2 or 3, x < y ? 1 : -1))
+        .Aggregate((res, t) => res switch
         {
-            return res switch
-            {
-                (true, -1) => (t is { Item1: true, Item2: false }, -1),
-                (true, 0) => (t.Item1, t.Item2 ? 1 : -1),
-                (true, 1) => (t is { Item1: true, Item2: true }, 1),
-                _ => res
-            };
-        }, res => res.Item1);
+            (true, -1) => (t is { Item1: true, Item2: -1 }, -1),
+            (true, 1) => (t is { Item1: true, Item2: 1 }, 1),
+            _ => res
+        })
+        .Item1;
 }
