@@ -19,14 +19,12 @@ public class Day07 : IAoCRunner<ParsedInput, long>
 
     static long Solver(ParsedInput input, Func<long, long, long[]> next) => input
         .Equations
-        .Choose(eq =>
-            (eq.Values.Tail()
-                .Aggregate(
-                    new List<long> { eq.Values.Head() },
-                    (res, cur) => res
-                        .SelectMany(c => next(cur, c))
-                        .ToList())
-                .Contains(eq.Result),
-            eq.Result))
-        .Sum();
+        .Where(eq => eq.Values.Tail()
+            .Aggregate(
+                new List<long> { eq.Values.Head() },
+                (res, cur) => res
+                    .SelectMany(c => next(cur, c))
+                    .ToList())
+            .Contains(eq.Result))
+        .Sum(eq => eq.Result);
 }
