@@ -61,6 +61,11 @@ public readonly record struct Coord(long X, long Y)
 
 public readonly record struct Bounds(Coord TopLeft, Coord BottomRight)
 {
+    public static Bounds FindBounds(IEnumerable<Coord> coords) => coords.Aggregate(
+        (minX: long.MaxValue, maxX: long.MinValue, minY: long.MaxValue, maxY: long.MinValue),
+        (res, cur) => (Math.Min(res.minX, cur.X), Math.Max(res.maxX, cur.X), Math.Min(res.minY, cur.Y), Math.Max(res.maxY, cur.Y)),
+        res => new Bounds((res.minX, res.minY), (res.maxX, res.maxY)));
+
     public bool WithinBounds(Coord coord) =>
         TopLeft.X <= coord.X && coord.X <= BottomRight.X &&
         TopLeft.Y <= coord.Y && coord.Y <= BottomRight.Y;

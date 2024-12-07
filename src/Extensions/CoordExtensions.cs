@@ -31,6 +31,24 @@ public static class CoordExtensions
         yield return source.Below();
     }
 
+    public static Coord TurnRight(this Coord source) => source switch
+    {
+        (0, -1) => Coord.Right, // Up -> Right
+        (1, 0) => Coord.Down,   // Right -> Down
+        (0, 1) => Coord.Left,   // Down -> Left
+        (-1, 0) => Coord.Up,    // Left -> Up
+        _ => throw new InvalidOperationException()
+    };
+
+    public static Coord TurnLeft(this Coord source) => source switch
+    {
+        (0, -1) => Coord.Left,  // Up -> Left
+        (-1, 0) => Coord.Down,  // Left -> Down
+        (0, 1) => Coord.Right,  // Down -> Right
+        (1, 0) => Coord.Up,     // Right -> Up
+        _ => throw new InvalidOperationException()
+    };
+
     public static IEnumerable<Coord3d> Adjacent(this Coord3d source)
     {
         var dimensions = new[] { -1, 0, 1 };
