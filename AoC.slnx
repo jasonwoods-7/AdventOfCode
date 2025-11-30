@@ -1,0 +1,9 @@
+<Solution>
+    <Folder Name="/Solution Items/">
+        <File Path=".editorconfig" />
+        <File Path=".gitattributes" />
+        <File Path=".gitignore" />
+    </Folder>
+    <Project Path="src/AoC.csproj" />
+    <Project Path="test/unit/AoC.Tests.csproj" />
+</Solution>

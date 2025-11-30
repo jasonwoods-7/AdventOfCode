@@ -2,9 +2,8 @@
 
 public class Day16 : IAoCRunner<char[][], int>
 {
-    public char[][] ParseInput(IEnumerable<string> puzzleInput) => puzzleInput
-        .Select(y => y.ToCharArray())
-        .ToArray();
+    public char[][] ParseInput(IEnumerable<string> puzzleInput) =>
+        puzzleInput.Select(y => y.ToCharArray()).ToArray();
 
     public int RunPart1(char[][] input) =>
         CountEnergized(input, new Beam(new Coord(0, 0), Beam.East));
@@ -17,15 +16,13 @@ public class Day16 : IAoCRunner<char[][], int>
         return Enumerable
             .Range(0, maxX)
             .Select(x => new Beam(new Coord(x, 0), Beam.South))
-            .Concat(Enumerable
-                .Range(0, maxX)
-                .Select(x => new Beam(new Coord(x, maxY - 1), Beam.North)))
-            .Concat(Enumerable
-                .Range(0, maxY)
-                .Select(y => new Beam(new Coord(0, y), Beam.East)))
-            .Concat(Enumerable
-                .Range(0, maxY)
-                .Select(y => new Beam(new Coord(maxX - 1, y), Beam.West)))
+            .Concat(
+                Enumerable.Range(0, maxX).Select(x => new Beam(new Coord(x, maxY - 1), Beam.North))
+            )
+            .Concat(Enumerable.Range(0, maxY).Select(y => new Beam(new Coord(0, y), Beam.East)))
+            .Concat(
+                Enumerable.Range(0, maxY).Select(y => new Beam(new Coord(maxX - 1, y), Beam.West))
+            )
             .Max(b => CountEnergized(input, b));
     }
 
@@ -43,12 +40,20 @@ public class Day16 : IAoCRunner<char[][], int>
 
         while (beams.TryDequeue(out var currentBeam))
         {
-            if (0 <= currentBeam.Current.X && currentBeam.Current.X < maxX &&
-                0 <= currentBeam.Current.Y && currentBeam.Current.Y < maxY)
+            if (
+                0 <= currentBeam.Current.X
+                && currentBeam.Current.X < maxX
+                && 0 <= currentBeam.Current.Y
+                && currentBeam.Current.Y < maxY
+            )
             {
                 energized.Add(currentBeam.Current);
 
-                foreach (var next in currentBeam.Advance(map[currentBeam.Current.Y][currentBeam.Current.X]))
+                foreach (
+                    var next in currentBeam.Advance(
+                        map[currentBeam.Current.Y][currentBeam.Current.X]
+                    )
+                )
                 {
                     if (loopDetector.Add(next))
                     {

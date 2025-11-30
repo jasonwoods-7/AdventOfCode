@@ -8,5 +8,5 @@ enum HandKind
     ThreeOfAKind,
     FullHouse,
     FourOfAKind,
-    FiveOfAKind
+    FiveOfAKind,
 }

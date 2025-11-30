@@ -6,17 +6,13 @@ sealed class Leaf : Tree
     readonly long _value;
 
     public Leaf(string name, long value)
-        : base(name) =>
-        _value = value;
+        : base(name) => _value = value;
 
     /// <inheritdoc />
     public override long CalculateValue() => _value;
 
     /// <inheritdoc />
-    public override Tree? Find(string name) =>
-        Name == name
-            ? this
-            : null;
+    public override Tree? Find(string name) => Name == name ? this : null;
 
     public override string DebuggerDisplay() => $"{_value}";
 

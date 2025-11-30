@@ -1,7 +1,6 @@
 ﻿namespace AoC.Y2023.Day19;
 
-public record Part
-(
+public record Part(
     [property: UsedImplicitly] int X,
     [property: UsedImplicitly] int M,
     [property: UsedImplicitly] int A,

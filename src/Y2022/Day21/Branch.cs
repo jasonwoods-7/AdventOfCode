@@ -17,22 +17,22 @@ sealed class Branch : Tree
     }
 
     /// <inheritdoc />
-    public override long CalculateValue() => _binaryOperator switch
-    {
-        '+' => Left.CalculateValue() + Right.CalculateValue(),
-        '-' => Left.CalculateValue() - Right.CalculateValue(),
-        '*' => Left.CalculateValue() * Right.CalculateValue(),
-        '/' => Divide(Left.CalculateValue(), Right.CalculateValue()),
-        _ => throw new InvalidOperationException()
-    };
+    public override long CalculateValue() =>
+        _binaryOperator switch
+        {
+            '+' => Left.CalculateValue() + Right.CalculateValue(),
+            '-' => Left.CalculateValue() - Right.CalculateValue(),
+            '*' => Left.CalculateValue() * Right.CalculateValue(),
+            '/' => Divide(Left.CalculateValue(), Right.CalculateValue()),
+            _ => throw new InvalidOperationException(),
+        };
 
     /// <inheritdoc />
     public override Tree? Find(string name) =>
-        Name == name
-            ? this
-            : Left.Find(name) ?? Right.Find(name);
+        Name == name ? this : Left.Find(name) ?? Right.Find(name);
 
-    public override string DebuggerDisplay() => $"({Left.DebuggerDisplay()} {_binaryOperator} {Right.DebuggerDisplay()})";
+    public override string DebuggerDisplay() =>
+        $"({Left.DebuggerDisplay()} {_binaryOperator} {Right.DebuggerDisplay()})";
 
     /// <inheritdoc />
     public override long FindHumanValue(long value, Tree human)
@@ -50,21 +50,25 @@ sealed class Branch : Tree
         return (Left.Find(human.Name), Right.Find(human.Name)) switch
         {
             ({ }, null) => Left.FindHumanValue(Inverse(value, Right.CalculateValue(), true), human),
-            (null, { }) => Right.FindHumanValue(Inverse(value, Left.CalculateValue(), false), human),
-            _ => throw new InvalidOperationException()
+            (null, { }) => Right.FindHumanValue(
+                Inverse(value, Left.CalculateValue(), false),
+                human
+            ),
+            _ => throw new InvalidOperationException(),
         };
     }
 
-    long Inverse(long left, long right, bool isLeft) => (_binaryOperator, isLeft) switch
-    {
-        ('+', _) => left - right,
-        ('-', true) => left + right,
-        ('-', false) => right - left,
-        ('*', _) => Divide(left, right),
-        ('/', true) => left * right,
-        ('/', false) => Divide(right, left),
-        _ => throw new InvalidOperationException()
-    };
+    long Inverse(long left, long right, bool isLeft) =>
+        (_binaryOperator, isLeft) switch
+        {
+            ('+', _) => left - right,
+            ('-', true) => left + right,
+            ('-', false) => right - left,
+            ('*', _) => Divide(left, right),
+            ('/', true) => left * right,
+            ('/', false) => Divide(right, left),
+            _ => throw new InvalidOperationException(),
+        };
 
     static long Divide(long left, long right)
     {

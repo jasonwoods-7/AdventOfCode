@@ -16,11 +16,11 @@ public class Day07 : IAoCRunner<Directory, int>
             else if (command.StartsWith("$ cd ", StringComparison.Ordinal))
             {
                 var newDirectory = command[5..];
-                currentDirectory = currentDirectory.Subdirectories.First(d => d.Name == newDirectory);
+                currentDirectory = currentDirectory.Subdirectories.First(d =>
+                    d.Name == newDirectory
+                );
             }
-            else if (command == "$ ls")
-            {
-            }
+            else if (command == "$ ls") { }
             else if (command.StartsWith("dir ", StringComparison.Ordinal))
             {
                 var name = command[4..];
@@ -29,26 +29,23 @@ public class Day07 : IAoCRunner<Directory, int>
             else
             {
                 var split = command.Split(" ");
-                currentDirectory.Files.Add((split[1], int.Parse(split[0], CultureInfo.CurrentCulture)));
+                currentDirectory.Files.Add(
+                    (split[1], int.Parse(split[0], CultureInfo.CurrentCulture))
+                );
             }
         }
 
         return root;
     }
 
-    public int RunPart1(Directory input) => SubdirectorySizes(input)
-        .Where(s => s < 100_000)
-        .Sum();
+    public int RunPart1(Directory input) => SubdirectorySizes(input).Where(s => s < 100_000).Sum();
 
     public int RunPart2(Directory input)
     {
         var freeSpace = 70_000_000 - input.CalculateSize();
         var requiredSpace = 30_000_000 - freeSpace;
 
-        return SubdirectorySizes(input)
-            .Where(s => s >= requiredSpace)
-            .Order()
-            .First();
+        return SubdirectorySizes(input).Where(s => s >= requiredSpace).Order().First();
     }
 
     static IEnumerable<int> SubdirectorySizes(Directory current)

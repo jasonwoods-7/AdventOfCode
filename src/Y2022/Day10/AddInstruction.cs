@@ -4,10 +4,8 @@ public class AddInstruction : IInstruction
 {
     public int AddValue { get; }
 
-    public AddInstruction(int value) =>
-        AddValue = value;
+    public AddInstruction(int value) => AddValue = value;
 
     public T Accept<T>(T visitor)
-        where T : IInstructionVisitor<T> =>
-        visitor.VisitAdd(this);
+        where T : IInstructionVisitor<T> => visitor.VisitAdd(this);
 }

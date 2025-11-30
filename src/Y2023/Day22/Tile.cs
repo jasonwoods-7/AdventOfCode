@@ -29,15 +29,18 @@ public class Tile
 
         var fall = 1;
 
-        while (Start.Z - fall >= 1 && Blocks.All(c =>
-               {
-                   if (allTiles.TryGetValue(c with { Z = c.Z - fall }, out var tile))
-                   {
-                       return tile == this;
-                   }
+        while (
+            Start.Z - fall >= 1
+            && Blocks.All(c =>
+            {
+                if (allTiles.TryGetValue(c with { Z = c.Z - fall }, out var tile))
+                {
+                    return tile == this;
+                }
 
-                   return true;
-               }))
+                return true;
+            })
+        )
         {
             fall++;
         }
@@ -45,6 +48,5 @@ public class Tile
         return fall - 1;
     }
 
-    public Tile Fall(long count) =>
-        new(Start - (0, 0, count), End - (0, 0, count));
+    public Tile Fall(long count) => new(Start - (0, 0, count), End - (0, 0, count));
 }

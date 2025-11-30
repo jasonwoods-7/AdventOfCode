@@ -2,10 +2,10 @@ namespace AoC.Y2022.Day13;
 
 public class Day13 : IAoCRunner<IEnumerable<(Packet, Packet)>, int>
 {
-    public IEnumerable<(Packet, Packet)> ParseInput(IEnumerable<string> puzzleInput) => puzzleInput
-        .Split(l => l == string.Empty)
-        .Select(ls => ls
-            .Fold((p1, p2) => (Packet.ParsePacket(p1), Packet.ParsePacket(p2))));
+    public IEnumerable<(Packet, Packet)> ParseInput(IEnumerable<string> puzzleInput) =>
+        puzzleInput
+            .Split(l => l == string.Empty)
+            .Select(ls => ls.Fold((p1, p2) => (Packet.ParsePacket(p1), Packet.ParsePacket(p2))));
 
     public int RunPart1(IEnumerable<(Packet, Packet)> input)
     {
@@ -33,7 +33,12 @@ public class Day13 : IAoCRunner<IEnumerable<(Packet, Packet)>, int>
             .SelectMany(t => new[] { t.Item1, t.Item2 })
             .Order(comparer)
             .Index()
-            .Choose(p => (ReferenceEquals(p.Item, decoder1) || ReferenceEquals(p.Item, decoder2), p.Index + 1))
+            .Choose(p =>
+                (
+                    ReferenceEquals(p.Item, decoder1) || ReferenceEquals(p.Item, decoder2),
+                    p.Index + 1
+                )
+            )
             .Product();
     }
 }

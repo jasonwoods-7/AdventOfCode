@@ -4,8 +4,8 @@ static class AoCRunnerExtensions
 {
     public static TInput ParseInput<TInput, TResult>(
         this IAoCRunner<TInput, TResult> source,
-        string input) =>
-        source.ParseInput(Lines(input));
+        string input
+    ) => source.ParseInput(Lines(input));
 
     static IEnumerable<string> Lines(string input)
     {

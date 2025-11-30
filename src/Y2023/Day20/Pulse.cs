@@ -3,5 +3,5 @@
 public enum Pulse
 {
     Low,
-    High
+    High,
 }

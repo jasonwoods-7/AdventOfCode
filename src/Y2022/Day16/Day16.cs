@@ -5,19 +5,20 @@ public partial class Day16 : IAoCRunner<IReadOnlyDictionary<string, Valve>, int>
     [GeneratedRegex(@"^Valve (\w+) has flow rate=(\d+); tunnels? leads? to valves? (.*)$")]
     private static partial Regex ParseRegex();
 
-    public IReadOnlyDictionary<string, Valve> ParseInput(IEnumerable<string> puzzleInput) => puzzleInput
-        .Select(static l =>
-        {
-            var match1 = ParseRegex().Match(l);
-            Debug.Assert(match1.Success);
+    public IReadOnlyDictionary<string, Valve> ParseInput(IEnumerable<string> puzzleInput) =>
+        puzzleInput
+            .Select(static l =>
+            {
+                var match1 = ParseRegex().Match(l);
+                Debug.Assert(match1.Success);
 
-            var name = match1.Groups[1].Value;
-            var flowRate = int.Parse(match1.Groups[2].Value, CultureInfo.CurrentCulture);
-            var connected = match1.Groups[3].Value.Split(", ");
+                var name = match1.Groups[1].Value;
+                var flowRate = int.Parse(match1.Groups[2].Value, CultureInfo.CurrentCulture);
+                var connected = match1.Groups[3].Value.Split(", ");
 
-            return new Valve(name, flowRate, connected);
-        })
-        .ToDictionary(v => v.Name);
+                return new Valve(name, flowRate, connected);
+            })
+            .ToDictionary(v => v.Name);
 
     public int RunPart1(IReadOnlyDictionary<string, Valve> input) => Solve(input, 30, true);
 
@@ -26,19 +27,17 @@ public partial class Day16 : IAoCRunner<IReadOnlyDictionary<string, Valve>, int>
     static int Solve(
         IReadOnlyDictionary<string, Valve> valves,
         int timeRemaining,
-        bool singleWorker)
+        bool singleWorker
+    )
     {
         var start = valves["AA"];
 
         var valvesToVisit = valves
-            .Values
-            .Where(v => v.FlowRate != 0)
+            .Values.Where(v => v.FlowRate != 0)
             .OrderByDescending(v => v.FlowRate)
             .ToList();
 
-        var unopenedValves = valvesToVisit
-            .Select(v => v.Name)
-            .ToImmutableHashSet();
+        var unopenedValves = valvesToVisit.Select(v => v.Name).ToImmutableHashSet();
 
         var distanceFinder = new DistanceFinder(valves);
 
@@ -50,7 +49,8 @@ public partial class Day16 : IAoCRunner<IReadOnlyDictionary<string, Valve>, int>
             distanceFinder.DistanceToValve,
             0,
             0,
-            timeRemaining);
+            timeRemaining
+        );
     }
 
     static int FindMaxFlowRate(
@@ -61,14 +61,15 @@ public partial class Day16 : IAoCRunner<IReadOnlyDictionary<string, Valve>, int>
         Func<Valve, Valve, int> distanceToValve,
         int currentFlowRate,
         int maxFlowRate,
-        int timeRemaining)
+        int timeRemaining
+    )
     {
         Debug.Assert(worker1.Distance == 0 || worker2.Distance == 0);
 
         var nextWorkers = new IReadOnlyList<Worker>[]
         {
             System.Array.Empty<Worker>(),
-            System.Array.Empty<Worker>()
+            System.Array.Empty<Worker>(),
         };
 
         for (var worker = 0; worker < 2; ++worker)
@@ -77,7 +78,13 @@ public partial class Day16 : IAoCRunner<IReadOnlyDictionary<string, Valve>, int>
 
             if (currentWorker.Distance > 0)
             {
-                nextWorkers[worker] = new[] { currentWorker with { Distance = currentWorker.Distance - 1 } };
+                nextWorkers[worker] = new[]
+                {
+                    currentWorker with
+                    {
+                        Distance = currentWorker.Distance - 1,
+                    },
+                };
             }
             else if (unopenedValves.Contains(currentWorker.Valve.Name))
             {
@@ -107,7 +114,10 @@ public partial class Day16 : IAoCRunner<IReadOnlyDictionary<string, Valve>, int>
             return maxFlowRate;
         }
 
-        if (currentFlowRate + MaxPossibleRemaining(valvesToVisit, unopenedValves, timeRemaining) <= maxFlowRate)
+        if (
+            currentFlowRate + MaxPossibleRemaining(valvesToVisit, unopenedValves, timeRemaining)
+            <= maxFlowRate
+        )
         {
             return maxFlowRate;
         }
@@ -121,7 +131,10 @@ public partial class Day16 : IAoCRunner<IReadOnlyDictionary<string, Valve>, int>
                     continue;
                 }
 
-                var (worker1Next, worker2Next, distance) = FindNextPositions(nextWorker1, nextWorker2);
+                var (worker1Next, worker2Next, distance) = FindNextPositions(
+                    nextWorker1,
+                    nextWorker2
+                );
 
                 maxFlowRate = FindMaxFlowRate(
                     worker1Next,
@@ -131,7 +144,8 @@ public partial class Day16 : IAoCRunner<IReadOnlyDictionary<string, Valve>, int>
                     distanceToValve,
                     currentFlowRate,
                     maxFlowRate,
-                    timeRemaining - distance);
+                    timeRemaining - distance
+                );
             }
         }
 
@@ -141,7 +155,8 @@ public partial class Day16 : IAoCRunner<IReadOnlyDictionary<string, Valve>, int>
     static int MaxPossibleRemaining(
         IReadOnlyList<Valve> valves,
         ImmutableHashSet<string> unopenedValves,
-        int timeRemaining)
+        int timeRemaining
+    )
     {
         var flow = 0;
 
@@ -175,8 +190,15 @@ public partial class Day16 : IAoCRunner<IReadOnlyDictionary<string, Valve>, int>
         var distance = Math.Min(worker1.Distance, worker2.Distance);
 
         return (
-            worker1 with { Distance = worker1.Distance - distance },
-            worker2 with { Distance = worker2.Distance - distance },
-            distance);
+            worker1 with
+            {
+                Distance = worker1.Distance - distance,
+            },
+            worker2 with
+            {
+                Distance = worker2.Distance - distance,
+            },
+            distance
+        );
     }
 }

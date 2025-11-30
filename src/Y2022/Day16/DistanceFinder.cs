@@ -13,9 +13,10 @@ sealed class DistanceFinder
 
     public int DistanceToValve(Valve start, Valve end) => _findDistance((start, end));
 
-    int InternalDistanceToValve((Valve start, Valve end) valves) => SuperEnumerable
-        .GetShortestPathCost<Valve, int>(
+    int InternalDistanceToValve((Valve start, Valve end) valves) =>
+        SuperEnumerable.GetShortestPathCost<Valve, int>(
             valves.start,
             (v, c) => v.ConnectedValves.Select(n => (_valves[n], c + 1)),
-            valves.end);
+            valves.end
+        );
 }

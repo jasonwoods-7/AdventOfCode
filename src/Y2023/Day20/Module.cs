@@ -33,5 +33,9 @@ public abstract partial record Module
         return SendInternal(sender, pulse, buttonPress);
     }
 
-    protected abstract IEnumerable<(string, string, Pulse)> SendInternal(string sender, Pulse pulse, long buttonPress);
+    protected abstract IEnumerable<(string, string, Pulse)> SendInternal(
+        string sender,
+        Pulse pulse,
+        long buttonPress
+    );
 }

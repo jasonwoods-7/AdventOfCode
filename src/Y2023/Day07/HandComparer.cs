@@ -1,7 +1,6 @@
 ﻿namespace AoC.Y2023.Day07;
 
-partial record Hand
-    : IComparable<Hand>
+partial record Hand : IComparable<Hand>
 {
     /// <inheritdoc />
     public int CompareTo(Hand? other)
@@ -29,20 +28,14 @@ partial record Hand
     }
 
     public static bool operator <(Hand left, Hand right) =>
-        ReferenceEquals(left, null)
-            ? !ReferenceEquals(right, null)
-            : left.CompareTo(right) < 0;
+        ReferenceEquals(left, null) ? !ReferenceEquals(right, null) : left.CompareTo(right) < 0;
 
     public static bool operator <=(Hand left, Hand right) =>
-        ReferenceEquals(left, null) ||
-        left.CompareTo(right) <= 0;
+        ReferenceEquals(left, null) || left.CompareTo(right) <= 0;
 
     public static bool operator >(Hand left, Hand right) =>
-        !ReferenceEquals(left, null) &&
-        left.CompareTo(right) > 0;
+        !ReferenceEquals(left, null) && left.CompareTo(right) > 0;
 
     public static bool operator >=(Hand left, Hand right) =>
-        ReferenceEquals(left, null)
-            ? ReferenceEquals(right, null)
-            : left.CompareTo(right) >= 0;
+        ReferenceEquals(left, null) ? ReferenceEquals(right, null) : left.CompareTo(right) >= 0;
 }

@@ -5,10 +5,11 @@ namespace AoC.Y2023.Day14;
 
 public class Day14(ILogger<Day14> logger) : IAoCRunner<Dish, long>
 {
-    public Dish ParseInput(IEnumerable<string> puzzleInput) => puzzleInput
-        .Index()
-        .SelectMany(y => y.Item.Select((c, x) => (new Coord(x, y.Index), c)))
-        .ToDictionary();
+    public Dish ParseInput(IEnumerable<string> puzzleInput) =>
+        puzzleInput
+            .Index()
+            .SelectMany(y => y.Item.Select((c, x) => (new Coord(x, y.Index), c)))
+            .ToDictionary();
 
     public long RunPart1(Dish input)
     {
@@ -42,14 +43,16 @@ public class Day14(ILogger<Day14> logger) : IAoCRunner<Dish, long>
             }
 
 #pragma warning disable CA1848
-            logger.LogDebug("{Line}", builder.ToString());
+            if (logger.IsEnabled(LogLevel.Debug))
+            {
+                logger.LogDebug("{Line}", builder.ToString());
+            }
 #pragma warning restore CA1848
         }
     }
 
-    static long Score(Dish dish, long max) => dish
-        .Where(v => v.Value == 'O')
-        .Sum(k => max - k.Key.Y + 1);
+    static long Score(Dish dish, long max) =>
+        dish.Where(v => v.Value == 'O').Sum(k => max - k.Key.Y + 1);
 
     static Dish MultiSpin(Dish dish, long count, long max)
     {
@@ -61,23 +64,36 @@ public class Day14(ILogger<Day14> logger) : IAoCRunner<Dish, long>
         return dish;
     }
 
-    static Dish Spin(Dish dish, long max) => dish
-        .Apply(d => Tilt(d, 0, 1, 0, 1, (h, v) => new Coord(h, v)))
-        .Apply(d => Tilt(d, max, -1, 0, 1, (h, v) => new Coord(v, h)))
-        .Apply(d => Tilt(d, max, -1, max, -1, (h, v) => new Coord(h, v)))
-        .Apply(d => Tilt(d, 0, 1, max, -1, (h, v) => new Coord(v, h)))
-        ;
+    static Dish Spin(Dish dish, long max) =>
+        dish.Apply(d => Tilt(d, 0, 1, 0, 1, (h, v) => new Coord(h, v)))
+            .Apply(d => Tilt(d, max, -1, 0, 1, (h, v) => new Coord(v, h)))
+            .Apply(d => Tilt(d, max, -1, max, -1, (h, v) => new Coord(h, v)))
+            .Apply(d => Tilt(d, 0, 1, max, -1, (h, v) => new Coord(v, h)));
 
-    static Dish Tilt(Dish dish, long hStart, long hInc, long vStart, long vInc, Func<long, long, Coord> createCoord)
+    static Dish Tilt(
+        Dish dish,
+        long hStart,
+        long hInc,
+        long vStart,
+        long vInc,
+        Func<long, long, Coord> createCoord
+    )
     {
-        var nextDish = dish
-            .ToDictionary(k => k.Key, v => v.Value);
+        var nextDish = dish.ToDictionary(k => k.Key, v => v.Value);
 
-        for (var horizontal = hStart; dish.ContainsKey(createCoord(horizontal, 0)); horizontal += hInc)
+        for (
+            var horizontal = hStart;
+            dish.ContainsKey(createCoord(horizontal, 0));
+            horizontal += hInc
+        )
         {
             var lastV = vStart;
 
-            for (var vertical = vStart; dish.ContainsKey(createCoord(0, vertical)); vertical += vInc)
+            for (
+                var vertical = vStart;
+                dish.ContainsKey(createCoord(0, vertical));
+                vertical += vInc
+            )
             {
                 var current = dish[createCoord(horizontal, vertical)];
 

@@ -11,42 +11,50 @@ public record ElfRange(long Start, long Length)
 [DebuggerDisplay("{Source} => {Destination}")]
 public record ElfMap(ElfRange Destination, ElfRange Source)
 {
-    public Option<long> GetDestination(long source) => source switch
-    {
-        _ when Source.InRange(source) => Option<long>.Some(source - Source.Start + Destination.Start),
-        _ => Option<long>.None
-    };
+    public Option<long> GetDestination(long source) =>
+        source switch
+        {
+            _ when Source.InRange(source) => Option<long>.Some(
+                source - Source.Start + Destination.Start
+            ),
+            _ => Option<long>.None,
+        };
 
-    public Option<long> GetSource(long destination) => destination switch
-    {
-        _ when Destination.InRange(destination) => Option<long>.Some(destination - Destination.Start + Source.Start),
-        _ => Option<long>.None
-    };
+    public Option<long> GetSource(long destination) =>
+        destination switch
+        {
+            _ when Destination.InRange(destination) => Option<long>.Some(
+                destination - Destination.Start + Source.Start
+            ),
+            _ => Option<long>.None,
+        };
 }
 
 public record ElfMaps(IReadOnlyList<ElfMap> Ranges)
 {
-    public static ElfMaps ParseMaps(IEnumerable<string> maps) => maps
-        .Select(m => m
-            .FindNumbers<long>()
-            .Fold((ds, ss, l) => new ElfMap(new ElfRange(ds, l), new ElfRange(ss, l))))
-        .Apply(ms => new ElfMaps(ms.OrderBy(m => m.Source.Start).ToList()));
+    public static ElfMaps ParseMaps(IEnumerable<string> maps) =>
+        maps.Select(m =>
+                m.FindNumbers<long>()
+                    .Fold((ds, ss, l) => new ElfMap(new ElfRange(ds, l), new ElfRange(ss, l)))
+            )
+            .Apply(ms => new ElfMaps(ms.OrderBy(m => m.Source.Start).ToList()));
 
-    public long FindDestination(long source) => Ranges
-        .Aggregate(
+    public long FindDestination(long source) =>
+        Ranges.Aggregate(
             Option<long>.None,
             (result, range) => result.BiBind(i => i, () => range.GetDestination(source)),
-            result => result.Match(i => i, () => source));
+            result => result.Match(i => i, () => source)
+        );
 
-    public long FindSource(long destination) => Ranges
-        .Aggregate(
+    public long FindSource(long destination) =>
+        Ranges.Aggregate(
             Option<long>.None,
             (result, range) => result.BiBind(i => i, () => range.GetSource(destination)),
-            result => result.Match(i => i, () => destination));
+            result => result.Match(i => i, () => destination)
+        );
 }
 
-public record Parsed
-(
+public record Parsed(
     IReadOnlyList<long> Seeds,
     ElfMaps SeedToSoilMaps,
     ElfMaps SoilToFertilizerMaps,
@@ -57,37 +65,33 @@ public record Parsed
     ElfMaps HumidityToLocationMaps
 )
 {
-    public long SeedToLocation(long seed) => seed
-        .Apply(SeedToSoilMaps.FindDestination)
-        .Apply(SoilToFertilizerMaps.FindDestination)
-        .Apply(FertilizerToWaterMaps.FindDestination)
-        .Apply(WaterToLightMaps.FindDestination)
-        .Apply(LightToTemperatureMaps.FindDestination)
-        .Apply(TemperatureToHumidityMaps.FindDestination)
-        .Apply(HumidityToLocationMaps.FindDestination);
+    public long SeedToLocation(long seed) =>
+        seed.Apply(SeedToSoilMaps.FindDestination)
+            .Apply(SoilToFertilizerMaps.FindDestination)
+            .Apply(FertilizerToWaterMaps.FindDestination)
+            .Apply(WaterToLightMaps.FindDestination)
+            .Apply(LightToTemperatureMaps.FindDestination)
+            .Apply(TemperatureToHumidityMaps.FindDestination)
+            .Apply(HumidityToLocationMaps.FindDestination);
 
-    public long LocationToSeed(long location) => location
-        .Apply(HumidityToLocationMaps.FindSource)
-        .Apply(TemperatureToHumidityMaps.FindSource)
-        .Apply(LightToTemperatureMaps.FindSource)
-        .Apply(WaterToLightMaps.FindSource)
-        .Apply(FertilizerToWaterMaps.FindSource)
-        .Apply(SoilToFertilizerMaps.FindSource)
-        .Apply(SeedToSoilMaps.FindSource);
+    public long LocationToSeed(long location) =>
+        location
+            .Apply(HumidityToLocationMaps.FindSource)
+            .Apply(TemperatureToHumidityMaps.FindSource)
+            .Apply(LightToTemperatureMaps.FindSource)
+            .Apply(WaterToLightMaps.FindSource)
+            .Apply(FertilizerToWaterMaps.FindSource)
+            .Apply(SoilToFertilizerMaps.FindSource)
+            .Apply(SeedToSoilMaps.FindSource);
 }
 
 public class Day05 : IAoCRunner<Parsed, long>
 {
     public Parsed ParseInput(IEnumerable<string> puzzleInput)
     {
-        var input = puzzleInput
-            .Split(l => l.Length == 0)
-            .Map(l => l.ToList())
-            .ToList();
+        var input = puzzleInput.Split(l => l.Length == 0).Map(l => l.ToList()).ToList();
 
-        var seeds = input[0][0]
-            .FindNumbers<long>()
-            .ToList();
+        var seeds = input[0][0].FindNumbers<long>().ToList();
 
         return new Parsed(
             seeds,
@@ -101,15 +105,12 @@ public class Day05 : IAoCRunner<Parsed, long>
         );
     }
 
-    public long RunPart1(Parsed input) => input
-        .Seeds
-        .Min(input.SeedToLocation);
+    public long RunPart1(Parsed input) => input.Seeds.Min(input.SeedToLocation);
 
     public long RunPart2(Parsed input)
     {
         var ranges = input
-            .Seeds
-            .Batch(2)
+            .Seeds.Batch(2)
             .Select(r => r.Fold((start, length) => new ElfRange(start, length)))
             .ToList();
 

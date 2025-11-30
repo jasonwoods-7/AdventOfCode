@@ -1,21 +1,24 @@
 namespace AoC.Y2022.Day15;
 
 public readonly record struct Part1Data(int Value);
+
 public readonly record struct Part2Data(int Value);
 
-public class Day15(
-    AnyOf<Part1Data, Part2Data> data,
-    ILogger<Day15> logger)
+public class Day15(AnyOf<Part1Data, Part2Data> data, ILogger<Day15> logger)
     : IAoCRunner<IReadOnlyList<(Coord, Coord)>, long>
 {
     readonly AnyOf<Part1Data, Part2Data> _data = data;
+
     // ReSharper disable once UnusedMember.Local
     readonly ILogger<Day15> _logger = logger;
 
-    public IReadOnlyList<(Coord, Coord)> ParseInput(IEnumerable<string> puzzleInput) => puzzleInput
-        .Select(static l => l.FindNumbers<int>())
-        .Select(static ns => ns.Fold(static (sx, sy, bx, by) => (new Coord(sx, sy), new Coord(bx, by))))
-        .ToList();
+    public IReadOnlyList<(Coord, Coord)> ParseInput(IEnumerable<string> puzzleInput) =>
+        puzzleInput
+            .Select(static l => l.FindNumbers<int>())
+            .Select(static ns =>
+                ns.Fold(static (sx, sy, bx, by) => (new Coord(sx, sy), new Coord(bx, by)))
+            )
+            .ToList();
 
     public long RunPart1(IReadOnlyList<(Coord, Coord)> input)
     {
@@ -43,7 +46,9 @@ public class Day15(
                     seenX.Add(signal.X - x);
                 }
 
-                Debug.Assert(new Coord(signal.X + x, signal.Y + y).ManhattanDistanceTo(signal) == distance);
+                Debug.Assert(
+                    new Coord(signal.X + x, signal.Y + y).ManhattanDistanceTo(signal) == distance
+                );
             }
         }
 
@@ -61,8 +66,8 @@ public class Day15(
         return (distressBeacon.X * 4_000_000L) + distressBeacon.Y;
     }
 
-    static bool IsSeen(IReadOnlyList<(Coord, long)> signals, Coord testCoord) => signals
-        .Any(t =>
+    static bool IsSeen(IReadOnlyList<(Coord, long)> signals, Coord testCoord) =>
+        signals.Any(t =>
         {
             var (signal, distance) = t;
 
@@ -85,20 +90,26 @@ public class Day15(
             {
                 var yPos = distanceToEdge - xPos;
 
-                foreach (var coord in new[]
-                         {
-                             new Coord(signal.X + xPos, signal.Y + yPos),
-                             new Coord(signal.X + xPos, signal.Y - yPos),
-                             new Coord(signal.X - xPos, signal.Y + yPos),
-                             new Coord(signal.X - xPos, signal.Y - yPos)
-                         })
+                foreach (
+                    var coord in new[]
+                    {
+                        new Coord(signal.X + xPos, signal.Y + yPos),
+                        new Coord(signal.X + xPos, signal.Y - yPos),
+                        new Coord(signal.X - xPos, signal.Y + yPos),
+                        new Coord(signal.X - xPos, signal.Y - yPos),
+                    }
+                )
                 {
                     foreach (var neighbor in coord.Neighbors())
                     {
-                        if (0 <= neighbor.X && neighbor.X <= max &&
-                            0 <= neighbor.Y && neighbor.Y <= max &&
-                            !IsSeen(distances, neighbor) &&
-                            neighbor.Neighbors().All(n => IsSeen(distances, n)))
+                        if (
+                            0 <= neighbor.X
+                            && neighbor.X <= max
+                            && 0 <= neighbor.Y
+                            && neighbor.Y <= max
+                            && !IsSeen(distances, neighbor)
+                            && neighbor.Neighbors().All(n => IsSeen(distances, n))
+                        )
                         {
                             return neighbor;
                         }

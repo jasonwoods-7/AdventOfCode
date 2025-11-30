@@ -2,16 +2,17 @@
 
 namespace AoC.Y2023.Day10;
 
-public class Day10(ILogger<Day10> logger)
-    : IAoCRunner<IReadOnlyDictionary<Coord, char>, int>
+public class Day10(ILogger<Day10> logger) : IAoCRunner<IReadOnlyDictionary<Coord, char>, int>
 {
-    public IReadOnlyDictionary<Coord, char> ParseInput(IEnumerable<string> puzzleInput) => puzzleInput
-        .Index()
-        .SelectMany(y => y.Item.Select((c, x) => (coord: new Coord(x, y.Index), item: c)))
-        .Where(t => t.item != '.')
-        .ToDictionary(t => t.coord, t => t.item);
+    public IReadOnlyDictionary<Coord, char> ParseInput(IEnumerable<string> puzzleInput) =>
+        puzzleInput
+            .Index()
+            .SelectMany(y => y.Item.Select((c, x) => (coord: new Coord(x, y.Index), item: c)))
+            .Where(t => t.item != '.')
+            .ToDictionary(t => t.coord, t => t.item);
 
-    public int RunPart1(IReadOnlyDictionary<Coord, char> input) => FindPipes(input).Max(v => v.Value);
+    public int RunPart1(IReadOnlyDictionary<Coord, char> input) =>
+        FindPipes(input).Max(v => v.Value);
 
     public int RunPart2(IReadOnlyDictionary<Coord, char> input)
     {
@@ -19,13 +20,15 @@ public class Day10(ILogger<Day10> logger)
 
         var (maxX, maxY) = input.Keys.Aggregate(
             (x: -1L, y: -1L),
-            (max, current) => (current.X > max.x, current.Y > max.y) switch
-            {
-                (true, true) => (current.X, current.Y),
-                (true, false) => (current.X, max.x),
-                (false, true) => (max.x, current.Y),
-                (false, false) => max
-            });
+            (max, current) =>
+                (current.X > max.x, current.Y > max.y) switch
+                {
+                    (true, true) => (current.X, current.Y),
+                    (true, false) => (current.X, max.x),
+                    (false, true) => (max.x, current.Y),
+                    (false, false) => max,
+                }
+        );
 
         var map = new Dictionary<Coord, char>();
 
@@ -73,8 +76,7 @@ public class Day10(ILogger<Day10> logger)
     {
         var (start, startNext, startPrev, _) = FindStart(input);
 
-        var costs = input
-            .ToDictionary(k => k.Key, _ => int.MaxValue);
+        var costs = input.ToDictionary(k => k.Key, _ => int.MaxValue);
         costs[start] = 0;
 
         var queue = new Queue<Coord>();
@@ -88,13 +90,13 @@ public class Day10(ILogger<Day10> logger)
             var (next, prev) = input[current] switch
             {
                 '|' => (current.Above(), current.Below()),
-                '-' => (current.Left() , current.Right()),
+                '-' => (current.Left(), current.Right()),
                 'L' => (current.Above(), current.Right()),
-                'J' => (current.Above(), current.Left() ),
-                '7' => (current.Left() , current.Below()),
+                'J' => (current.Above(), current.Left()),
+                '7' => (current.Left(), current.Below()),
                 'F' => (current.Right(), current.Below()),
-                'S' => (startNext      , startPrev      ),
-                _ => throw new InvalidOperationException()
+                'S' => (startNext, startPrev),
+                _ => throw new InvalidOperationException(),
             };
 
             if (costs.TryGetValue(next, out var nextCost) && cost < nextCost)
@@ -110,30 +112,29 @@ public class Day10(ILogger<Day10> logger)
             }
         }
 
-        return costs
-            .Where(c => c.Value != int.MaxValue)
-            .ToDictionary(k => k.Key, v => v.Value);
+        return costs.Where(c => c.Value != int.MaxValue).ToDictionary(k => k.Key, v => v.Value);
     }
 
-    static (Coord start, Coord next, Coord prev, char value) FindStart(IReadOnlyDictionary<Coord, char> map)
+    static (Coord start, Coord next, Coord prev, char value) FindStart(
+        IReadOnlyDictionary<Coord, char> map
+    )
     {
         var start = map.Choose(t => (t.Value == 'S', t.Key)).First();
 
-        var (next, prev, value) =
-        (
+        var (next, prev, value) = (
             map.GetValueOrDefault(start.Above(), '.') is '|' or '7' or 'F',
             map.GetValueOrDefault(start.Left(), '.') is '-' or 'L' or 'F',
             map.GetValueOrDefault(start.Right(), '.') is '-' or 'J' or '7',
             map.GetValueOrDefault(start.Below(), '.') is '|' or 'L' or 'J'
         ) switch
         {
-            (true, true, false, false) => (start.Above(), start.Left() , 'J'), // above & left match
+            (true, true, false, false) => (start.Above(), start.Left(), 'J'), // above & left match
             (true, false, true, false) => (start.Above(), start.Right(), 'L'), // above & right match
             (true, false, false, true) => (start.Above(), start.Below(), '|'), // above & below match
-            (false, true, true, false) => (start.Left() , start.Right(), '-'), // left & right match
-            (false, true, false, true) => (start.Left() , start.Below(), '7'), // left & below match
+            (false, true, true, false) => (start.Left(), start.Right(), '-'), // left & right match
+            (false, true, false, true) => (start.Left(), start.Below(), '7'), // left & below match
             (false, false, true, true) => (start.Right(), start.Below(), 'F'), // right & below match
-            _ => throw new InvalidOperationException()
+            _ => throw new InvalidOperationException(),
         };
 
         return (start, next, prev, value);
@@ -151,7 +152,10 @@ public class Day10(ILogger<Day10> logger)
             }
 
 #pragma warning disable CA1848
-            logger.LogDebug("{Line}", lineBuilder.ToString());
+            if (logger.IsEnabled(LogLevel.Debug))
+            {
+                logger.LogDebug("{Line}", lineBuilder.ToString());
+            }
 #pragma warning restore CA1848
         }
     }

@@ -31,7 +31,9 @@ public class Day04 : IAoCRunner<ParsedInput, int>
 
                 if (input.Span.At(coord) == 'X')
                 {
-                    xmasCount += searchDirections.Count(d => FindXmas(input, coord + d, d, bounds, xmasSearch));
+                    xmasCount += searchDirections.Count(d =>
+                        FindXmas(input, coord + d, d, bounds, xmasSearch)
+                    );
                 }
             }
         }
@@ -52,13 +54,18 @@ public class Day04 : IAoCRunner<ParsedInput, int>
 
                 if (puzzle.At(coord) == 'A')
                 {
-                    xedMasCount += (puzzle.At(coord.AboveLeft()), puzzle.At(coord.BelowRight()), puzzle.At(coord.AboveRight()), puzzle.At(coord.BelowLeft())) switch
+                    xedMasCount += (
+                        puzzle.At(coord.AboveLeft()),
+                        puzzle.At(coord.BelowRight()),
+                        puzzle.At(coord.AboveRight()),
+                        puzzle.At(coord.BelowLeft())
+                    ) switch
                     {
                         ('M', 'S', 'M', 'S') => 1,
                         ('M', 'S', 'S', 'M') => 1,
                         ('S', 'M', 'M', 'S') => 1,
                         ('S', 'M', 'S', 'M') => 1,
-                        _ => 0
+                        _ => 0,
                     };
                 }
             }
@@ -72,7 +79,8 @@ public class Day04 : IAoCRunner<ParsedInput, int>
         Coord current,
         Coord increment,
         Bounds bounds,
-        ImmutableQueue<char> search)
+        ImmutableQueue<char> search
+    )
     {
         if (search.IsEmpty)
         {
@@ -91,11 +99,6 @@ public class Day04 : IAoCRunner<ParsedInput, int>
             return false;
         }
 
-        return FindXmas(
-            puzzle,
-            current + increment,
-            increment,
-            bounds,
-            rest);
+        return FindXmas(puzzle, current + increment, increment, bounds, rest);
     }
 }

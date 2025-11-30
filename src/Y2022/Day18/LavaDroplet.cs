@@ -4,31 +4,23 @@ public sealed class LavaDroplet
 {
     readonly IReadOnlySet<Coord3d> _points;
 
-    public LavaDroplet(IEnumerable<Coord3d> points) =>
-        _points = points.ToHashSet();
+    public LavaDroplet(IEnumerable<Coord3d> points) => _points = points.ToHashSet();
 
     public int CountFaces() =>
-        _points
-            .SelectMany(c => c.Neighbors())
-            .Count(c => !_points.Contains(c));
+        _points.SelectMany(c => c.Neighbors()).Count(c => !_points.Contains(c));
 
     public int ExternalArea()
     {
         var flood = Flood();
 
-        return _points
-            .SelectMany(c => c.Neighbors())
-            .Count(c => flood.Contains(c));
+        return _points.SelectMany(c => c.Neighbors()).Count(c => flood.Contains(c));
     }
 
     IReadOnlySet<Coord3d> Flood()
     {
         var bounds = FindBounds();
 
-        var flood = new System.Collections.Generic.HashSet<Coord3d>
-        {
-            bounds.Lower
-        };
+        var flood = new System.Collections.Generic.HashSet<Coord3d> { bounds.Lower };
 
         var nextLocations = new Queue<Coord3d>();
         nextLocations.Enqueue(bounds.Lower);
@@ -38,9 +30,11 @@ public sealed class LavaDroplet
             var current = nextLocations.Dequeue();
             foreach (var neighbor in current.Neighbors())
             {
-                if (!flood.Contains(neighbor) &&
-                    bounds.WithinBounds(neighbor) &&
-                    !_points.Contains(neighbor))
+                if (
+                    !flood.Contains(neighbor)
+                    && bounds.WithinBounds(neighbor)
+                    && !_points.Contains(neighbor)
+                )
                 {
                     flood.Add(neighbor);
                     nextLocations.Enqueue(neighbor);

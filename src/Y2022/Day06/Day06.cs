@@ -8,9 +8,10 @@ public class Day06 : IAoCRunner<string, int>
 
     public int RunPart2(string input) => FindStartOfMessageMarker(input, 14);
 
-    static int FindStartOfMessageMarker(string input, int windowSize) => input
-        .Window(windowSize)
-        .Index()
-        .Choose(p => (p.Item.ToHashSet().Count == windowSize, p.Index + windowSize))
-        .First();
+    static int FindStartOfMessageMarker(string input, int windowSize) =>
+        input
+            .Window(windowSize)
+            .Index()
+            .Choose(p => (p.Item.ToHashSet().Count == windowSize, p.Index + windowSize))
+            .First();
 }

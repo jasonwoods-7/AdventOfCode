@@ -51,10 +51,7 @@ sealed class CircularList : IEnumerable<Node>
 
         public CircularListSnapshotEnumerator(Node head)
         {
-            var list = new List<Node>
-            {
-                head
-            };
+            var list = new List<Node> { head };
 
             for (var next = head.Next; next != head; next = next.Next)
             {

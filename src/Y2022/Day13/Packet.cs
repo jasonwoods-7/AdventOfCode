@@ -4,8 +4,7 @@ public class Packet
 {
     public IReadOnlyList<AnyOf<int, Packet>> Data { get; }
 
-    Packet(IReadOnlyList<AnyOf<int, Packet>> data) =>
-        Data = data;
+    Packet(IReadOnlyList<AnyOf<int, Packet>> data) => Data = data;
 
     public static Packet ParsePacket(ReadOnlySpan<char> packet)
     {

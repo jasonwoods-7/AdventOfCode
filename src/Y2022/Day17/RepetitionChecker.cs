@@ -6,7 +6,11 @@ partial class Day17
 {
     readonly Dictionary<string, (long, long)> _cache = new();
 
-    Option<(long height, long rocks)> CheckForRepetition(IReadOnlySet<Coord> grid, long minY, long rock)
+    Option<(long height, long rocks)> CheckForRepetition(
+        IReadOnlySet<Coord> grid,
+        long minY,
+        long rock
+    )
     {
         var normalizedRows = new StringBuilder(1000);
 

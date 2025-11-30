@@ -17,7 +17,7 @@ public class Day20 : IAoCRunner<IReadOnlyDictionary<string, Module>, long>
                 {
                     '%' => new Module.FlipFlop(name[1..], destinations),
                     '&' => new Module.Conjunction(name[1..], destinations),
-                    _ => new Module.Broadcaster(name, destinations)
+                    _ => new Module.Broadcaster(name, destinations),
                 };
             })
             .Append(new Module.Conjunction("rx", ImmutableArray<string>.Empty))
@@ -28,12 +28,17 @@ public class Day20 : IAoCRunner<IReadOnlyDictionary<string, Module>, long>
             module.Value.MatchConjunction(
                 c =>
                 {
-                    foreach (var current in modules.Where(m => m.Value.DestinationModules.Contains(c.Name)))
+                    foreach (
+                        var current in modules.Where(m =>
+                            m.Value.DestinationModules.Contains(c.Name)
+                        )
+                    )
                     {
                         c.AddInput(current.Value.Name);
                     }
                 },
-                () => { });
+                () => { }
+            );
         }
 
         return modules;
@@ -52,13 +57,18 @@ public class Day20 : IAoCRunner<IReadOnlyDictionary<string, Module>, long>
             .Concat(untyped)
             .Aggregate(
                 (low: 0L, high: 0L),
-                static (result, current) => (result.low + current.Value.LowPulses, result.high + current.Value.HighPulses),
-                result => result.low * result.high);
+                static (result, current) =>
+                    (result.low + current.Value.LowPulses, result.high + current.Value.HighPulses),
+                result => result.low * result.high
+            );
     }
 
     public long RunPart2(IReadOnlyDictionary<string, Module> input)
     {
-        var inputs = input[input["rx"].UnwrapConjunction().GetInputs().Single()].UnwrapConjunction().GetInputs().ToList();
+        var inputs = input[input["rx"].UnwrapConjunction().GetInputs().Single()]
+            .UnwrapConjunction()
+            .GetInputs()
+            .ToList();
         var cycles = new Dictionary<string, long>();
 
         var finished = false;
@@ -84,12 +94,14 @@ public class Day20 : IAoCRunner<IReadOnlyDictionary<string, Module>, long>
             PressButton(input, untyped, ++buttonPress);
         }
 
-        return cycles
-            .Values
-            .Aggregate(NumberHelpers.LeastCommonMultiple);
+        return cycles.Values.Aggregate(NumberHelpers.LeastCommonMultiple);
     }
 
-    static void PressButton(IReadOnlyDictionary<string, Module> input, Dictionary<string, Module> untyped, long buttonPress)
+    static void PressButton(
+        IReadOnlyDictionary<string, Module> input,
+        Dictionary<string, Module> untyped,
+        long buttonPress
+    )
     {
         var queue = new Queue<(string, string, Pulse)>();
         queue.Enqueue(("", "broadcaster", Pulse.Low));

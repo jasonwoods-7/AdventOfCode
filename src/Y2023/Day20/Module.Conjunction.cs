@@ -17,7 +17,11 @@ partial record Module
 
         public event EventHandler<ConjunctionEventArgs>? AllHigh;
 
-        protected override IEnumerable<(string, string, Pulse)> SendInternal(string sender, Pulse pulse, long buttonPress)
+        protected override IEnumerable<(string, string, Pulse)> SendInternal(
+            string sender,
+            Pulse pulse,
+            long buttonPress
+        )
         {
             Debug.Assert(_lastPulses.ContainsKey(sender));
 
@@ -30,8 +34,7 @@ partial record Module
                 AllHigh(this, new ConjunctionEventArgs(buttonPress));
             }
 
-            return DestinationModules
-                .Select(m => (Name, m, nextPulse));
+            return DestinationModules.Select(m => (Name, m, nextPulse));
         }
     }
 }

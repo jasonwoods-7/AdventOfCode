@@ -6,7 +6,11 @@ partial record Module
     {
         bool On { get; set; }
 
-        protected override IEnumerable<(string, string, Pulse)> SendInternal(string sender, Pulse pulse, long buttonPress)
+        protected override IEnumerable<(string, string, Pulse)> SendInternal(
+            string sender,
+            Pulse pulse,
+            long buttonPress
+        )
         {
             if (pulse == Pulse.High)
             {
@@ -17,8 +21,7 @@ partial record Module
 
             var nextPulse = On ? Pulse.High : Pulse.Low;
 
-            return DestinationModules
-                .Select(m => (Name, m, nextPulse));
+            return DestinationModules.Select(m => (Name, m, nextPulse));
         }
     }
 }

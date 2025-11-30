@@ -7,17 +7,14 @@ public partial class Day15 : IAoCRunner<IEnumerable<string>, int>
     [GeneratedRegex(@"(\w+)(?:(=\d)|(-))")]
     private partial Regex OperationRegex();
 
-    public IEnumerable<string> ParseInput(IEnumerable<string> puzzleInput) => puzzleInput
-        .SelectMany(l => l.Split(','));
+    public IEnumerable<string> ParseInput(IEnumerable<string> puzzleInput) =>
+        puzzleInput.SelectMany(l => l.Split(','));
 
-    public int RunPart1(IEnumerable<string> input) => input
-        .Sum(Hash);
+    public int RunPart1(IEnumerable<string> input) => input.Sum(Hash);
 
     public int RunPart2(IEnumerable<string> input)
     {
-        var boxes = Enumerable
-            .Range(0, 256)
-            .ToDictionary(i => i, _ => new List<Lens>());
+        var boxes = Enumerable.Range(0, 256).ToDictionary(i => i, _ => new List<Lens>());
 
         foreach (var current in input)
         {
@@ -36,11 +33,11 @@ public partial class Day15 : IAoCRunner<IEnumerable<string>, int>
             }
         }
 
-        return boxes
-            .Sum(b => b.Value.Index(1).Sum(t => (b.Key + 1) * t.Index * t.Item.Value));
+        return boxes.Sum(b => b.Value.Index(1).Sum(t => (b.Key + 1) * t.Index * t.Item.Value));
     }
 
-    static int Hash(string label) => label.Aggregate(0, (result, current) => ((result + current) * 17) & 0xFF);
+    static int Hash(string label) =>
+        label.Aggregate(0, (result, current) => ((result + current) * 17) & 0xFF);
 
     static void AddLens(int lens, List<Lens> box, string label)
     {

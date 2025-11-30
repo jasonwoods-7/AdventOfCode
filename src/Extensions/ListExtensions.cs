@@ -2,9 +2,7 @@
 
 public static class ListExtensions
 {
-    public static bool CollectionsEqual<T>(
-        this IEnumerable<T> left,
-        IEnumerable<T> right)
+    public static bool CollectionsEqual<T>(this IEnumerable<T> left, IEnumerable<T> right)
     {
         using var leftEnumerator = left.GetEnumerator();
         using var rightEnumerator = right.GetEnumerator();

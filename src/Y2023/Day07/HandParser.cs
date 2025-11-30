@@ -7,22 +7,24 @@ partial record Hand
         var parts = rawHand.Split(' ');
 
         var cards = parts[0]
-            .Select(c => c switch
-            {
-                '2' => Card.Two,
-                '3' => Card.Three,
-                '4' => Card.Four,
-                '5' => Card.Five,
-                '6' => Card.Six,
-                '7' => Card.Seven,
-                '8' => Card.Eight,
-                '9' => Card.Nine,
-                'T' => Card.Ten,
-                'J' => jCard,
-                'Q' => Card.Queen,
-                'K' => Card.King,
-                _ => Card.Ace
-            })
+            .Select(c =>
+                c switch
+                {
+                    '2' => Card.Two,
+                    '3' => Card.Three,
+                    '4' => Card.Four,
+                    '5' => Card.Five,
+                    '6' => Card.Six,
+                    '7' => Card.Seven,
+                    '8' => Card.Eight,
+                    '9' => Card.Nine,
+                    'T' => Card.Ten,
+                    'J' => jCard,
+                    'Q' => Card.Queen,
+                    'K' => Card.King,
+                    _ => Card.Ace,
+                }
+            )
             .ToArray();
 
         var bet = parts[1].ParseNumber<int>();
@@ -32,12 +34,13 @@ partial record Hand
         return new Hand(cards, bet, kind);
     }
 
-    static HandKind HandScorer(Card[] cards) => cards
-        .Where(static c => c != Card.Joker)
-        .GroupBy(static c => c)
-        .Select(static g => g.Count())
-        .OrderByDescending(static c => c)
-        .ToArray() switch
+    static HandKind HandScorer(Card[] cards) =>
+        cards
+            .Where(static c => c != Card.Joker)
+            .GroupBy(static c => c)
+            .Select(static g => g.Count())
+            .OrderByDescending(static c => c)
+            .ToArray() switch
         {
             [5] => HandKind.FiveOfAKind,
             [4] => HandKind.FiveOfAKind,
@@ -58,6 +61,6 @@ partial record Hand
             [2, 1, 1, 1] => HandKind.OnePair,
             [1, 1, 1, 1] => HandKind.OnePair,
             [1, 1, 1, 1, 1] => HandKind.HighCard,
-            _ => throw new InvalidOperationException(string.Join(", ", cards))
+            _ => throw new InvalidOperationException(string.Join(", ", cards)),
         };
 }

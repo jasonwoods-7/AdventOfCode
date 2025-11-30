@@ -35,7 +35,8 @@ public class Day01Tests : AoCRunnerTests<AoC.Y2023.Day01.Day01>
             4nineeightseven2
             zoneight234
             7pqrstsixteen
-            """);
+            """
+        );
 
         // Act
         var result = runner.RunPart2(input);

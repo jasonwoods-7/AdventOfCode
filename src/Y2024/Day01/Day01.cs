@@ -8,23 +8,23 @@ public class Day01 : IAoCRunner<(IReadOnlyList<int>, IReadOnlyList<int>), int>
             .Index()
             .Partition(
                 static t => (t.Index & 1) == 0,
-                static (t, f) => (t.Select(static i => i.Item).ToList(), f.Select(static i => i.Item).ToList()));
+                static (t, f) =>
+                    (t.Select(static i => i.Item).ToList(), f.Select(static i => i.Item).ToList())
+            );
 
     public int RunPart1((IReadOnlyList<int>, IReadOnlyList<int>) input)
     {
         var left = input.Item1.Order().ToList();
         var right = input.Item2.Order().ToList();
 
-        return left
-            .Zip(right, static (l, r) => Math.Abs(l - r))
-            .Sum();
+        return left.Zip(right, static (l, r) => Math.Abs(l - r)).Sum();
     }
 
     public int RunPart2((IReadOnlyList<int>, IReadOnlyList<int>) input)
     {
         var left = input.Item1;
-        var right = input.Item2
-            .GroupBy(static i => i)
+        var right = input
+            .Item2.GroupBy(static i => i)
             .ToDictionary(static g => g.Key, static g => g.Count());
 
         return left.Sum(i =>

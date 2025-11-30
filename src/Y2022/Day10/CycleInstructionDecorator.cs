@@ -8,6 +8,5 @@ public class CycleInstructionDecorator : IInstruction
         _childInstruction = childInstruction;
 
     public T Accept<T>(T visitor)
-        where T : IInstructionVisitor<T> =>
-        _childInstruction.Accept(visitor.VisitCycle(this));
+        where T : IInstructionVisitor<T> => _childInstruction.Accept(visitor.VisitCycle(this));
 }

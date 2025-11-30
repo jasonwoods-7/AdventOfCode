@@ -24,9 +24,15 @@ public class PacketComparer : IComparer<Packet>
             var result = (xCurrent.IsFirst, yCurrent.IsFirst) switch
             {
                 (true, true) => xCurrent.First.CompareTo(yCurrent.First),
-                (true, false) => Compare(Packet.ParsePacket($"[{xCurrent.First}]"), yCurrent.Second),
-                (false, true) => Compare(xCurrent.Second, Packet.ParsePacket($"[{yCurrent.First}]")),
-                _ => Compare(xCurrent.Second, yCurrent.Second)
+                (true, false) => Compare(
+                    Packet.ParsePacket($"[{xCurrent.First}]"),
+                    yCurrent.Second
+                ),
+                (false, true) => Compare(
+                    xCurrent.Second,
+                    Packet.ParsePacket($"[{yCurrent.First}]")
+                ),
+                _ => Compare(xCurrent.Second, yCurrent.Second),
             };
 
             if (result != 0)

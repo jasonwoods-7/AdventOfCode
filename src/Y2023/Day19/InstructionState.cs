@@ -24,8 +24,7 @@ sealed class InstructionState(InstructionState? parent = null) : IState
 
     public IState OnTrueToken()
     {
-        if (_trueInstruction is not null ||
-            !_inequality.HasValue)
+        if (_trueInstruction is not null || !_inequality.HasValue)
         {
             return parent!.OnTrueToken();
         }
@@ -36,8 +35,7 @@ sealed class InstructionState(InstructionState? parent = null) : IState
 
     public IState OnFalseToken()
     {
-        if (_falseInstruction is not null ||
-            !_inequality.HasValue)
+        if (_falseInstruction is not null || !_inequality.HasValue)
         {
             return parent!.OnFalseToken();
         }
@@ -46,8 +44,7 @@ sealed class InstructionState(InstructionState? parent = null) : IState
         return _falseInstruction;
     }
 
-    public IState OnEndToken() =>
-        parent?.OnEndToken() ?? this;
+    public IState OnEndToken() => parent?.OnEndToken() ?? this;
 
     public Instruction ToInstruction()
     {
@@ -65,16 +62,18 @@ sealed class InstructionState(InstructionState? parent = null) : IState
         var param = Expression.Parameter(typeof(Part), "p");
         var access = Expression.Property(param, _name.ToUpperInvariant());
         var constant = Expression.Constant(_value);
-        var check = _inequality == '<'
-            ? Expression.LessThan(access, constant)
-            : Expression.GreaterThan(access, constant);
+        var check =
+            _inequality == '<'
+                ? Expression.LessThan(access, constant)
+                : Expression.GreaterThan(access, constant);
         var lambda = Expression.Lambda<Func<Part, bool>>(check, param);
 
         return new Instruction.Rule(
             lambda,
             lambda.Compile(),
             _trueInstruction.ToInstruction(),
-            _falseInstruction.ToInstruction());
+            _falseInstruction.ToInstruction()
+        );
     }
 
     public void SetValue(int value) => _value = value;

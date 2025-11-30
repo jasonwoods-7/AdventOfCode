@@ -2,29 +2,38 @@ namespace AoC.Y2022.Day09;
 
 public class Day09 : IAoCRunner<IEnumerable<(Direction, int)>, int>
 {
-    public IEnumerable<(Direction, int)> ParseInput(IEnumerable<string> puzzleInput) => puzzleInput
-        .Select(l => l
-            .Split(" ")
-            .Fold((d, n) => (d switch
-            {
-                "U" => Direction.Up,
-                "D" => Direction.Down,
-                "L" => Direction.Left,
-                "R" => Direction.Right,
-                _ => throw new InvalidOperationException()
-            }, int.Parse(n, CultureInfo.CurrentCulture))));
+    public IEnumerable<(Direction, int)> ParseInput(IEnumerable<string> puzzleInput) =>
+        puzzleInput.Select(l =>
+            l.Split(" ")
+                .Fold(
+                    (d, n) =>
+                        (
+                            d switch
+                            {
+                                "U" => Direction.Up,
+                                "D" => Direction.Down,
+                                "L" => Direction.Left,
+                                "R" => Direction.Right,
+                                _ => throw new InvalidOperationException(),
+                            },
+                            int.Parse(n, CultureInfo.CurrentCulture)
+                        )
+                )
+        );
 
-    public int RunPart1(IEnumerable<(Direction, int)> input) => FindTailPositionCountForKnots(input, 2);
+    public int RunPart1(IEnumerable<(Direction, int)> input) =>
+        FindTailPositionCountForKnots(input, 2);
 
-    public int RunPart2(IEnumerable<(Direction, int)> input) => FindTailPositionCountForKnots(input, 10);
+    public int RunPart2(IEnumerable<(Direction, int)> input) =>
+        FindTailPositionCountForKnots(input, 10);
 
-    static int FindTailPositionCountForKnots(
-        IEnumerable<(Direction, int)> moves,
-        int knotCount)
+    static int FindTailPositionCountForKnots(IEnumerable<(Direction, int)> moves, int knotCount)
     {
         return moves.Aggregate(
-            (knots: ImmutableArray.CreateRange(Enumerable.Repeat((x: 0, y: 0), knotCount)),
-            tailPositions: ImmutableHashSet.Create((0, 0))),
+            (
+                knots: ImmutableArray.CreateRange(Enumerable.Repeat((x: 0, y: 0), knotCount)),
+                tailPositions: ImmutableHashSet.Create((0, 0))
+            ),
             static (state, move) =>
             {
                 var intComparer = Comparer<int>.Default;
@@ -38,7 +47,7 @@ public class Day09 : IAoCRunner<IEnumerable<(Direction, int)>, int>
                     Direction.Down => (0, 1),
                     Direction.Left => (-1, 0),
                     Direction.Right => (1, 0),
-                    _ => throw new InvalidOperationException()
+                    _ => throw new InvalidOperationException(),
                 };
 
                 for (var counter = 0; counter < count; ++counter)
@@ -62,8 +71,10 @@ public class Day09 : IAoCRunner<IEnumerable<(Direction, int)>, int>
                         );
                         knots = knots.SetItem(tailCounter, tailPosition);
 
-                        Debug.Assert(AdjacentVertices(tailPosition).Contains(headPosition),
-                            "AdjacentVertices(tailPosition).Contains(headPosition)");
+                        Debug.Assert(
+                            AdjacentVertices(tailPosition).Contains(headPosition),
+                            "AdjacentVertices(tailPosition).Contains(headPosition)"
+                        );
 
                         headPosition = tailPosition;
                     }
@@ -73,19 +84,21 @@ public class Day09 : IAoCRunner<IEnumerable<(Direction, int)>, int>
 
                 return (knots, tailPositions);
             },
-            static final => final.tailPositions.Count);
+            static final => final.tailPositions.Count
+        );
 
-        static (int, int)[] AdjacentVertices((int x, int y) point) => new[]
-        {
-            (point.x - 1, point.y - 1),
-            (point.x - 1, point.y - 0),
-            (point.x - 1, point.y + 1),
-            (point.x - 0, point.y - 1),
-            (point.x - 0, point.y - 0),
-            (point.x - 0, point.y + 1),
-            (point.x + 1, point.y - 1),
-            (point.x + 1, point.y - 0),
-            (point.x + 1, point.y + 1)
-        };
+        static (int, int)[] AdjacentVertices((int x, int y) point) =>
+            new[]
+            {
+                (point.x - 1, point.y - 1),
+                (point.x - 1, point.y - 0),
+                (point.x - 1, point.y + 1),
+                (point.x - 0, point.y - 1),
+                (point.x - 0, point.y - 0),
+                (point.x - 0, point.y + 1),
+                (point.x + 1, point.y - 1),
+                (point.x + 1, point.y - 0),
+                (point.x + 1, point.y + 1),
+            };
     }
 }

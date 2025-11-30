@@ -2,9 +2,8 @@ namespace AoC.Y2022.Day20;
 
 public class Day20 : IAoCRunner<IReadOnlyList<long>, long>
 {
-    public IReadOnlyList<long> ParseInput(IEnumerable<string> puzzleInput) => puzzleInput
-        .Select(l => long.Parse(l, CultureInfo.CurrentCulture))
-        .ToList();
+    public IReadOnlyList<long> ParseInput(IEnumerable<string> puzzleInput) =>
+        puzzleInput.Select(l => long.Parse(l, CultureInfo.CurrentCulture)).ToList();
 
     public long RunPart1(IReadOnlyList<long> input) => Solve(input, 1, 1);
 
@@ -34,9 +33,7 @@ public class Day20 : IAoCRunner<IReadOnlyList<long>, long>
 
         for (var i = 0; i < 3; ++i)
         {
-            for (var j = 0; j < 1000; ++j, node = node.Next)
-            {
-            }
+            for (var j = 0; j < 1000; ++j, node = node.Next) { }
 
             sum += node.Value;
         }

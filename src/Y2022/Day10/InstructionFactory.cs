@@ -18,6 +18,6 @@ static class InstructionFactory
         cyclesRemaining switch
         {
             0 => accumulate,
-            _ => CreateCycle(cyclesRemaining - 1, new CycleInstructionDecorator(accumulate))
+            _ => CreateCycle(cyclesRemaining - 1, new CycleInstructionDecorator(accumulate)),
         };
 }

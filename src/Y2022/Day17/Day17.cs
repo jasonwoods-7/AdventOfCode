@@ -1,6 +1,7 @@
 namespace AoC.Y2022.Day17;
 
-public partial class Day17(ILogger<Day17> logger) : IAoCRunner<IEnumerable<Func<Coord, Coord>>, long>
+public partial class Day17(ILogger<Day17> logger)
+    : IAoCRunner<IEnumerable<Func<Coord, Coord>>, long>
 {
     // ReSharper disable once UnusedMember.Local
     readonly ILogger<Day17> _logger = logger;
@@ -20,27 +21,24 @@ public partial class Day17(ILogger<Day17> logger) : IAoCRunner<IEnumerable<Func<
             {
                 Debug.Assert(move is '<' or '>');
 
-                yield return move == '<'
-                    ? moveLeft
-                    : moveRight;
+                yield return move == '<' ? moveLeft : moveRight;
             }
         }
 
         // ReSharper disable once IteratorNeverReturns
     }
 
-    public long RunPart1(IEnumerable<Func<Coord, Coord>> input) => SimulateFallingRocks(input, 2022);
+    public long RunPart1(IEnumerable<Func<Coord, Coord>> input) =>
+        SimulateFallingRocks(input, 2022);
 
-    public long RunPart2(IEnumerable<Func<Coord, Coord>> input) => SimulateFallingRocks(input, 1_000_000_000_000);
+    public long RunPart2(IEnumerable<Func<Coord, Coord>> input) =>
+        SimulateFallingRocks(input, 1_000_000_000_000);
 
     long SimulateFallingRocks(IEnumerable<Func<Coord, Coord>> gusts, long totalRocks)
     {
         const int boardSize = 7;
 
-        var grid = Enumerable
-            .Range(0, boardSize)
-            .Select(x => new Coord(x, 0))
-            .ToHashSet();
+        var grid = Enumerable.Range(0, boardSize).Select(x => new Coord(x, 0)).ToHashSet();
 
         var totalHeight = 0L;
 
@@ -68,29 +66,26 @@ public partial class Day17(ILogger<Day17> logger) : IAoCRunner<IEnumerable<Func<
                 foundRepeat = true;
             }
 
-            var fallingShape = currentShape
-                .Select(c => c with { Y = minY + c.Y })
-                .ToList();
+            var fallingShape = currentShape.Select(c => c with { Y = minY + c.Y }).ToList();
 
             while (true)
             {
                 // gust of wind
                 gustEnumerator.MoveNext();
                 var mover = gustEnumerator.Current;
-                var shiftedShape = fallingShape
-                    .Select(c => mover(c))
-                    .ToList();
+                var shiftedShape = fallingShape.Select(c => mover(c)).ToList();
 
                 // check if out of bounds
-                if (!IsInvalidNextPosition(grid, shiftedShape) && shiftedShape.All(c => c.X is >= 0 and < boardSize))
+                if (
+                    !IsInvalidNextPosition(grid, shiftedShape)
+                    && shiftedShape.All(c => c.X is >= 0 and < boardSize)
+                )
                 {
                     fallingShape = shiftedShape;
                 }
 
                 // fall
-                var nextPosition = fallingShape
-                    .Select(c => c.Below())
-                    .ToList();
+                var nextPosition = fallingShape.Select(c => c.Below()).ToList();
 
                 // check if at resting position
                 if (IsInvalidNextPosition(grid, nextPosition))
@@ -122,6 +117,6 @@ public partial class Day17(ILogger<Day17> logger) : IAoCRunner<IEnumerable<Func<
 
     static bool IsInvalidNextPosition(
         IReadOnlySet<Coord> grid,
-        IReadOnlyList<Coord> currentShape) =>
-        currentShape.Any(grid.Contains);
+        IReadOnlyList<Coord> currentShape
+    ) => currentShape.Any(grid.Contains);
 }

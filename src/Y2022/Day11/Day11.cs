@@ -2,19 +2,26 @@ namespace AoC.Y2022.Day11;
 
 public class Day11 : IAoCRunner<IReadOnlyDictionary<int, Monkey>, long>
 {
-    public IReadOnlyDictionary<int, Monkey> ParseInput(IEnumerable<string> puzzleInput) => puzzleInput
-        .Split(static l => l == string.Empty)
-        .Select(static ls => ls.Fold(
-            static (monkeyId, startingItems, operation, test, truePart, falsePart) => new Monkey(
-                monkeyId.FindNumbers<int>().Single(),
-                startingItems.FindNumbers<long>(),
-                MonkeyParserHelpers.CreateOperationFunc(operation),
-                MonkeyParserHelpers.CreateTestFunc(
-                    test.FindNumbers<long>().Single(),
-                    truePart.FindNumbers<int>().Single(),
-                    falsePart.FindNumbers<int>().Single()),
-                test.FindNumbers<int>().Single())))
-        .ToDictionary(static m => m.Id);
+    public IReadOnlyDictionary<int, Monkey> ParseInput(IEnumerable<string> puzzleInput) =>
+        puzzleInput
+            .Split(static l => l == string.Empty)
+            .Select(static ls =>
+                ls.Fold(
+                    static (monkeyId, startingItems, operation, test, truePart, falsePart) =>
+                        new Monkey(
+                            monkeyId.FindNumbers<int>().Single(),
+                            startingItems.FindNumbers<long>(),
+                            MonkeyParserHelpers.CreateOperationFunc(operation),
+                            MonkeyParserHelpers.CreateTestFunc(
+                                test.FindNumbers<long>().Single(),
+                                truePart.FindNumbers<int>().Single(),
+                                falsePart.FindNumbers<int>().Single()
+                            ),
+                            test.FindNumbers<int>().Single()
+                        )
+                )
+            )
+            .ToDictionary(static m => m.Id);
 
     public long RunPart1(IReadOnlyDictionary<int, Monkey> input) =>
         CalculateMonkeyBusiness(input, 20, static v => Math.DivRem(v, 3).Quotient);
@@ -28,12 +35,10 @@ public class Day11 : IAoCRunner<IReadOnlyDictionary<int, Monkey>, long>
     static long CalculateMonkeyBusiness(
         IReadOnlyDictionary<int, Monkey> input,
         int rounds,
-        Func<long, long> worryModifier)
+        Func<long, long> worryModifier
+    )
     {
-        var orderedMonkeys = input
-            .Select(m => m.Value)
-            .OrderBy(m => m.Id)
-            .ToList();
+        var orderedMonkeys = input.Select(m => m.Value).OrderBy(m => m.Id).ToList();
 
         for (var i = 0; i < rounds; ++i)
         {

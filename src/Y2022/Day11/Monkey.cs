@@ -5,7 +5,13 @@ public class Monkey
     readonly Func<long, long> _operation;
     readonly Func<long, int> _test;
 
-    public Monkey(int id, IEnumerable<long> initialItems, Func<long, long> operation, Func<long, int> test, int testDiv)
+    public Monkey(
+        int id,
+        IEnumerable<long> initialItems,
+        Func<long, long> operation,
+        Func<long, int> test,
+        int testDiv
+    )
     {
         Id = id;
         Items = new Queue<long>(initialItems);

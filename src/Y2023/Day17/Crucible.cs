@@ -18,7 +18,7 @@ sealed record Crucible(Coord Position, Coord Direction, int StraightMoves)
             yield return this with
             {
                 Position = Position + Direction,
-                StraightMoves = StraightMoves + 1
+                StraightMoves = StraightMoves + 1,
             };
         }
 
@@ -31,7 +31,7 @@ sealed record Crucible(Coord Position, Coord Direction, int StraightMoves)
         {
             (0, 1) => new Coord(1, 0),
             (1, 0) => new Coord(0, 1),
-            _ => throw new InvalidOperationException()
+            _ => throw new InvalidOperationException(),
         };
 
         yield return new Crucible(Position + turn, turn, 1);

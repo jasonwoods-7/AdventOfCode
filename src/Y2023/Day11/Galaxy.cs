@@ -2,10 +2,10 @@
 
 public record Galaxy(IReadOnlyList<Coord> Coords)
 {
-    public long Solve(long multiplier) => Expand(multiplier)
-        .Coords
-        .Subsets(2)
-        .Sum(galaxies => galaxies.Fold((start, end) => start.ManhattanDistanceTo(end)));
+    public long Solve(long multiplier) =>
+        Expand(multiplier)
+            .Coords.Subsets(2)
+            .Sum(galaxies => galaxies.Fold((start, end) => start.ManhattanDistanceTo(end)));
 
     Galaxy Expand(long multiplier)
     {
@@ -27,10 +27,13 @@ public record Galaxy(IReadOnlyList<Coord> Coords)
             }
         }
 
-        return new Galaxy(Coords
-            .Select(c => new Coord(
-                c.X + (xEmpty.Count(x => c.X > x) * multiplier),
-                c.Y + (yEmpty.Count(y => c.Y > y) * multiplier)))
-            .ToList());
+        return new Galaxy(
+            Coords
+                .Select(c => new Coord(
+                    c.X + (xEmpty.Count(x => c.X > x) * multiplier),
+                    c.Y + (yEmpty.Count(y => c.Y > y) * multiplier)
+                ))
+                .ToList()
+        );
     }
 }

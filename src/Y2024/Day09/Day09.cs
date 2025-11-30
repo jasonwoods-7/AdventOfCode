@@ -4,9 +4,8 @@ namespace AoC.Y2024.Day09;
 
 public class Day09 : IAoCRunner<ParsedInput, long>
 {
-    public ParsedInput ParseInput(IEnumerable<string> puzzleInput) => puzzleInput
-        .SelectMany(l => l, (_, c) => c - '0')
-        .ToList();
+    public ParsedInput ParseInput(IEnumerable<string> puzzleInput) =>
+        puzzleInput.SelectMany(l => l, (_, c) => c - '0').ToList();
 
     public long RunPart1(ParsedInput input)
     {

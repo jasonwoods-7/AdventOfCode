@@ -19,6 +19,5 @@ public class Directory
     public List<(string name, int size)> Files { get; }
 
     public int CalculateSize() =>
-        Files.Sum(f => f.size) +
-        Subdirectories.Sum(d => d.CalculateSize());
+        Files.Sum(f => f.size) + Subdirectories.Sum(d => d.CalculateSize());
 }

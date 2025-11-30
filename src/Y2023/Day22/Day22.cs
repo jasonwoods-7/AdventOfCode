@@ -2,10 +2,13 @@
 
 public class Day22 : IAoCRunner<ImmutableHashSet<Tile>, long>
 {
-    public ImmutableHashSet<Tile> ParseInput(IEnumerable<string> puzzleInput) => puzzleInput
-        .Select(l => l.FindNumbers<long>()
-            .Fold((x1, y1, z1, x2, y2, z2) => new Tile((x1, y1, z1), (x2, y2, z2))))
-        .ToImmutableHashSet();
+    public ImmutableHashSet<Tile> ParseInput(IEnumerable<string> puzzleInput) =>
+        puzzleInput
+            .Select(l =>
+                l.FindNumbers<long>()
+                    .Fold((x1, y1, z1, x2, y2, z2) => new Tile((x1, y1, z1), (x2, y2, z2)))
+            )
+            .ToImmutableHashSet();
 
     public long RunPart1(ImmutableHashSet<Tile> input)
     {
@@ -63,16 +66,20 @@ public class Day22 : IAoCRunner<ImmutableHashSet<Tile>, long>
                     totalFallen++;
                     nextTiles = nextTiles
                         .RemoveRange(candidate.Blocks)
-                        .AddRange(candidate.Fall(fallCount).Apply(t => t.Blocks.Select(b => new KeyValuePair<Coord3d, Tile>(b, t))));
+                        .AddRange(
+                            candidate
+                                .Fall(fallCount)
+                                .Apply(t =>
+                                    t.Blocks.Select(b => new KeyValuePair<Coord3d, Tile>(b, t))
+                                )
+                        );
                 }
             }
 
             previousTiles = nextTiles;
         }
 
-        var fallenTower = previousTiles
-            .Values
-            .ToImmutableHashSet();
+        var fallenTower = previousTiles.Values.ToImmutableHashSet();
 
         return (fallenTower, totalFallen);
     }

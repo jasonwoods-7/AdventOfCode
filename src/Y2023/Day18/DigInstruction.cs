@@ -10,18 +10,23 @@ public record DigInstruction(Coord Direction, int Steps, int Color)
             1 => Coord.Down,
             2 => Coord.Left,
             3 => Coord.Up,
-            _ => throw new InvalidOperationException()
+            _ => throw new InvalidOperationException(),
         };
 
         var steps = Color >> 4;
 
-        return new DigInstruction(direction, steps, (Steps << 4) | Direction switch
-        {
-            (1, 0) => 0,
-            (0, 1) => 1,
-            (-1, 0) => 2,
-            (0, -1) => 3,
-            _ => throw new InvalidOperationException()
-        });
+        return new DigInstruction(
+            direction,
+            steps,
+            (Steps << 4)
+                | Direction switch
+                {
+                    (1, 0) => 0,
+                    (0, 1) => 1,
+                    (-1, 0) => 2,
+                    (0, -1) => 3,
+                    _ => throw new InvalidOperationException(),
+                }
+        );
     }
 }

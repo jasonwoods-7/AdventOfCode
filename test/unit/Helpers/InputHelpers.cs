@@ -19,13 +19,15 @@ public static partial class InputHelpers
             var cookieContainer = new CookieContainer();
             cookieContainer.Add(aocUri, new Cookie("session", session));
 
-            return new HttpClient(new HttpClientHandler
+            return new HttpClient(
+                new HttpClientHandler
+                {
+                    CookieContainer = cookieContainer,
+                    AutomaticDecompression = DecompressionMethods.All,
+                }
+            )
             {
-                CookieContainer = cookieContainer,
-                AutomaticDecompression = DecompressionMethods.All
-            })
-            {
-                BaseAddress = aocUri
+                BaseAddress = aocUri,
             };
         });
 
@@ -34,11 +36,10 @@ public static partial class InputHelpers
 
     public static async Task<IEnumerable<string>> ReadInputFileAsync(
         string fileName = "input.txt",
-        [CallerFilePath] string callerFilePath = "")
+        [CallerFilePath] string callerFilePath = ""
+    )
     {
-        var fullFileName = Path.Combine(
-            Path.GetDirectoryName(callerFilePath)!,
-            fileName);
+        var fullFileName = Path.Combine(Path.GetDirectoryName(callerFilePath)!, fileName);
 
         var exists = Path.Exists(fullFileName);
 
@@ -65,13 +66,9 @@ public static partial class InputHelpers
         var year = match.Groups["year"].Value;
         var day = match.Groups["day"].Value.TrimStart('0');
 
-        var response = await HttpClient(session)
-            .GetAsync($"{year}/day/{day}/input");
+        var response = await HttpClient(session).GetAsync($"{year}/day/{day}/input");
 
-        var text = await response
-            .EnsureSuccessStatusCode()
-            .Content
-            .ReadAsStringAsync();
+        var text = await response.EnsureSuccessStatusCode().Content.ReadAsStringAsync();
 
         await File.WriteAllTextAsync(fullFileName, text);
     }

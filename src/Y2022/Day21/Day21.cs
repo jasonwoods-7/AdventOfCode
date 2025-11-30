@@ -2,23 +2,24 @@ namespace AoC.Y2022.Day21;
 
 public class Day21 : IAoCRunner<Tree, long>
 {
-    public Tree ParseInput(IEnumerable<string> puzzleInput) => puzzleInput
-        .ToDictionary(l => l[..4], l => l[6..])
-        .Apply(t => ParseTree("root", t));
+    public Tree ParseInput(IEnumerable<string> puzzleInput) =>
+        puzzleInput.ToDictionary(l => l[..4], l => l[6..]).Apply(t => ParseTree("root", t));
 
-    public long RunPart1(Tree input) =>
-        input.CalculateValue();
+    public long RunPart1(Tree input) => input.CalculateValue();
 
     public long RunPart2(Tree input)
     {
         var root = input as Branch;
         Debug.Assert(root is not null);
 
-        var (humanCalc, monkeyCalc, human) = (root.Left.Find("humn"), root.Right.Find("humn")) switch
+        var (humanCalc, monkeyCalc, human) = (
+            root.Left.Find("humn"),
+            root.Right.Find("humn")
+        ) switch
         {
             (null, var h) => (root.Right, root.Left, h),
             (var h, null) => (root.Left, root.Right, h),
-            _ => throw new InvalidOperationException()
+            _ => throw new InvalidOperationException(),
         };
 
         var monkeyValue = monkeyCalc.CalculateValue();

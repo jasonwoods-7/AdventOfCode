@@ -6,7 +6,10 @@ partial record Module
     {
         public override ImmutableArray<string> DestinationModules { get; init; } = [];
 
-        protected override IEnumerable<(string, string, Pulse)> SendInternal(string sender, Pulse pulse, long buttonPress) =>
-            System.Array.Empty<(string, string, Pulse)>();
+        protected override IEnumerable<(string, string, Pulse)> SendInternal(
+            string sender,
+            Pulse pulse,
+            long buttonPress
+        ) => System.Array.Empty<(string, string, Pulse)>();
     }
 }

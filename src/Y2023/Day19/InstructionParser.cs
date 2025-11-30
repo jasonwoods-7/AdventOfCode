@@ -6,8 +6,7 @@ static class InstructionParser
 {
     public static Instruction ParseInstruction(string instruction) =>
         Tokenize(instruction)
-            .Aggregate((IState)new InstructionState(),
-                (s, t) => t.Process(s))
+            .Aggregate((IState)new InstructionState(), (s, t) => t.Process(s))
             .ToInstruction();
 
     static IEnumerable<IToken> Tokenize(string instruction)

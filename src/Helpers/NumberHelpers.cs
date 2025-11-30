@@ -3,15 +3,11 @@
 public static class NumberHelpers
 {
     public static long GreatestCommonDivisor(long a, long b) =>
-        b == 0
-            ? a
-            : GreatestCommonDivisor(b, a % b);
+        b == 0 ? a : GreatestCommonDivisor(b, a % b);
 
-    public static long LeastCommonMultiple(long a, long b) =>
-        a * b / GreatestCommonDivisor(a, b);
+    public static long LeastCommonMultiple(long a, long b) => a * b / GreatestCommonDivisor(a, b);
 
-    public static bool Coprime(long a, long b) =>
-        GreatestCommonDivisor(a, b) == 1;
+    public static bool Coprime(long a, long b) => GreatestCommonDivisor(a, b) == 1;
 
     public static long ModInverse(long num, long mod)
     {
@@ -38,10 +34,9 @@ public static class NumberHelpers
         }
 
         return r > 1 // not co-prime
-            ? -1
-            : t < 0
-                ? t + mod
-                : t;
+                ? -1
+            : t < 0 ? t + mod
+            : t;
     }
 
     public static long ChineseRemainderTheorem(long[] numbers, long[] mods)

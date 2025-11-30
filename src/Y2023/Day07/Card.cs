@@ -15,5 +15,5 @@ enum Card
     Jack,
     Queen,
     King,
-    Ace
+    Ace,
 }

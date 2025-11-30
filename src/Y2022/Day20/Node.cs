@@ -37,9 +37,7 @@ sealed class Node
 
             do
             {
-                destination = direction == -1
-                    ? destination.Previous
-                    : destination.Next;
+                destination = direction == -1 ? destination.Previous : destination.Next;
             } while (destination == source);
         }
     }

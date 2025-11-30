@@ -5,9 +5,8 @@ public record Node(string Name)
     public Node? Parent { get; set; }
     public IList<Node> Children { get; } = new List<Node>();
 
-    public long Height(long currentHeight = 0) => Parent
-        ?.Height(currentHeight + 1)
-        ?? currentHeight;
+    public long Height(long currentHeight = 0) =>
+        Parent?.Height(currentHeight + 1) ?? currentHeight;
 }
 
 public class Day06 : IAoCRunner<IReadOnlyDictionary<string, Node>, long>
@@ -33,16 +32,16 @@ public class Day06 : IAoCRunner<IReadOnlyDictionary<string, Node>, long>
         return nodes;
     }
 
-    public long RunPart1(IReadOnlyDictionary<string, Node> input) => input.Sum(n => n.Value.Height());
+    public long RunPart1(IReadOnlyDictionary<string, Node> input) =>
+        input.Sum(n => n.Value.Height());
 
     public long RunPart2(IReadOnlyDictionary<string, Node> input)
     {
-        return SuperEnumerable
-            .GetShortestPathCost<Node, long>(
+        return SuperEnumerable.GetShortestPathCost<Node, long>(
                 input["YOU"],
                 GetChildren,
-                input["SAN"])
-            - 2;
+                input["SAN"]
+            ) - 2;
 
         static IEnumerable<(Node, long)> GetChildren(Node current, long cost)
         {
