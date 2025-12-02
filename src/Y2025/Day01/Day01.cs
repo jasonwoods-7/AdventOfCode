@@ -1,5 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using ParsedInput = System.Collections.Immutable.ImmutableList<(char, int)>;
+﻿using ParsedInput = System.Collections.Immutable.ImmutableList<(char, int)>;
 
 namespace AoC.Y2025.Day01;
 
@@ -20,7 +19,7 @@ public class Day01(ILogger<Day01> logger) : IAoCRunner<ParsedInput, int>
                         {
                             ('L', var n) => -n,
                             ('R', var n) => n,
-                            _ => throw new SwitchExpressionException(),
+                            _ => throw new InvalidOperationException(),
                         }
                     ) % 100;
 
@@ -47,7 +46,7 @@ public class Day01(ILogger<Day01> logger) : IAoCRunner<ParsedInput, int>
                     {
                         ('L', var n) => -n,
                         ('R', var n) => n,
-                        _ => throw new SwitchExpressionException(),
+                        _ => throw new InvalidOperationException(),
                     };
 
                 var first = true;
