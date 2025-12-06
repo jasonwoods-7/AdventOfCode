@@ -35,7 +35,9 @@ public class Day06 : IAoCRunner<ParsedInput, long>
 
             for (var row = 0; row < digits.Height; ++row)
             {
-                var nums = new string(digits.Span.GetRowSpan(row)).FindNumbers<long>().ToImmutableList();
+                var nums = new string(digits.Span.GetRowSpan(row))
+                    .FindNumbers<long>()
+                    .ToImmutableList();
 
                 for (var col = 0; col < nums.Count; ++col)
                 {
