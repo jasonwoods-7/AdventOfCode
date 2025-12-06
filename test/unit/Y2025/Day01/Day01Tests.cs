@@ -21,7 +21,7 @@ public class Day01Tests(ITestOutputHelper outputHelper) : AoCRunnerTests<AoC.Y20
         var result = runner.RunPart1(input);
 
         // Assert
-        result.Should().Be(3);
+        result.ShouldBe(3);
     }
 
     public override async Task Part1()
@@ -38,7 +38,7 @@ public class Day01Tests(ITestOutputHelper outputHelper) : AoCRunnerTests<AoC.Y20
         var result = runner.RunPart1(input);
 
         // Assert
-        result.Should().Be(1_152);
+        result.ShouldBe(1_152);
     }
 
     [Fact]
@@ -56,7 +56,7 @@ public class Day01Tests(ITestOutputHelper outputHelper) : AoCRunnerTests<AoC.Y20
         var result = runner.RunPart2(input);
 
         // Assert
-        result.Should().Be(6);
+        result.ShouldBe(6);
     }
 
     [Theory]
@@ -97,7 +97,7 @@ public class Day01Tests(ITestOutputHelper outputHelper) : AoCRunnerTests<AoC.Y20
         var result = runner.RunPart2(input);
 
         // Assert
-        result.Should().Be(expected);
+        result.ShouldBe(expected);
     }
 
     public override async Task Part2()
@@ -114,6 +114,6 @@ public class Day01Tests(ITestOutputHelper outputHelper) : AoCRunnerTests<AoC.Y20
         var result = runner.RunPart2(input);
 
         // Assert
-        result.Should().Be(6_671);
+        result.ShouldBe(6_671);
     }
 }

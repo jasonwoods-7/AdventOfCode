@@ -15,7 +15,7 @@ public class Day08Tests : AoCRunnerTests<AoC.Y2023.Day08.Day08>
         var result = runner.RunPart1(input);
 
         // Assert
-        result.Should().Be(18_023L);
+        result.ShouldBe(18_023L);
     }
 
     public override async Task Part2()
@@ -29,6 +29,6 @@ public class Day08Tests : AoCRunnerTests<AoC.Y2023.Day08.Day08>
         var result = runner.RunPart2(input);
 
         // Assert
-        result.Should().Be(14_449_445_933_179L);
+        result.ShouldBe(14_449_445_933_179L);
     }
 }

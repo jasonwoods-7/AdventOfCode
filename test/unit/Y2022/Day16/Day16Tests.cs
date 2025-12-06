@@ -16,7 +16,7 @@ public class Day16Tests : AoCRunnerTests<AoC.Y2022.Day16.Day16>
         var actual = runner.RunPart1(input);
 
         // Assert
-        actual.Should().Be(1_651);
+        actual.ShouldBe(1_651);
     }
 
     public override async Task Part1()
@@ -30,7 +30,7 @@ public class Day16Tests : AoCRunnerTests<AoC.Y2022.Day16.Day16>
         var actual = runner.RunPart1(input);
 
         // Assert
-        actual.Should().Be(2_077);
+        actual.ShouldBe(2_077);
     }
 
     [Fact]
@@ -45,7 +45,7 @@ public class Day16Tests : AoCRunnerTests<AoC.Y2022.Day16.Day16>
         var actual = runner.RunPart2(input);
 
         // Assert
-        actual.Should().Be(1_706); // example answer should be 1707, but my algo keeps getting this value. 🤷‍♂️
+        actual.ShouldBe(1_706); // example answer should be 1707, but my algo keeps getting this value. 🤷‍♂️
     }
 
     public override async Task Part2()
@@ -59,6 +59,6 @@ public class Day16Tests : AoCRunnerTests<AoC.Y2022.Day16.Day16>
         var actual = runner.RunPart2(input);
 
         // Assert
-        actual.Should().Be(2_741);
+        actual.ShouldBe(2_741);
     }
 }

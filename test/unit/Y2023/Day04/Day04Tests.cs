@@ -16,7 +16,7 @@ public class Day04Tests : AoCRunnerTests<AoC.Y2023.Day04.Day04>
         var result = runner.RunPart1(input);
 
         // Assert
-        result.Should().Be(13);
+        result.ShouldBe(13);
     }
 
     public override async Task Part1()
@@ -30,7 +30,7 @@ public class Day04Tests : AoCRunnerTests<AoC.Y2023.Day04.Day04>
         var result = runner.RunPart1(input);
 
         // Assert
-        result.Should().Be(18_519);
+        result.ShouldBe(18_519);
     }
 
     [Fact]
@@ -45,7 +45,7 @@ public class Day04Tests : AoCRunnerTests<AoC.Y2023.Day04.Day04>
         var result = runner.RunPart2(input);
 
         // Assert
-        result.Should().Be(30);
+        result.ShouldBe(30);
     }
 
     public override async Task Part2()
@@ -59,6 +59,6 @@ public class Day04Tests : AoCRunnerTests<AoC.Y2023.Day04.Day04>
         var result = runner.RunPart2(input);
 
         // Assert
-        result.Should().Be(11_787_590);
+        result.ShouldBe(11_787_590);
     }
 }

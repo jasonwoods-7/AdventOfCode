@@ -16,7 +16,7 @@ public class NumberHelperTests
         var actual = NumberHelpers.GreatestCommonDivisor(num1, num2);
 
         // Assert
-        actual.Should().Be(expected);
+        actual.ShouldBe(expected);
     }
 
     [Theory]
@@ -30,7 +30,7 @@ public class NumberHelperTests
         var actual = NumberHelpers.LeastCommonMultiple(num1, num2);
 
         // Assert
-        actual.Should().Be(expected);
+        actual.ShouldBe(expected);
     }
 
     [Theory]
@@ -44,7 +44,7 @@ public class NumberHelperTests
         var actual = NumberHelpers.Coprime(num1, num2);
 
         // Assert
-        actual.Should().Be(expected);
+        actual.ShouldBe(expected);
     }
 
     [Theory]
@@ -60,7 +60,7 @@ public class NumberHelperTests
         var actual = NumberHelpers.ModInverse(num, mod);
 
         // Assert
-        actual.Should().Be(expected);
+        actual.ShouldBe(expected);
     }
 
     [Theory]
@@ -76,6 +76,6 @@ public class NumberHelperTests
         var actual = NumberHelpers.ChineseRemainderTheorem(n, a);
 
         // Assert
-        actual.Should().Be(expected);
+        actual.ShouldBe(expected);
     }
 }

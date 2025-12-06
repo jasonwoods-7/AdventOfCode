@@ -16,8 +16,8 @@ public class Day10Tests : AoCRunnerTests<AoC.Y2022.Day10.Day10>
         var actual = runner.RunPart1(input);
 
         // Assert
-        actual.IsFirst.Should().BeTrue();
-        actual.First.Should().Be(13_140);
+        actual.IsFirst.ShouldBeTrue();
+        actual.First.ShouldBe(13_140);
     }
 
     public override async Task Part1()
@@ -31,8 +31,8 @@ public class Day10Tests : AoCRunnerTests<AoC.Y2022.Day10.Day10>
         var actual = runner.RunPart1(input);
 
         // Assert
-        actual.IsFirst.Should().BeTrue();
-        actual.First.Should().Be(15_360);
+        actual.IsFirst.ShouldBeTrue();
+        actual.First.ShouldBe(15_360);
     }
 
     [Fact]
@@ -47,7 +47,7 @@ public class Day10Tests : AoCRunnerTests<AoC.Y2022.Day10.Day10>
         var actual = runner.RunPart2(input);
 
         // Assert
-        actual.IsSecond.Should().BeTrue();
+        actual.IsSecond.ShouldBeTrue();
         await Verify(actual.Second);
     }
 
@@ -62,7 +62,7 @@ public class Day10Tests : AoCRunnerTests<AoC.Y2022.Day10.Day10>
         var actual = runner.RunPart2(input);
 
         // Assert
-        actual.IsSecond.Should().BeTrue();
+        actual.IsSecond.ShouldBeTrue();
         await Verify(actual.Second);
     }
 }

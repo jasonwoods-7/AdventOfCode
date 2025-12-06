@@ -16,7 +16,7 @@ public class Day05Tests : AoCRunnerTests<AoC.Y2023.Day05.Day05>
         var result = runner.RunPart1(input);
 
         // Assert
-        result.Should().Be(35L);
+        result.ShouldBe(35L);
     }
 
     public override async Task Part1()
@@ -30,7 +30,7 @@ public class Day05Tests : AoCRunnerTests<AoC.Y2023.Day05.Day05>
         var result = runner.RunPart1(input);
 
         // Assert
-        result.Should().Be(323_142_486L);
+        result.ShouldBe(323_142_486L);
     }
 
     [Fact]
@@ -45,7 +45,7 @@ public class Day05Tests : AoCRunnerTests<AoC.Y2023.Day05.Day05>
         var result = runner.RunPart2(input);
 
         // Assert
-        result.Should().Be(46L);
+        result.ShouldBe(46L);
     }
 
     [SkippableFact(Skip = "Not optimized")]
@@ -60,6 +60,6 @@ public class Day05Tests : AoCRunnerTests<AoC.Y2023.Day05.Day05>
         var result = runner.RunPart2(input);
 
         // Assert
-        result.Should().Be(79_874_951L);
+        result.ShouldBe(79_874_951L);
     }
 }
