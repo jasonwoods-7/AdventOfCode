@@ -16,11 +16,14 @@
     <PackageReference Include="Dunet" Version="1.11.3" />
     <PackageReference Include="JetBrains.Annotations" Version="2025.2.4" />
     <PackageReference Include="LanguageExt.Core" Version="4.4.9" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.1" />
     <PackageReference Include="SuperLinq" Version="6.4.1" />
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Algorithms\DisjointUnionSet.*.cs">
+      <DependentUpon>DisjointUnionSet.cs</DependentUpon>
+    </Compile>
     <Compile Update="Y2023\Day20\Module.*.cs">
       <DependentUpon>Module.cs</DependentUpon>
     </Compile>

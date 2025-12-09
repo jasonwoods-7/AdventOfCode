@@ -1,4 +1,5 @@
-﻿using ParsedInput = System.Collections.Immutable.ImmutableList<AoC.Types.Coord3d>;
+﻿using AoC.Algorithms;
+using ParsedInput = System.Collections.Immutable.ImmutableList<AoC.Types.Coord3d>;
 
 namespace AoC.Y2025.Day08;
 
@@ -15,9 +16,9 @@ public class Day08 : IAoCRunner<ParsedInput, long>
         CancellationToken cancellationToken = default
     )
     {
-        var (boxes, _) = Solver(input, (int)state!, cancellationToken);
+        var (set, _) = Solver(input, (int)state!, cancellationToken);
 
-        return boxes.Select(b => b.Count).OrderDescending().Take(3).Product();
+        return input.GroupBy(set.Find).Select(g => g.Count()).OrderDescending().Take(3).Product();
     }
 
     public long RunPart2(
@@ -31,7 +32,7 @@ public class Day08 : IAoCRunner<ParsedInput, long>
         return x1 * x2;
     }
 
-    static (ImmutableList<ImmutableHashSet<Coord3d>> boxes, (Coord3d, Coord3d) lastAdded) Solver(
+    static (DisjointUnionSet<Coord3d> set, (Coord3d, Coord3d) lastAdded) Solver(
         ParsedInput input,
         int remainingConnections,
         CancellationToken cancellationToken
@@ -41,7 +42,7 @@ public class Day08 : IAoCRunner<ParsedInput, long>
             .OrderBy(c => c.Fold((f, s) => f.DistanceTo(s)))
             .Aggregate(
                 (
-                    boxes: ImmutableList<ImmutableHashSet<Coord3d>>.Empty,
+                    set: new DisjointUnionSet<Coord3d>(input),
                     lastAdded: (Coord3d.Zero, Coord3d.Zero),
                     remainingConnections
                 ),
@@ -54,44 +55,12 @@ public class Day08 : IAoCRunner<ParsedInput, long>
                         return accumulator;
                     }
 
-                    var indexes = accumulator
-                        .boxes.Index()
-                        .Choose(t =>
-                            (t.Item.Contains(current[0]) || t.Item.Contains(current[1]), t.Index)
-                        )
-                        .ToList();
+                    var lastAdded = accumulator.set.Union(current[0], current[1])
+                        ? (current[0], current[1])
+                        : accumulator.lastAdded;
 
-                    if (indexes.Count == 0)
-                    {
-                        return (
-                            accumulator.boxes.Add(
-                                ImmutableHashSet<Coord3d>.Empty.AddRange([current[0], current[1]])
-                            ),
-                            (current[0], current[1]),
-                            accumulator.remainingConnections - 1
-                        );
-                    }
-
-                    var next = accumulator.boxes;
-                    var junction = accumulator.boxes[indexes[0]].AddRange([current[0], current[1]]);
-
-                    var lastAdded =
-                        junction == accumulator.boxes[indexes[0]]
-                            ? accumulator.lastAdded
-                            : (current[0], current[1]);
-
-                    for (var counter = 1; counter < indexes.Count; ++counter)
-                    {
-                        junction = junction.AddRange(accumulator.boxes[indexes[counter]]);
-                        next = next.RemoveAt(indexes[counter] - counter + 1);
-                    }
-
-                    return (
-                        next.SetItem(indexes[0], junction),
-                        lastAdded,
-                        accumulator.remainingConnections - 1
-                    );
+                    return (accumulator.set, lastAdded, accumulator.remainingConnections - 1);
                 },
-                accumulator => (accumulator.boxes, accumulator.lastAdded)
+                accumulator => (accumulator.set, accumulator.lastAdded)
             );
 }
