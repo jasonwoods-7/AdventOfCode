@@ -26,9 +26,9 @@ public class Day08 : IAoCRunner<ParsedInput, long>
         CancellationToken cancellationToken = default
     )
     {
-        var (_, lastAdded) = Solver(input, -1, cancellationToken);
+        var (_, ((x1, _, _), (x2, _, _))) = Solver(input, -1, cancellationToken);
 
-        return lastAdded.Item1.X * lastAdded.Item2.X;
+        return x1 * x2;
     }
 
     static (ImmutableList<ImmutableHashSet<Coord3d>> boxes, (Coord3d, Coord3d) lastAdded) Solver(
@@ -83,7 +83,7 @@ public class Day08 : IAoCRunner<ParsedInput, long>
                     for (var counter = 1; counter < indexes.Count; ++counter)
                     {
                         junction = junction.AddRange(accumulator.boxes[indexes[counter]]);
-                        next = accumulator.boxes.RemoveAt(indexes[counter] - counter + 1);
+                        next = next.RemoveAt(indexes[counter] - counter + 1);
                     }
 
                     return (
