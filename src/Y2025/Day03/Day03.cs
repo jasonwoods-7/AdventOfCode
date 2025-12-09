@@ -11,13 +11,13 @@ public class Day03 : IAoCRunner<ParsedInput, long>
 
     public long RunPart1(
         ParsedInput input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     ) => input.Sum(v => SolveLine(v, 2));
 
     public long RunPart2(
         ParsedInput input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     ) => input.Sum(v => SolveLine(v, 12));
 

@@ -39,7 +39,7 @@ public class Day05 : IAoCRunner<(Cargo, Instruction[]), string>
 
     public string RunPart1(
         (Cargo, (int, int, int)[]) input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     ) =>
         MoveCrates(
@@ -62,7 +62,7 @@ public class Day05 : IAoCRunner<(Cargo, Instruction[]), string>
 
     public string RunPart2(
         (Cargo, (int, int, int)[]) input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     ) =>
         MoveCrates(

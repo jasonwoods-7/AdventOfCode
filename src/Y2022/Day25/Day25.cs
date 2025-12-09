@@ -7,13 +7,13 @@ public class Day25 : IAoCRunner<IEnumerable<long>, string>
 
     public string RunPart1(
         IEnumerable<long> input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     ) => input.Sum().Apply(ToSnafu);
 
     public string RunPart2(
         IEnumerable<long> input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     ) => string.Empty;
 

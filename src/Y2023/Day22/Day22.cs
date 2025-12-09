@@ -12,7 +12,7 @@ public class Day22 : IAoCRunner<ImmutableHashSet<Tile>, long>
 
     public long RunPart1(
         ImmutableHashSet<Tile> input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     )
     {
@@ -30,7 +30,7 @@ public class Day22 : IAoCRunner<ImmutableHashSet<Tile>, long>
 
     public long RunPart2(
         ImmutableHashSet<Tile> input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     )
     {

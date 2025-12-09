@@ -23,13 +23,13 @@ public class Day09 : IAoCRunner<IEnumerable<(Direction, int)>, int>
 
     public int RunPart1(
         IEnumerable<(Direction, int)> input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     ) => FindTailPositionCountForKnots(input, 2);
 
     public int RunPart2(
         IEnumerable<(Direction, int)> input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     ) => FindTailPositionCountForKnots(input, 10);
 

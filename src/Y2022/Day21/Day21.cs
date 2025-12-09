@@ -7,13 +7,13 @@ public class Day21 : IAoCRunner<Tree, long>
 
     public long RunPart1(
         Tree input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     ) => input.CalculateValue();
 
     public long RunPart2(
         Tree input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     )
     {

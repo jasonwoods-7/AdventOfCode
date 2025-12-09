@@ -11,18 +11,18 @@ public class Day08 : IAoCRunner<ParsedInput, long>
 
     public long RunPart1(
         ParsedInput input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     )
     {
-        var (boxes, _) = Solver(input, (int)additionalParams![0], cancellationToken);
+        var (boxes, _) = Solver(input, (int)state!, cancellationToken);
 
         return boxes.Select(b => b.Count).OrderDescending().Take(3).Product();
     }
 
     public long RunPart2(
         ParsedInput input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     )
     {

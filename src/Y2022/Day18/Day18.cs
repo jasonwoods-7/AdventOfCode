@@ -9,13 +9,13 @@ public class Day18 : IAoCRunner<LavaDroplet, int>
 
     public int RunPart1(
         LavaDroplet input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     ) => input.CountFaces();
 
     public int RunPart2(
         LavaDroplet input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     ) => input.ExternalArea();
 }

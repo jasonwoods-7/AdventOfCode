@@ -13,7 +13,7 @@ public class Day14(ILogger<Day14> logger) : IAoCRunner<Dish, long>
 
     public long RunPart1(
         Dish input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     )
     {
@@ -26,7 +26,7 @@ public class Day14(ILogger<Day14> logger) : IAoCRunner<Dish, long>
 
     public long RunPart2(
         Dish input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     )
     {

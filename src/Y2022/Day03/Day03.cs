@@ -6,7 +6,7 @@ public class Day03 : IAoCRunner<IEnumerable<string>, int>
 
     public int RunPart1(
         IEnumerable<string> input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     ) =>
         input
@@ -19,7 +19,7 @@ public class Day03 : IAoCRunner<IEnumerable<string>, int>
 
     public int RunPart2(
         IEnumerable<string> input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     ) =>
         input

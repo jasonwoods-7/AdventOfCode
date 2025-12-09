@@ -7,13 +7,13 @@ public class Day09 : IAoCRunner<IReadOnlyList<IReadOnlyList<int>>, int>
 
     public int RunPart1(
         IReadOnlyList<IReadOnlyList<int>> input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     ) => input.Sum(static e => Solve(ImmutableList.Create(e), FindNext));
 
     public int RunPart2(
         IReadOnlyList<IReadOnlyList<int>> input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     ) => input.Sum(static e => Solve(ImmutableList.Create(e), FindPrevious));
 

@@ -7,13 +7,13 @@ public class Day16 : IAoCRunner<char[][], int>
 
     public int RunPart1(
         char[][] input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     ) => CountEnergized(input, new Beam(new Coord(0, 0), Beam.East));
 
     public int RunPart2(
         char[][] input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     )
     {

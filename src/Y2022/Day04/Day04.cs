@@ -9,7 +9,7 @@ public class Day04 : IAoCRunner<IEnumerable<(int, int, int, int)>, int>
 
     public int RunPart1(
         IEnumerable<(int, int, int, int)> input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     ) =>
         input
@@ -20,7 +20,7 @@ public class Day04 : IAoCRunner<IEnumerable<(int, int, int, int)>, int>
 
     public int RunPart2(
         IEnumerable<(int, int, int, int)> input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     ) => input.Select(GetRangesAndOverlap).Count(static t => t.overlap.Length != 0);
 

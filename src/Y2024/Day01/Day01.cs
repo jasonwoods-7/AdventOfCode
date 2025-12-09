@@ -14,7 +14,7 @@ public class Day01 : IAoCRunner<(IReadOnlyList<int>, IReadOnlyList<int>), int>
 
     public int RunPart1(
         (IReadOnlyList<int>, IReadOnlyList<int>) input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     )
     {
@@ -26,7 +26,7 @@ public class Day01 : IAoCRunner<(IReadOnlyList<int>, IReadOnlyList<int>), int>
 
     public int RunPart2(
         (IReadOnlyList<int>, IReadOnlyList<int>) input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     )
     {

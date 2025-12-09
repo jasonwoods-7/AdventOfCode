@@ -15,13 +15,13 @@ public class Day04 : IAoCRunner<ParsedInput, long>
 
     public long RunPart1(
         ParsedInput input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     ) => input.Count(c => c.Adjacent().Count(input.Contains) < 4);
 
     public long RunPart2(
         ParsedInput input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     )
     {

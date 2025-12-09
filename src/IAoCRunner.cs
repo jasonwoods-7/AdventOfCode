@@ -6,13 +6,13 @@ public interface IAoCRunner<TInput, out TResult>
 
     TResult RunPart1(
         TInput input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     );
 
     TResult RunPart2(
         TInput input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     );
 }

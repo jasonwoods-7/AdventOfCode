@@ -17,13 +17,13 @@ public class Day04 : IAoCRunner<IReadOnlyList<int>, int>
 
     public int RunPart1(
         IReadOnlyList<int> input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     ) => input.Sum(static t => (1 << t) >> 1);
 
     public int RunPart2(
         IReadOnlyList<int> input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     )
     {

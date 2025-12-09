@@ -6,13 +6,13 @@ public class Day07 : IAoCRunner<IEnumerable<string>, int>
 
     public int RunPart1(
         IEnumerable<string> input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     ) => Solve(input, Card.Jack);
 
     public int RunPart2(
         IEnumerable<string> input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     ) => Solve(input, Card.Joker);
 

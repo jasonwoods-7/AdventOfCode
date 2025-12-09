@@ -47,7 +47,7 @@ public class Day12 : IAoCRunner<(Node, Node), int>
 
     public int RunPart1(
         (Node, Node) input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     )
     {
@@ -62,7 +62,7 @@ public class Day12 : IAoCRunner<(Node, Node), int>
 
     public int RunPart2(
         (Node, Node) input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     )
     {

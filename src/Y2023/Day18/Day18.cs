@@ -31,13 +31,13 @@ public partial class Day18 : IAoCRunner<IReadOnlyList<DigInstruction>, long>
 
     public long RunPart1(
         IReadOnlyList<DigInstruction> input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     ) => CountInterior(input);
 
     public long RunPart2(
         IReadOnlyList<DigInstruction> input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     ) => input.Select(i => i.Swap()).Apply(CountInterior);
 

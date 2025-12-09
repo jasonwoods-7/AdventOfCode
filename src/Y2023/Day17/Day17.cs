@@ -7,13 +7,13 @@ public class Day17 : IAoCRunner<int[][], int>
 
     public int RunPart1(
         int[][] input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     ) => MinHeatLoss(input, 0, 3);
 
     public int RunPart2(
         int[][] input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     ) => MinHeatLoss(input, 4, 10);
 

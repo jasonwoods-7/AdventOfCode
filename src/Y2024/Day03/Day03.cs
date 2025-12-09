@@ -13,13 +13,13 @@ public partial class Day03 : IAoCRunner<IReadOnlyList<string>, int>
 
     public int RunPart1(
         IReadOnlyList<string> input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     ) => input.SelectMany(s => Part1Instructions().Matches(s), (_, m) => MultiplyValues(m)).Sum();
 
     public int RunPart2(
         IReadOnlyList<string> input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     ) =>
         input

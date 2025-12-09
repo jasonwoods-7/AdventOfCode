@@ -7,13 +7,13 @@ public class Day01 : IAoCRunner<IReadOnlyList<string>, int>
 
     public int RunPart1(
         IReadOnlyList<string> input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     ) => Solve(input, @"\d");
 
     public int RunPart2(
         IReadOnlyList<string> input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     ) => Solve(input, @"\d|one|two|three|four|five|six|seven|eight|nine");
 

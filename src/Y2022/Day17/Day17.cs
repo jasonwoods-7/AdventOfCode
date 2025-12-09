@@ -30,13 +30,13 @@ public partial class Day17(ILogger<Day17> logger)
 
     public long RunPart1(
         IEnumerable<Func<Coord, Coord>> input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     ) => SimulateFallingRocks(input, 2022);
 
     public long RunPart2(
         IEnumerable<Func<Coord, Coord>> input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     ) => SimulateFallingRocks(input, 1_000_000_000_000);
 

@@ -11,13 +11,13 @@ public class Day11(long multiplier) : IAoCRunner<Galaxy, long>
 
     public long RunPart1(
         Galaxy input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     ) => input.Solve(1L);
 
     public long RunPart2(
         Galaxy input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     ) => input.Solve(multiplier);
 }

@@ -6,13 +6,13 @@ public class Day06 : IAoCRunner<string, int>
 
     public int RunPart1(
         string input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     ) => FindStartOfMessageMarker(input, 4);
 
     public int RunPart2(
         string input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     ) => FindStartOfMessageMarker(input, 14);
 

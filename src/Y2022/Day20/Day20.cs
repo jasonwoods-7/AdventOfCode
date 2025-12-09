@@ -7,13 +7,13 @@ public class Day20 : IAoCRunner<IReadOnlyList<long>, long>
 
     public long RunPart1(
         IReadOnlyList<long> input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     ) => Solve(input, 1, 1);
 
     public long RunPart2(
         IReadOnlyList<long> input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     ) => Solve(input, 811_589_153, 10);
 

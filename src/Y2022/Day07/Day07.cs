@@ -40,13 +40,13 @@ public class Day07 : IAoCRunner<Directory, int>
 
     public int RunPart1(
         Directory input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     ) => SubdirectorySizes(input).Where(s => s < 100_000).Sum();
 
     public int RunPart2(
         Directory input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     )
     {

@@ -9,7 +9,7 @@ public class Day13 : IAoCRunner<IEnumerable<(Packet, Packet)>, int>
 
     public int RunPart1(
         IEnumerable<(Packet, Packet)> input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     )
     {
@@ -28,7 +28,7 @@ public class Day13 : IAoCRunner<IEnumerable<(Packet, Packet)>, int>
 
     public int RunPart2(
         IEnumerable<(Packet, Packet)> input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     )
     {

@@ -107,13 +107,13 @@ public class Day05 : IAoCRunner<Parsed, long>
 
     public long RunPart1(
         Parsed input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     ) => input.Seeds.Min(input.SeedToLocation);
 
     public long RunPart2(
         Parsed input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     )
     {

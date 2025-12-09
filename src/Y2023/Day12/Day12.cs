@@ -27,13 +27,13 @@ public class Day12 : IAoCRunner<IReadOnlyList<Row>, long>
 
     public long RunPart1(
         IReadOnlyList<Row> input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     ) => input.Sum(r => Compute(r, new Dictionary<Row, long>()));
 
     public long RunPart2(
         IReadOnlyList<Row> input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     ) => input.Sum(r => Compute(r.Unfold(5), new Dictionary<Row, long>()));
 

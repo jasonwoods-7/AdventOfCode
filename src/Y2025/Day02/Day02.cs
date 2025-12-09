@@ -13,13 +13,13 @@ public class Day02 : IAoCRunner<ParsedInput, long>
 
     public long RunPart1(
         ParsedInput input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     ) => Runner(input, Part1IsInvalid);
 
     public long RunPart2(
         ParsedInput input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     ) => Runner(input, Part2IsInvalid);
 

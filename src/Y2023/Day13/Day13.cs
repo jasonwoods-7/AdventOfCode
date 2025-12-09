@@ -16,13 +16,13 @@ public class Day13 : IAoCRunner<IReadOnlyList<IReadOnlyDictionary<Coord, char>>,
 
     public long RunPart1(
         IReadOnlyList<IReadOnlyDictionary<Coord, char>> input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     ) => input.Select(m => FindReflection(m, 0)).Sum();
 
     public long RunPart2(
         IReadOnlyList<IReadOnlyDictionary<Coord, char>> input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     ) => input.Select(m => FindReflection(m, 1)).Sum();
 

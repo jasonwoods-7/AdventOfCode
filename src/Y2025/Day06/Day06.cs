@@ -27,7 +27,7 @@ public class Day06 : IAoCRunner<ParsedInput, long>
 
     public long RunPart1(
         ParsedInput input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     )
     {
@@ -55,7 +55,7 @@ public class Day06 : IAoCRunner<ParsedInput, long>
 
     public long RunPart2(
         ParsedInput input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     )
     {

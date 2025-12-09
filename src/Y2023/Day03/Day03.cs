@@ -62,7 +62,7 @@ public partial class Day03 : IAoCRunner<Parsed, int>
 
     public int RunPart1(
         Parsed input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     )
     {
@@ -83,7 +83,7 @@ public partial class Day03 : IAoCRunner<Parsed, int>
 
     public int RunPart2(
         Parsed input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     )
     {

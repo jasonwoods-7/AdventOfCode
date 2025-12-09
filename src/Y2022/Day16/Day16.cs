@@ -22,13 +22,13 @@ public partial class Day16 : IAoCRunner<IReadOnlyDictionary<string, Valve>, int>
 
     public int RunPart1(
         IReadOnlyDictionary<string, Valve> input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     ) => Solve(input, 30, true);
 
     public int RunPart2(
         IReadOnlyDictionary<string, Valve> input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     ) => Solve(input, 26, false);
 

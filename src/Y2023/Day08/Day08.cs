@@ -27,13 +27,13 @@ public class Day08 : IAoCRunner<Parsed, long>
 
     public long RunPart1(
         Parsed input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     ) => FindEnd(input, "AAA", e => e == "ZZZ", 0);
 
     public long RunPart2(
         Parsed input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     ) =>
         input

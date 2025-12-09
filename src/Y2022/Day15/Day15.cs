@@ -22,7 +22,7 @@ public class Day15(AnyOf<Part1Data, Part2Data> data, ILogger<Day15> logger)
 
     public long RunPart1(
         IReadOnlyList<(Coord, Coord)> input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     )
     {
@@ -64,7 +64,7 @@ public class Day15(AnyOf<Part1Data, Part2Data> data, ILogger<Day15> logger)
 
     public long RunPart2(
         IReadOnlyList<(Coord, Coord)> input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     )
     {

@@ -23,7 +23,7 @@ public class Day05 : IAoCRunner<ParsedInput, int>
 
     public int RunPart1(
         ParsedInput input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     ) =>
         input
@@ -33,7 +33,7 @@ public class Day05 : IAoCRunner<ParsedInput, int>
 
     public int RunPart2(
         ParsedInput input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     ) =>
         input

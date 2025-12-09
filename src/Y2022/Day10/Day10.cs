@@ -7,7 +7,7 @@ public class Day10 : IAoCRunner<IEnumerable<IInstruction>, AnyOf<int, string>>
 
     public AnyOf<int, string> RunPart1(
         IEnumerable<IInstruction> input,
-        object[]? additionalParams = null,
+        object? state1 = null,
         CancellationToken cancellationToken = default
     ) =>
         input.Aggregate(
@@ -18,7 +18,7 @@ public class Day10 : IAoCRunner<IEnumerable<IInstruction>, AnyOf<int, string>>
 
     public AnyOf<int, string> RunPart2(
         IEnumerable<IInstruction> input,
-        object[]? additionalParams = null,
+        object? state1 = null,
         CancellationToken cancellationToken = default
     ) =>
         input.Aggregate(

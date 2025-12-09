@@ -31,7 +31,7 @@ public partial class Day02 : IAoCRunner<IReadOnlyList<Game>, int>
 
     public int RunPart1(
         IReadOnlyList<Game> input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     ) =>
         input
@@ -50,7 +50,7 @@ public partial class Day02 : IAoCRunner<IReadOnlyList<Game>, int>
 
     public int RunPart2(
         IReadOnlyList<Game> input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     ) =>
         input.Sum(g =>

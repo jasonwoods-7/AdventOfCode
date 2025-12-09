@@ -6,13 +6,13 @@ public class Day19 : IAoCRunner<IEnumerable<string>, int>
 
     public int RunPart1(
         IEnumerable<string> input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     ) => throw new NotImplementedException();
 
     public int RunPart2(
         IEnumerable<string> input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     ) => throw new NotImplementedException();
 }

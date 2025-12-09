@@ -42,7 +42,7 @@ public class Day14 : IAoCRunner<Dictionary<Coord, char>, int>
 
     public int RunPart1(
         Dictionary<Coord, char> input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     )
     {
@@ -59,7 +59,7 @@ public class Day14 : IAoCRunner<Dictionary<Coord, char>, int>
 
     public int RunPart2(
         Dictionary<Coord, char> input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     )
     {

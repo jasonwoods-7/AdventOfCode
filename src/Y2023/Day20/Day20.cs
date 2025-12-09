@@ -46,7 +46,7 @@ public class Day20 : IAoCRunner<IReadOnlyDictionary<string, Module>, long>
 
     public long RunPart1(
         IReadOnlyDictionary<string, Module> input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     )
     {
@@ -69,7 +69,7 @@ public class Day20 : IAoCRunner<IReadOnlyDictionary<string, Module>, long>
 
     public long RunPart2(
         IReadOnlyDictionary<string, Module> input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     )
     {

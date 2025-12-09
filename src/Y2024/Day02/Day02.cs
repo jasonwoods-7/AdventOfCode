@@ -9,13 +9,13 @@ public class Day02 : IAoCRunner<IReadOnlyList<Report>, int>
 
     public int RunPart1(
         IReadOnlyList<Report> input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     ) => input.Count(r => IsReportSafe(r.Levels));
 
     public int RunPart2(
         IReadOnlyList<Report> input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     ) =>
         input.Count(r =>

@@ -12,13 +12,13 @@ public partial class Day15 : IAoCRunner<IEnumerable<string>, int>
 
     public int RunPart1(
         IEnumerable<string> input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     ) => input.Sum(Hash);
 
     public int RunPart2(
         IEnumerable<string> input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     )
     {

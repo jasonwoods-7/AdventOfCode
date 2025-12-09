@@ -13,7 +13,7 @@ public class Day08Tests : AoCRunnerTests<AoC.Y2025.Day08.Day08>
         var input = runner.ParseInput(await InputHelpers.ReadInputFileAsync("example.txt"));
 
         // Act
-        var result = runner.RunPart1(input, [10], TestContext.Current.CancellationToken);
+        var result = runner.RunPart1(input, 10, TestContext.Current.CancellationToken);
 
         // Assert
         result.ShouldBe(40);
@@ -27,7 +27,7 @@ public class Day08Tests : AoCRunnerTests<AoC.Y2025.Day08.Day08>
         var input = runner.ParseInput(await InputHelpers.ReadInputFileAsync());
 
         // Act
-        var result = runner.RunPart1(input, [1_000], TestContext.Current.CancellationToken);
+        var result = runner.RunPart1(input, 1_000, TestContext.Current.CancellationToken);
 
         // Assert
         result.ShouldBe(75_680);

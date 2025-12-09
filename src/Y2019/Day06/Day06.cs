@@ -34,13 +34,13 @@ public class Day06 : IAoCRunner<IReadOnlyDictionary<string, Node>, long>
 
     public long RunPart1(
         IReadOnlyDictionary<string, Node> input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     ) => input.Sum(n => n.Value.Height());
 
     public long RunPart2(
         IReadOnlyDictionary<string, Node> input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     )
     {

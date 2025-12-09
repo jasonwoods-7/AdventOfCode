@@ -13,13 +13,13 @@ public class Day10(ILogger<Day10> logger) : IAoCRunner<IReadOnlyDictionary<Coord
 
     public int RunPart1(
         IReadOnlyDictionary<Coord, char> input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     ) => FindPipes(input).Max(v => v.Value);
 
     public int RunPart2(
         IReadOnlyDictionary<Coord, char> input,
-        object[]? additionalParams = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     )
     {
