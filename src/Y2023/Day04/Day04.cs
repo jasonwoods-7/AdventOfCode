@@ -15,9 +15,17 @@ public class Day04 : IAoCRunner<IReadOnlyList<int>, int>
             )
             .ToList();
 
-    public int RunPart1(IReadOnlyList<int> input) => input.Sum(static t => (1 << t) >> 1);
+    public int RunPart1(
+        IReadOnlyList<int> input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    ) => input.Sum(static t => (1 << t) >> 1);
 
-    public int RunPart2(IReadOnlyList<int> input)
+    public int RunPart2(
+        IReadOnlyList<int> input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    )
     {
         var ticketCount = input.Select(_ => 1).ToList();
 

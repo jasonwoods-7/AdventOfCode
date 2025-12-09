@@ -29,10 +29,17 @@ public partial class Day18 : IAoCRunner<IReadOnlyList<DigInstruction>, long>
             )
             .ToList();
 
-    public long RunPart1(IReadOnlyList<DigInstruction> input) => CountInterior(input);
+    public long RunPart1(
+        IReadOnlyList<DigInstruction> input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    ) => CountInterior(input);
 
-    public long RunPart2(IReadOnlyList<DigInstruction> input) =>
-        input.Select(i => i.Swap()).Apply(CountInterior);
+    public long RunPart2(
+        IReadOnlyList<DigInstruction> input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    ) => input.Select(i => i.Swap()).Apply(CountInterior);
 
     static long CountInterior(IEnumerable<DigInstruction> instructions) =>
         instructions.Aggregate(

@@ -21,11 +21,17 @@ public class Day09 : IAoCRunner<IEnumerable<(Direction, int)>, int>
                 )
         );
 
-    public int RunPart1(IEnumerable<(Direction, int)> input) =>
-        FindTailPositionCountForKnots(input, 2);
+    public int RunPart1(
+        IEnumerable<(Direction, int)> input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    ) => FindTailPositionCountForKnots(input, 2);
 
-    public int RunPart2(IEnumerable<(Direction, int)> input) =>
-        FindTailPositionCountForKnots(input, 10);
+    public int RunPart2(
+        IEnumerable<(Direction, int)> input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    ) => FindTailPositionCountForKnots(input, 10);
 
     static int FindTailPositionCountForKnots(IEnumerable<(Direction, int)> moves, int knotCount)
     {

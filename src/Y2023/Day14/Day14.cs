@@ -11,7 +11,11 @@ public class Day14(ILogger<Day14> logger) : IAoCRunner<Dish, long>
             .SelectMany(y => y.Item.Select((c, x) => (new Coord(x, y.Index), c)))
             .ToDictionary();
 
-    public long RunPart1(Dish input)
+    public long RunPart1(
+        Dish input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    )
     {
         var tilt = Tilt(input, 0, 1, 0, 1, (h, v) => new Coord(h, v));
 
@@ -20,7 +24,11 @@ public class Day14(ILogger<Day14> logger) : IAoCRunner<Dish, long>
         return Score(tilt, maxY);
     }
 
-    public long RunPart2(Dish input)
+    public long RunPart2(
+        Dish input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    )
     {
         var maxY = input.Select(c => c.Key.Y).Max();
 

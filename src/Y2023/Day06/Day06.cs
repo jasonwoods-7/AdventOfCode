@@ -13,10 +13,17 @@ public class Day06 : IAoCRunner<IReadOnlyList<Race>, long>
                     .ToList()
         );
 
-    public long RunPart1(IReadOnlyList<Race> input) =>
-        input.Select(r => Range(r.Time - 1).Count(i => i * (r.Time - i) > r.Distance)).Product();
+    public long RunPart1(
+        IReadOnlyList<Race> input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    ) => input.Select(r => Range(r.Time - 1).Count(i => i * (r.Time - i) > r.Distance)).Product();
 
-    public long RunPart2(IReadOnlyList<Race> input) =>
+    public long RunPart2(
+        IReadOnlyList<Race> input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    ) =>
         input
             .Aggregate(
                 (time: "", distance: ""),

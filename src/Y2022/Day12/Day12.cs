@@ -45,7 +45,11 @@ public class Day12 : IAoCRunner<(Node, Node), int>
         }
     }
 
-    public int RunPart1((Node, Node) input)
+    public int RunPart1(
+        (Node, Node) input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    )
     {
         var (startPos, endPos) = input;
 
@@ -56,7 +60,11 @@ public class Day12 : IAoCRunner<(Node, Node), int>
         );
     }
 
-    public int RunPart2((Node, Node) input)
+    public int RunPart2(
+        (Node, Node) input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    )
     {
         var (startPos, endPos) = input;
 

@@ -14,11 +14,17 @@ public class Day13 : IAoCRunner<IReadOnlyList<IReadOnlyDictionary<Coord, char>>,
             )
             .ToList();
 
-    public long RunPart1(IReadOnlyList<IReadOnlyDictionary<Coord, char>> input) =>
-        input.Select(m => FindReflection(m, 0)).Sum();
+    public long RunPart1(
+        IReadOnlyList<IReadOnlyDictionary<Coord, char>> input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    ) => input.Select(m => FindReflection(m, 0)).Sum();
 
-    public long RunPart2(IReadOnlyList<IReadOnlyDictionary<Coord, char>> input) =>
-        input.Select(m => FindReflection(m, 1)).Sum();
+    public long RunPart2(
+        IReadOnlyList<IReadOnlyDictionary<Coord, char>> input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    ) => input.Select(m => FindReflection(m, 1)).Sum();
 
     static readonly Coord Right = new(1, 0);
     static readonly Coord Below = new(0, 1);

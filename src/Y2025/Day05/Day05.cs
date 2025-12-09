@@ -20,10 +20,17 @@ public class Day05 : IAoCRunner<ParsedInput, long>
                     )
             );
 
-    public long RunPart1(ParsedInput input) =>
-        input.Ingredients.Count(i => input.Ranges.Any(r => i >= r.lo && i <= r.hi));
+    public long RunPart1(
+        ParsedInput input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    ) => input.Ingredients.Count(i => input.Ranges.Any(r => i >= r.lo && i <= r.hi));
 
-    public long RunPart2(ParsedInput input) =>
+    public long RunPart2(
+        ParsedInput input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    ) =>
         input
             .Ranges.OrderBy(r => r.lo)
             .ThenBy(r => r.hi)

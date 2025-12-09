@@ -25,7 +25,11 @@ public class Day06 : IAoCRunner<ParsedInput, long>
             }
         );
 
-    public long RunPart1(ParsedInput input)
+    public long RunPart1(
+        ParsedInput input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    )
     {
         return Solver(input, NumberParser);
 
@@ -49,7 +53,11 @@ public class Day06 : IAoCRunner<ParsedInput, long>
         }
     }
 
-    public long RunPart2(ParsedInput input)
+    public long RunPart2(
+        ParsedInput input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    )
     {
         return Solver(input, NumberParser);
 

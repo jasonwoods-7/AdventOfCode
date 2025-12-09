@@ -32,7 +32,11 @@ public class Day19 : IAoCRunner<Parsed, long>
                 }
             );
 
-    public long RunPart1(Parsed input) =>
+    public long RunPart1(
+        Parsed input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    ) =>
         input
             .Parts.Choose(p =>
             {
@@ -50,7 +54,11 @@ public class Day19 : IAoCRunner<Parsed, long>
             })
             .Sum();
 
-    public long RunPart2(Parsed input)
+    public long RunPart2(
+        Parsed input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    )
     {
         var hyperCube = new Range(1, 4000).Apply(r => new HyperCube(r, r, r, r));
 

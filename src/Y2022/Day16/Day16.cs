@@ -20,9 +20,17 @@ public partial class Day16 : IAoCRunner<IReadOnlyDictionary<string, Valve>, int>
             })
             .ToDictionary(v => v.Name);
 
-    public int RunPart1(IReadOnlyDictionary<string, Valve> input) => Solve(input, 30, true);
+    public int RunPart1(
+        IReadOnlyDictionary<string, Valve> input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    ) => Solve(input, 30, true);
 
-    public int RunPart2(IReadOnlyDictionary<string, Valve> input) => Solve(input, 26, false);
+    public int RunPart2(
+        IReadOnlyDictionary<string, Valve> input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    ) => Solve(input, 26, false);
 
     static int Solve(
         IReadOnlyDictionary<string, Valve> valves,

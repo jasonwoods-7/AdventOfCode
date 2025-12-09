@@ -17,10 +17,17 @@ public class Day07 : IAoCRunner<ParsedInput, long>
             )
             .Apply(eqs => new ParsedInput(eqs.ToList()));
 
-    public long RunPart1(ParsedInput input) => Solver(input, (cur, c) => [c * cur, c + cur]);
+    public long RunPart1(
+        ParsedInput input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    ) => Solver(input, (cur, c) => [c * cur, c + cur]);
 
-    public long RunPart2(ParsedInput input) =>
-        Solver(input, (cur, c) => [c * cur, c + cur, $"{c}{cur}".ParseNumber<long>()]);
+    public long RunPart2(
+        ParsedInput input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    ) => Solver(input, (cur, c) => [c * cur, c + cur, $"{c}{cur}".ParseNumber<long>()]);
 
     static long Solver(ParsedInput input, Func<long, long, long[]> next) =>
         input

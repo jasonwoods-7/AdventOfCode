@@ -5,11 +5,17 @@ public class Day09 : IAoCRunner<IReadOnlyList<IReadOnlyList<int>>, int>
     public IReadOnlyList<IReadOnlyList<int>> ParseInput(IEnumerable<string> puzzleInput) =>
         puzzleInput.Select(l => l.FindNumbers<int>().ToList()).ToList();
 
-    public int RunPart1(IReadOnlyList<IReadOnlyList<int>> input) =>
-        input.Sum(static e => Solve(ImmutableList.Create(e), FindNext));
+    public int RunPart1(
+        IReadOnlyList<IReadOnlyList<int>> input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    ) => input.Sum(static e => Solve(ImmutableList.Create(e), FindNext));
 
-    public int RunPart2(IReadOnlyList<IReadOnlyList<int>> input) =>
-        input.Sum(static e => Solve(ImmutableList.Create(e), FindPrevious));
+    public int RunPart2(
+        IReadOnlyList<IReadOnlyList<int>> input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    ) => input.Sum(static e => Solve(ImmutableList.Create(e), FindPrevious));
 
     static int Solve(
         ImmutableList<IReadOnlyList<int>> current,

@@ -5,10 +5,17 @@ public class Day16 : IAoCRunner<char[][], int>
     public char[][] ParseInput(IEnumerable<string> puzzleInput) =>
         puzzleInput.Select(y => y.ToCharArray()).ToArray();
 
-    public int RunPart1(char[][] input) =>
-        CountEnergized(input, new Beam(new Coord(0, 0), Beam.East));
+    public int RunPart1(
+        char[][] input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    ) => CountEnergized(input, new Beam(new Coord(0, 0), Beam.East));
 
-    public int RunPart2(char[][] input)
+    public int RunPart2(
+        char[][] input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    )
     {
         var maxY = input.Length;
         var maxX = input[0].Length;

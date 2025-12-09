@@ -20,7 +20,11 @@ public class Day15(AnyOf<Part1Data, Part2Data> data, ILogger<Day15> logger)
             )
             .ToList();
 
-    public long RunPart1(IReadOnlyList<(Coord, Coord)> input)
+    public long RunPart1(
+        IReadOnlyList<(Coord, Coord)> input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    )
     {
         var seenX = new System.Collections.Generic.HashSet<long>();
 
@@ -58,7 +62,11 @@ public class Day15(AnyOf<Part1Data, Part2Data> data, ILogger<Day15> logger)
             + 1;
     }
 
-    public long RunPart2(IReadOnlyList<(Coord, Coord)> input)
+    public long RunPart2(
+        IReadOnlyList<(Coord, Coord)> input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    )
     {
         Debug.Assert(_data.IsSecond);
         var distressBeacon = FindDistressBeacon(input, _data.Second.Value);

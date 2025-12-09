@@ -14,7 +14,11 @@ public class Day08 : IAoCRunner<ParsedInput, int>
             .GroupBy(t => t.c, t => new Coord(t.x, t.y))
             .ToDictionary(g => g.Key, IReadOnlyList<Coord> (g) => g.ToList());
 
-    public int RunPart1(ParsedInput input)
+    public int RunPart1(
+        ParsedInput input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    )
     {
         var bounds = Bounds.FindBounds(input.Values.SelectMany(c => c));
 
@@ -36,7 +40,11 @@ public class Day08 : IAoCRunner<ParsedInput, int>
             .Count(c => bounds.WithinBounds(c));
     }
 
-    public int RunPart2(ParsedInput input)
+    public int RunPart2(
+        ParsedInput input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    )
     {
         var bounds = Bounds.FindBounds(input.Values.SelectMany(c => c));
 

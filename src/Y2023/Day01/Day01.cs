@@ -5,10 +5,17 @@ public class Day01 : IAoCRunner<IReadOnlyList<string>, int>
     public IReadOnlyList<string> ParseInput(IEnumerable<string> puzzleInput) =>
         puzzleInput.ToList();
 
-    public int RunPart1(IReadOnlyList<string> input) => Solve(input, @"\d");
+    public int RunPart1(
+        IReadOnlyList<string> input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    ) => Solve(input, @"\d");
 
-    public int RunPart2(IReadOnlyList<string> input) =>
-        Solve(input, @"\d|one|two|three|four|five|six|seven|eight|nine");
+    public int RunPart2(
+        IReadOnlyList<string> input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    ) => Solve(input, @"\d|one|two|three|four|five|six|seven|eight|nine");
 
     static int Solve(IReadOnlyList<string> input, string regEx) =>
         (

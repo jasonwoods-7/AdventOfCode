@@ -60,7 +60,11 @@ public partial class Day03 : IAoCRunner<Parsed, int>
                     )
             );
 
-    public int RunPart1(Parsed input)
+    public int RunPart1(
+        Parsed input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    )
     {
         var symbolCoords = input
             .Symbols.Select(s => s.Coord)
@@ -77,7 +81,11 @@ public partial class Day03 : IAoCRunner<Parsed, int>
             .Sum(n => n.Value);
     }
 
-    public int RunPart2(Parsed input)
+    public int RunPart2(
+        Parsed input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    )
     {
         var gears = input
             .Symbols.Where(s => s.Value == '*')

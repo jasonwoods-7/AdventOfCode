@@ -4,7 +4,15 @@ public interface IAoCRunner<TInput, out TResult>
 {
     TInput ParseInput(IEnumerable<string> puzzleInput);
 
-    TResult RunPart1(TInput input);
+    TResult RunPart1(
+        TInput input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    );
 
-    TResult RunPart2(TInput input);
+    TResult RunPart2(
+        TInput input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    );
 }

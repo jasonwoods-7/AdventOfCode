@@ -13,10 +13,17 @@ public class Day04 : IAoCRunner<ParsedInput, long>
             .Choose(t => (t.Item1, new Coord(t.x, t.y)))
             .ToImmutableHashSet();
 
-    public long RunPart1(ParsedInput input) =>
-        input.Count(c => c.Adjacent().Count(input.Contains) < 4);
+    public long RunPart1(
+        ParsedInput input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    ) => input.Count(c => c.Adjacent().Count(input.Contains) < 4);
 
-    public long RunPart2(ParsedInput input)
+    public long RunPart2(
+        ParsedInput input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    )
     {
         var currentCount = input.Count;
         int previousCount;

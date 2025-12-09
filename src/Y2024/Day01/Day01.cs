@@ -12,7 +12,11 @@ public class Day01 : IAoCRunner<(IReadOnlyList<int>, IReadOnlyList<int>), int>
                     (t.Select(static i => i.Item).ToList(), f.Select(static i => i.Item).ToList())
             );
 
-    public int RunPart1((IReadOnlyList<int>, IReadOnlyList<int>) input)
+    public int RunPart1(
+        (IReadOnlyList<int>, IReadOnlyList<int>) input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    )
     {
         var left = input.Item1.Order().ToList();
         var right = input.Item2.Order().ToList();
@@ -20,7 +24,11 @@ public class Day01 : IAoCRunner<(IReadOnlyList<int>, IReadOnlyList<int>), int>
         return left.Zip(right, static (l, r) => Math.Abs(l - r)).Sum();
     }
 
-    public int RunPart2((IReadOnlyList<int>, IReadOnlyList<int>) input)
+    public int RunPart2(
+        (IReadOnlyList<int>, IReadOnlyList<int>) input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    )
     {
         var left = input.Item1;
         var right = input

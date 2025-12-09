@@ -11,9 +11,17 @@ public class Day02 : IAoCRunner<ParsedInput, long>
             .Select(r => r.FindNumbers<long>().Fold((l, h) => (l, -h)))
             .ToImmutableList();
 
-    public long RunPart1(ParsedInput input) => Runner(input, Part1IsInvalid);
+    public long RunPart1(
+        ParsedInput input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    ) => Runner(input, Part1IsInvalid);
 
-    public long RunPart2(ParsedInput input) => Runner(input, Part2IsInvalid);
+    public long RunPart2(
+        ParsedInput input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    ) => Runner(input, Part2IsInvalid);
 
     static long Runner(ParsedInput input, Func<long, bool> predicate) =>
         input

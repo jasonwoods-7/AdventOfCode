@@ -25,9 +25,17 @@ public class Day08 : IAoCRunner<Parsed, long>
                 }
             );
 
-    public long RunPart1(Parsed input) => FindEnd(input, "AAA", e => e == "ZZZ", 0);
+    public long RunPart1(
+        Parsed input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    ) => FindEnd(input, "AAA", e => e == "ZZZ", 0);
 
-    public long RunPart2(Parsed input) =>
+    public long RunPart2(
+        Parsed input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    ) =>
         input
             .Maps.Keys.Where(k => k[2] == 'A')
             .Select(n => FindEnd(input, n, e => e[2] == 'Z', 0))

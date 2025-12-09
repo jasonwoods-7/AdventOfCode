@@ -10,9 +10,17 @@ public partial class Day15 : IAoCRunner<IEnumerable<string>, int>
     public IEnumerable<string> ParseInput(IEnumerable<string> puzzleInput) =>
         puzzleInput.SelectMany(l => l.Split(','));
 
-    public int RunPart1(IEnumerable<string> input) => input.Sum(Hash);
+    public int RunPart1(
+        IEnumerable<string> input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    ) => input.Sum(Hash);
 
-    public int RunPart2(IEnumerable<string> input)
+    public int RunPart2(
+        IEnumerable<string> input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    )
     {
         var boxes = Enumerable.Range(0, 256).ToDictionary(i => i, _ => new List<Lens>());
 

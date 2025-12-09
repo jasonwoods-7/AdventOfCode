@@ -5,7 +5,11 @@ public class Day08 : IAoCRunner<IReadOnlyList<IReadOnlyList<int>>, int>
     public IReadOnlyList<IReadOnlyList<int>> ParseInput(IEnumerable<string> puzzleInput) =>
         puzzleInput.Select(s => s.Select(c => c - '0').ToList()).ToList();
 
-    public int RunPart1(IReadOnlyList<IReadOnlyList<int>> input)
+    public int RunPart1(
+        IReadOnlyList<IReadOnlyList<int>> input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    )
     {
         // Assume square
         Debug.Assert(input.Count == input[0].Count);
@@ -67,7 +71,11 @@ public class Day08 : IAoCRunner<IReadOnlyList<IReadOnlyList<int>>, int>
         }
     }
 
-    public int RunPart2(IReadOnlyList<IReadOnlyList<int>> input)
+    public int RunPart2(
+        IReadOnlyList<IReadOnlyList<int>> input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    )
     {
         static (int, int, int, int) SeenFrom(
             IReadOnlyList<IReadOnlyList<int>> treeMap,

@@ -14,7 +14,11 @@ public class Day04 : IAoCRunner<ParsedInput, int>
             .Apply(a => new ParsedInput(a, input.Count, input.First().Length));
     }
 
-    public int RunPart1(ParsedInput input)
+    public int RunPart1(
+        ParsedInput input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    )
     {
         var xmasCount = 0;
 
@@ -41,7 +45,11 @@ public class Day04 : IAoCRunner<ParsedInput, int>
         return xmasCount;
     }
 
-    public int RunPart2(ParsedInput input)
+    public int RunPart2(
+        ParsedInput input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    )
     {
         var xedMasCount = 0;
         var puzzle = input.Span;

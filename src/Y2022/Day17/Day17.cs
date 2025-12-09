@@ -28,11 +28,17 @@ public partial class Day17(ILogger<Day17> logger)
         // ReSharper disable once IteratorNeverReturns
     }
 
-    public long RunPart1(IEnumerable<Func<Coord, Coord>> input) =>
-        SimulateFallingRocks(input, 2022);
+    public long RunPart1(
+        IEnumerable<Func<Coord, Coord>> input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    ) => SimulateFallingRocks(input, 2022);
 
-    public long RunPart2(IEnumerable<Func<Coord, Coord>> input) =>
-        SimulateFallingRocks(input, 1_000_000_000_000);
+    public long RunPart2(
+        IEnumerable<Func<Coord, Coord>> input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    ) => SimulateFallingRocks(input, 1_000_000_000_000);
 
     long SimulateFallingRocks(IEnumerable<Func<Coord, Coord>> gusts, long totalRocks)
     {

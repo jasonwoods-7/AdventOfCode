@@ -105,9 +105,17 @@ public class Day05 : IAoCRunner<Parsed, long>
         );
     }
 
-    public long RunPart1(Parsed input) => input.Seeds.Min(input.SeedToLocation);
+    public long RunPart1(
+        Parsed input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    ) => input.Seeds.Min(input.SeedToLocation);
 
-    public long RunPart2(Parsed input)
+    public long RunPart2(
+        Parsed input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    )
     {
         var ranges = input
             .Seeds.Batch(2)

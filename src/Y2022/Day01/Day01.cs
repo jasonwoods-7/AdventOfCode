@@ -10,9 +10,15 @@ public class Day01 : IAoCRunner<IReadOnlyList<IReadOnlyList<int>>, int>
             )
             .ToList();
 
-    public int RunPart1(IReadOnlyList<IReadOnlyList<int>> input) =>
-        input.Select(static s => s.Sum()).OrderDescending().First();
+    public int RunPart1(
+        IReadOnlyList<IReadOnlyList<int>> input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    ) => input.Select(static s => s.Sum()).OrderDescending().First();
 
-    public int RunPart2(IReadOnlyList<IReadOnlyList<int>> input) =>
-        input.Select(static s => s.Sum()).OrderDescending().Take(3).Sum();
+    public int RunPart2(
+        IReadOnlyList<IReadOnlyList<int>> input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    ) => input.Select(static s => s.Sum()).OrderDescending().Take(3).Sum();
 }

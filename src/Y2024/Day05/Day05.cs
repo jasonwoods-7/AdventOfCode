@@ -21,13 +21,21 @@ public class Day05 : IAoCRunner<ParsedInput, int>
                     )
             );
 
-    public int RunPart1(ParsedInput input) =>
+    public int RunPart1(
+        ParsedInput input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    ) =>
         input
             .Updates.Select(u => u.Pages)
             .Where(p => InCorrectOrder(p, input.Rules))
             .Sum(p => p[p.Count / 2]);
 
-    public int RunPart2(ParsedInput input) =>
+    public int RunPart2(
+        ParsedInput input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    ) =>
         input
             .Updates.Select(u => u.Pages)
             .Where(p => !InCorrectOrder(p, input.Rules))

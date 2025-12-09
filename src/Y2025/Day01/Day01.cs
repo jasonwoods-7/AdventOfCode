@@ -7,7 +7,11 @@ public class Day01(ILogger<Day01> logger) : IAoCRunner<ParsedInput, int>
     public ParsedInput ParseInput(IEnumerable<string> puzzleInput) =>
         puzzleInput.Select(p => (p[0], p[1..].ParseNumber<int>())).ToImmutableList();
 
-    public int RunPart1(ParsedInput input) =>
+    public int RunPart1(
+        ParsedInput input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    ) =>
         input.Aggregate(
             (current: 50, count: 0),
             (t, c) =>
@@ -33,7 +37,11 @@ public class Day01(ILogger<Day01> logger) : IAoCRunner<ParsedInput, int>
             t => t.count
         );
 
-    public int RunPart2(ParsedInput input) =>
+    public int RunPart2(
+        ParsedInput input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    ) =>
         input.Aggregate(
             (current: 50, count: 0),
             (t, c) =>

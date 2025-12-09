@@ -11,10 +11,17 @@ public class Day10(ILogger<Day10> logger) : IAoCRunner<IReadOnlyDictionary<Coord
             .Where(t => t.item != '.')
             .ToDictionary(t => t.coord, t => t.item);
 
-    public int RunPart1(IReadOnlyDictionary<Coord, char> input) =>
-        FindPipes(input).Max(v => v.Value);
+    public int RunPart1(
+        IReadOnlyDictionary<Coord, char> input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    ) => FindPipes(input).Max(v => v.Value);
 
-    public int RunPart2(IReadOnlyDictionary<Coord, char> input)
+    public int RunPart2(
+        IReadOnlyDictionary<Coord, char> input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    )
     {
         var pipes = FindPipes(input);
 

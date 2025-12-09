@@ -29,7 +29,11 @@ public partial class Day02 : IAoCRunner<IReadOnlyList<Game>, int>
             )
         ).ToList();
 
-    public int RunPart1(IReadOnlyList<Game> input) =>
+    public int RunPart1(
+        IReadOnlyList<Game> input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    ) =>
         input
             .Where(static g =>
                 g.Rounds.All(static r =>
@@ -44,7 +48,11 @@ public partial class Day02 : IAoCRunner<IReadOnlyList<Game>, int>
             )
             .Sum(g => g.Id);
 
-    public int RunPart2(IReadOnlyList<Game> input) =>
+    public int RunPart2(
+        IReadOnlyList<Game> input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    ) =>
         input.Sum(g =>
         {
             var cubes = new Dictionary<string, int>

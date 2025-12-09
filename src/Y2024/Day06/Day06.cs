@@ -13,7 +13,11 @@ public class Day06 : IAoCRunner<ParsedInput, int>
             .Where(t => t.c != '.')
             .ToImmutableDictionary(t => new Coord(t.x, t.y), t => t.c);
 
-    public int RunPart1(ParsedInput input)
+    public int RunPart1(
+        ParsedInput input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    )
     {
         var initial = input.Single(kvp => kvp.Value == '^').Key;
         input = input.Remove(initial);
@@ -25,7 +29,11 @@ public class Day06 : IAoCRunner<ParsedInput, int>
         return visited.Count;
     }
 
-    public int RunPart2(ParsedInput input)
+    public int RunPart2(
+        ParsedInput input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    )
     {
         var initial = input.Single(kvp => kvp.Value == '^').Key;
         input = input.Remove(initial);

@@ -5,9 +5,17 @@ public class Day21 : IAoCRunner<Tree, long>
     public Tree ParseInput(IEnumerable<string> puzzleInput) =>
         puzzleInput.ToDictionary(l => l[..4], l => l[6..]).Apply(t => ParseTree("root", t));
 
-    public long RunPart1(Tree input) => input.CalculateValue();
+    public long RunPart1(
+        Tree input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    ) => input.CalculateValue();
 
-    public long RunPart2(Tree input)
+    public long RunPart2(
+        Tree input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    )
     {
         var root = input as Branch;
         Debug.Assert(root is not null);

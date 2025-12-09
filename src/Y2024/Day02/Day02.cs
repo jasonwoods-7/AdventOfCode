@@ -7,9 +7,17 @@ public class Day02 : IAoCRunner<IReadOnlyList<Report>, int>
     public IReadOnlyList<Report> ParseInput(IEnumerable<string> puzzleInput) =>
         puzzleInput.Select(l => new Report(l.FindNumbers<int>().ToList())).ToList();
 
-    public int RunPart1(IReadOnlyList<Report> input) => input.Count(r => IsReportSafe(r.Levels));
+    public int RunPart1(
+        IReadOnlyList<Report> input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    ) => input.Count(r => IsReportSafe(r.Levels));
 
-    public int RunPart2(IReadOnlyList<Report> input) =>
+    public int RunPart2(
+        IReadOnlyList<Report> input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    ) =>
         input.Count(r =>
             r.Levels.Subsets(r.Levels.Count - 1)
                 .Cast<IReadOnlyList<int>>()

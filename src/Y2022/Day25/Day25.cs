@@ -5,9 +5,17 @@ public class Day25 : IAoCRunner<IEnumerable<long>, string>
     public IEnumerable<long> ParseInput(IEnumerable<string> puzzleInput) =>
         puzzleInput.Select(FromSnafu);
 
-    public string RunPart1(IEnumerable<long> input) => input.Sum().Apply(ToSnafu);
+    public string RunPart1(
+        IEnumerable<long> input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    ) => input.Sum().Apply(ToSnafu);
 
-    public string RunPart2(IEnumerable<long> input) => string.Empty;
+    public string RunPart2(
+        IEnumerable<long> input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    ) => string.Empty;
 
     static long FromSnafu(string snafu) =>
         snafu

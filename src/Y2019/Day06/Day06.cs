@@ -32,10 +32,17 @@ public class Day06 : IAoCRunner<IReadOnlyDictionary<string, Node>, long>
         return nodes;
     }
 
-    public long RunPart1(IReadOnlyDictionary<string, Node> input) =>
-        input.Sum(n => n.Value.Height());
+    public long RunPart1(
+        IReadOnlyDictionary<string, Node> input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    ) => input.Sum(n => n.Value.Height());
 
-    public long RunPart2(IReadOnlyDictionary<string, Node> input)
+    public long RunPart2(
+        IReadOnlyDictionary<string, Node> input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    )
     {
         return SuperEnumerable.GetShortestPathCost<Node, long>(
                 input["YOU"],

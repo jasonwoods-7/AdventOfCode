@@ -7,7 +7,11 @@ public class Day13 : IAoCRunner<IEnumerable<(Packet, Packet)>, int>
             .Split(l => l == string.Empty)
             .Select(ls => ls.Fold((p1, p2) => (Packet.ParsePacket(p1), Packet.ParsePacket(p2))));
 
-    public int RunPart1(IEnumerable<(Packet, Packet)> input)
+    public int RunPart1(
+        IEnumerable<(Packet, Packet)> input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    )
     {
         var comparer = new PacketComparer();
 
@@ -22,7 +26,11 @@ public class Day13 : IAoCRunner<IEnumerable<(Packet, Packet)>, int>
             .Sum();
     }
 
-    public int RunPart2(IEnumerable<(Packet, Packet)> input)
+    public int RunPart2(
+        IEnumerable<(Packet, Packet)> input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    )
     {
         var decoder1 = Packet.ParsePacket("[[2]]");
         var decoder2 = Packet.ParsePacket("[[6]]");

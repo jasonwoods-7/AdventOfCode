@@ -25,11 +25,17 @@ public class Day12 : IAoCRunner<IReadOnlyList<Row>, long>
             select new Row(pattern, ImmutableStack.CreateRange(nums.Reverse()))
         ).ToList();
 
-    public long RunPart1(IReadOnlyList<Row> input) =>
-        input.Sum(r => Compute(r, new Dictionary<Row, long>()));
+    public long RunPart1(
+        IReadOnlyList<Row> input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    ) => input.Sum(r => Compute(r, new Dictionary<Row, long>()));
 
-    public long RunPart2(IReadOnlyList<Row> input) =>
-        input.Sum(r => Compute(r.Unfold(5), new Dictionary<Row, long>()));
+    public long RunPart2(
+        IReadOnlyList<Row> input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    ) => input.Sum(r => Compute(r.Unfold(5), new Dictionary<Row, long>()));
 
     static long Compute(Row row, Dictionary<Row, long> cache)
     {

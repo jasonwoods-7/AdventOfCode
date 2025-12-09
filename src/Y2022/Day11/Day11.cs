@@ -23,10 +23,17 @@ public class Day11 : IAoCRunner<IReadOnlyDictionary<int, Monkey>, long>
             )
             .ToDictionary(static m => m.Id);
 
-    public long RunPart1(IReadOnlyDictionary<int, Monkey> input) =>
-        CalculateMonkeyBusiness(input, 20, static v => Math.DivRem(v, 3).Quotient);
+    public long RunPart1(
+        IReadOnlyDictionary<int, Monkey> input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    ) => CalculateMonkeyBusiness(input, 20, static v => Math.DivRem(v, 3).Quotient);
 
-    public long RunPart2(IReadOnlyDictionary<int, Monkey> input)
+    public long RunPart2(
+        IReadOnlyDictionary<int, Monkey> input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    )
     {
         var reducer = new Reducer(input.Aggregate(1L, (p, m) => p * m.Value.TestDiv));
         return CalculateMonkeyBusiness(input, 10_000, reducer.Reduce);

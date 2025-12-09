@@ -7,7 +7,11 @@ public class Day09 : IAoCRunner<ParsedInput, long>
     public ParsedInput ParseInput(IEnumerable<string> puzzleInput) =>
         puzzleInput.SelectMany(l => l, (_, c) => c - '0').ToList();
 
-    public long RunPart1(ParsedInput input)
+    public long RunPart1(
+        ParsedInput input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    )
     {
         var memory = input
             .Index()
@@ -45,7 +49,11 @@ public class Day09 : IAoCRunner<ParsedInput, long>
         return sum;
     }
 
-    public long RunPart2(ParsedInput input)
+    public long RunPart2(
+        ParsedInput input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    )
     {
         var memory = input
             .Index()

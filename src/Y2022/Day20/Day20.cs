@@ -5,9 +5,17 @@ public class Day20 : IAoCRunner<IReadOnlyList<long>, long>
     public IReadOnlyList<long> ParseInput(IEnumerable<string> puzzleInput) =>
         puzzleInput.Select(l => long.Parse(l, CultureInfo.CurrentCulture)).ToList();
 
-    public long RunPart1(IReadOnlyList<long> input) => Solve(input, 1, 1);
+    public long RunPart1(
+        IReadOnlyList<long> input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    ) => Solve(input, 1, 1);
 
-    public long RunPart2(IReadOnlyList<long> input) => Solve(input, 811_589_153, 10);
+    public long RunPart2(
+        IReadOnlyList<long> input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    ) => Solve(input, 811_589_153, 10);
 
     static long Solve(IReadOnlyList<long> input, long decryptionKey, int rounds)
     {

@@ -5,9 +5,17 @@ public class Day17 : IAoCRunner<int[][], int>
     public int[][] ParseInput(IEnumerable<string> puzzleInput) =>
         puzzleInput.Select(l => l.Select(c => c - '0').ToArray()).ToArray();
 
-    public int RunPart1(int[][] input) => MinHeatLoss(input, 0, 3);
+    public int RunPart1(
+        int[][] input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    ) => MinHeatLoss(input, 0, 3);
 
-    public int RunPart2(int[][] input) => MinHeatLoss(input, 4, 10);
+    public int RunPart2(
+        int[][] input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    ) => MinHeatLoss(input, 4, 10);
 
     static int MinHeatLoss(int[][] map, int minStraight, int maxStraight)
     {

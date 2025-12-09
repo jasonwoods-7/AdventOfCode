@@ -10,7 +10,11 @@ public class Day22 : IAoCRunner<ImmutableHashSet<Tile>, long>
             )
             .ToImmutableHashSet();
 
-    public long RunPart1(ImmutableHashSet<Tile> input)
+    public long RunPart1(
+        ImmutableHashSet<Tile> input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    )
     {
         var (fallenTower, _) = FallTiles(input);
 
@@ -24,7 +28,11 @@ public class Day22 : IAoCRunner<ImmutableHashSet<Tile>, long>
             });
     }
 
-    public long RunPart2(ImmutableHashSet<Tile> input)
+    public long RunPart2(
+        ImmutableHashSet<Tile> input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    )
     {
         var (fallenTower, _) = FallTiles(input);
 

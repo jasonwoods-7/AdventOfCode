@@ -12,7 +12,11 @@ public class Day02 : IAoCRunner<IEnumerable<string>, int>
 
     public IEnumerable<string> ParseInput(IEnumerable<string> puzzleInput) => puzzleInput;
 
-    public int RunPart1(IEnumerable<string> input) =>
+    public int RunPart1(
+        IEnumerable<string> input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    ) =>
         input.Sum(static t =>
             t switch
             {
@@ -29,7 +33,11 @@ public class Day02 : IAoCRunner<IEnumerable<string>, int>
             }
         );
 
-    public int RunPart2(IEnumerable<string> input) =>
+    public int RunPart2(
+        IEnumerable<string> input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    ) =>
         input.Sum(static t =>
             t switch
             {

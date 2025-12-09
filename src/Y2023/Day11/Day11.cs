@@ -9,7 +9,15 @@ public class Day11(long multiplier) : IAoCRunner<Galaxy, long>
             .Choose(t => (t.item == '#', t.coord))
             .Apply(g => new Galaxy(g.ToList()));
 
-    public long RunPart1(Galaxy input) => input.Solve(1L);
+    public long RunPart1(
+        Galaxy input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    ) => input.Solve(1L);
 
-    public long RunPart2(Galaxy input) => input.Solve(multiplier);
+    public long RunPart2(
+        Galaxy input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    ) => input.Solve(multiplier);
 }

@@ -40,7 +40,11 @@ public class Day14 : IAoCRunner<Dictionary<Coord, char>, int>
             .Distinct()
             .ToDictionary(c => c, _ => '#');
 
-    public int RunPart1(Dictionary<Coord, char> input)
+    public int RunPart1(
+        Dictionary<Coord, char> input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    )
     {
         // ReSharper disable ConvertToLocalFunction
         Func<Coord, IReadOnlyDictionary<Coord, char>, bool> isOccupied = static (c, a) =>
@@ -53,7 +57,11 @@ public class Day14 : IAoCRunner<Dictionary<Coord, char>, int>
         return GetSandCount(input, isOccupied, exitCondition);
     }
 
-    public int RunPart2(Dictionary<Coord, char> input)
+    public int RunPart2(
+        Dictionary<Coord, char> input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    )
     {
         // ReSharper disable ConvertToLocalFunction
         var maxY = input.Keys.MaxBy(static c => c.Y).Y;

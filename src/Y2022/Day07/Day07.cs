@@ -38,9 +38,17 @@ public class Day07 : IAoCRunner<Directory, int>
         return root;
     }
 
-    public int RunPart1(Directory input) => SubdirectorySizes(input).Where(s => s < 100_000).Sum();
+    public int RunPart1(
+        Directory input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    ) => SubdirectorySizes(input).Where(s => s < 100_000).Sum();
 
-    public int RunPart2(Directory input)
+    public int RunPart2(
+        Directory input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    )
     {
         var freeSpace = 70_000_000 - input.CalculateSize();
         var requiredSpace = 30_000_000 - freeSpace;

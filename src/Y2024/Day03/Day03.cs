@@ -11,10 +11,17 @@ public partial class Day03 : IAoCRunner<IReadOnlyList<string>, int>
     public IReadOnlyList<string> ParseInput(IEnumerable<string> puzzleInput) =>
         puzzleInput.ToList();
 
-    public int RunPart1(IReadOnlyList<string> input) =>
-        input.SelectMany(s => Part1Instructions().Matches(s), (_, m) => MultiplyValues(m)).Sum();
+    public int RunPart1(
+        IReadOnlyList<string> input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    ) => input.SelectMany(s => Part1Instructions().Matches(s), (_, m) => MultiplyValues(m)).Sum();
 
-    public int RunPart2(IReadOnlyList<string> input) =>
+    public int RunPart2(
+        IReadOnlyList<string> input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    ) =>
         input
             .SelectMany(s => Part2Instructions().Matches(s))
             .Aggregate(

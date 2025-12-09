@@ -44,7 +44,11 @@ public class Day20 : IAoCRunner<IReadOnlyDictionary<string, Module>, long>
         return modules;
     }
 
-    public long RunPart1(IReadOnlyDictionary<string, Module> input)
+    public long RunPart1(
+        IReadOnlyDictionary<string, Module> input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    )
     {
         var untyped = new Dictionary<string, Module>();
 
@@ -63,7 +67,11 @@ public class Day20 : IAoCRunner<IReadOnlyDictionary<string, Module>, long>
             );
     }
 
-    public long RunPart2(IReadOnlyDictionary<string, Module> input)
+    public long RunPart2(
+        IReadOnlyDictionary<string, Module> input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    )
     {
         var inputs = input[input["rx"].UnwrapConjunction().GetInputs().Single()]
             .UnwrapConjunction()

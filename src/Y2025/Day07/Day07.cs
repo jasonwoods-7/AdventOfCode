@@ -11,7 +11,11 @@ public class Day07 : IAoCRunner<ParsedInput, long>
             .Where(t => t.Item != '.')
             .ToImmutableDictionary(t => t.Item1, t => t.Item);
 
-    public long RunPart1(ParsedInput input)
+    public long RunPart1(
+        ParsedInput input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    )
     {
         var start = input.Single(kvp => kvp.Value == 'S').Key;
 
@@ -44,7 +48,11 @@ public class Day07 : IAoCRunner<ParsedInput, long>
         return splits;
     }
 
-    public long RunPart2(ParsedInput input)
+    public long RunPart2(
+        ParsedInput input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    )
     {
         var start = input.Single(kvp => kvp.Value == 'S').Key;
         var cache = new Dictionary<Coord, long>();

@@ -9,9 +9,17 @@ public class Day03 : IAoCRunner<ParsedInput, long>
             .Select(l => new ReadOnlyMemory<long>(l.Select(c => (long)c - '0').ToArray()))
             .ToImmutableList();
 
-    public long RunPart1(ParsedInput input) => input.Sum(v => SolveLine(v, 2));
+    public long RunPart1(
+        ParsedInput input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    ) => input.Sum(v => SolveLine(v, 2));
 
-    public long RunPart2(ParsedInput input) => input.Sum(v => SolveLine(v, 12));
+    public long RunPart2(
+        ParsedInput input,
+        object[]? additionalParams = null,
+        CancellationToken cancellationToken = default
+    ) => input.Sum(v => SolveLine(v, 12));
 
     static long SolveLine(ReadOnlyMemory<long> line, int remaining, long accumulator = 0)
     {
