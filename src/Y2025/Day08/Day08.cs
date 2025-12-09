@@ -15,7 +15,7 @@ public class Day08 : IAoCRunner<ParsedInput, long>
         CancellationToken cancellationToken = default
     )
     {
-        var (boxes, _) = Solver(input, (int)additionalParams![0]);
+        var (boxes, _) = Solver(input, (int)additionalParams![0], cancellationToken);
 
         return boxes.Select(b => b.Count).OrderDescending().Take(3).Product();
     }
@@ -26,14 +26,15 @@ public class Day08 : IAoCRunner<ParsedInput, long>
         CancellationToken cancellationToken = default
     )
     {
-        var (_, lastAdded) = Solver(input, -1);
+        var (_, lastAdded) = Solver(input, -1, cancellationToken);
 
         return lastAdded.Item1.X * lastAdded.Item2.X;
     }
 
     static (ImmutableList<ImmutableHashSet<Coord3d>> boxes, (Coord3d, Coord3d) lastAdded) Solver(
         ParsedInput input,
-        int remainingConnections
+        int remainingConnections,
+        CancellationToken cancellationToken
     ) =>
         input
             .Subsets(2)
@@ -46,6 +47,8 @@ public class Day08 : IAoCRunner<ParsedInput, long>
                 ),
                 (accumulator, current) =>
                 {
+                    cancellationToken.ThrowIfCancellationRequested();
+
                     if (accumulator.remainingConnections == 0)
                     {
                         return accumulator;
