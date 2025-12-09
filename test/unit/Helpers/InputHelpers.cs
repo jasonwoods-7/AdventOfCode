@@ -56,7 +56,7 @@ public static partial class InputHelpers
             }
         }
 
-        Skip.IfNot(exists, $"File \"{fullFileName}\" not found");
+        Assert.SkipUnless(exists, $"File \"{fullFileName}\" not found");
 
         return File.ReadLines(fullFileName);
     }

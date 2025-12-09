@@ -13,7 +13,7 @@ public class Day08Tests : AoCRunnerTests<AoC.Y2025.Day08.Day08>
         var input = runner.ParseInput(await InputHelpers.ReadInputFileAsync("example.txt"));
 
         // Act
-        var result = runner.RunPart1(input, [10]);
+        var result = runner.RunPart1(input, [10], TestContext.Current.CancellationToken);
 
         // Assert
         result.ShouldBe(40);
@@ -27,7 +27,7 @@ public class Day08Tests : AoCRunnerTests<AoC.Y2025.Day08.Day08>
         var input = runner.ParseInput(await InputHelpers.ReadInputFileAsync());
 
         // Act
-        var result = runner.RunPart1(input, [1_000]);
+        var result = runner.RunPart1(input, [1_000], TestContext.Current.CancellationToken);
 
         // Assert
         result.ShouldBe(75_680);
@@ -42,7 +42,10 @@ public class Day08Tests : AoCRunnerTests<AoC.Y2025.Day08.Day08>
         var input = runner.ParseInput(await InputHelpers.ReadInputFileAsync("example.txt"));
 
         // Act
-        var result = runner.RunPart2(input, [-1]);
+        var result = runner.RunPart2(
+            input,
+            cancellationToken: TestContext.Current.CancellationToken
+        );
 
         // Assert
         result.ShouldBe(25_272);
@@ -56,7 +59,10 @@ public class Day08Tests : AoCRunnerTests<AoC.Y2025.Day08.Day08>
         var input = runner.ParseInput(await InputHelpers.ReadInputFileAsync());
 
         // Act
-        var result = runner.RunPart2(input);
+        var result = runner.RunPart2(
+            input,
+            cancellationToken: TestContext.Current.CancellationToken
+        );
 
         // Assert
         result.ShouldBe(8_995_844_880L);

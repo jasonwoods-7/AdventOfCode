@@ -3,10 +3,10 @@
 [SuppressMessage("ReSharper", "AsyncApostle.AsyncMethodNamingHighlighting")]
 public abstract class AoCRunnerTests<TRunner>
 {
-    [SkippableFact]
+    [Fact]
     public abstract Task Part1();
 
-    [SkippableFact]
+    [Fact]
     public abstract Task Part2();
 
     protected TRunner CreateRunner(params object[] args) =>

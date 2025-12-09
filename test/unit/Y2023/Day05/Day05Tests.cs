@@ -48,7 +48,7 @@ public class Day05Tests : AoCRunnerTests<AoC.Y2023.Day05.Day05>
         result.ShouldBe(46L);
     }
 
-    [SkippableFact(Skip = "Not optimized")]
+    [Fact(Skip = "Not optimized")]
     public override async Task Part2()
     {
         // Arrange

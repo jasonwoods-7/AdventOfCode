@@ -1,3 +1,5 @@
+using Serilog.Sinks.XUnit3;
+
 namespace AoC.Tests.Helpers;
 
 public static class OutputHelpers
@@ -6,7 +8,7 @@ public static class OutputHelpers
         new LoggerFactory().AddSerilog(
             new LoggerConfiguration()
                 .MinimumLevel.Verbose()
-                .WriteTo.TestOutput(outputHelper, formatProvider: null)
+                .WriteTo.XUnit3TestOutput()
                 .CreateLogger()
         );
 }
