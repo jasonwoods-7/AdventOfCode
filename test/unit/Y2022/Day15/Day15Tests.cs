@@ -5,9 +5,9 @@ namespace AoC.Tests.Y2022.Day15;
 
 [SuppressMessage("ReSharper", "AsyncApostle.AsyncMethodNamingHighlighting")]
 [SuppressMessage("ReSharper", "AsyncApostle.ConfigureAwaitHighlighting")]
-public class Day15Tests(ITestOutputHelper outputHelper) : AoCRunnerTests<AoC.Y2022.Day15.Day15>
+public class Day15Tests : AoCRunnerTests<AoC.Y2022.Day15.Day15>
 {
-    readonly ILoggerFactory _loggerFactory = outputHelper.CreateLoggerFactory();
+    readonly ILoggerFactory _loggerFactory = OutputHelpers.CreateLoggerFactory();
 
     [Fact]
     public async Task Example_Part1()

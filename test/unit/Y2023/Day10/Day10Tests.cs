@@ -4,9 +4,9 @@ namespace AoC.Tests.Y2023.Day10;
 
 [SuppressMessage("ReSharper", "AsyncApostle.AsyncMethodNamingHighlighting")]
 [SuppressMessage("ReSharper", "AsyncApostle.ConfigureAwaitHighlighting")]
-public class Day10Tests(ITestOutputHelper outputHelper) : AoCRunnerTests<AoC.Y2023.Day10.Day10>
+public class Day10Tests : AoCRunnerTests<AoC.Y2023.Day10.Day10>
 {
-    readonly ILoggerFactory _loggerFactory = outputHelper.CreateLoggerFactory();
+    readonly ILoggerFactory _loggerFactory = OutputHelpers.CreateLoggerFactory();
 
     [Theory]
     [InlineData(

@@ -4,7 +4,7 @@ namespace AoC.Tests.Helpers;
 
 public static class OutputHelpers
 {
-    public static ILoggerFactory CreateLoggerFactory(this ITestOutputHelper outputHelper) =>
+    public static ILoggerFactory CreateLoggerFactory() =>
         new LoggerFactory().AddSerilog(
             new LoggerConfiguration()
                 .MinimumLevel.Verbose()
