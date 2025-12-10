@@ -59,5 +59,8 @@ public static class CoordExtensions
                 (1, 0) => Coord.Up, // Right -> Up
                 _ => throw new InvalidOperationException(),
             };
+
+        public double DistanceTo(Coord other) =>
+            Math.Sqrt(Math.Pow(source.X - other.X, 2) + Math.Pow(source.Y - other.Y, 2));
     }
 }
