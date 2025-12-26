@@ -45,18 +45,14 @@ public class Day11 : IAoCRunner<ParsedInput, long>
     {
         cancellationToken.ThrowIfCancellationRequested();
 
-        if (cache.TryGetValue(current, out var value))
-        {
-            return value;
-        }
-
-        value =
-            current == target
-                ? 1
-                : input[current].Sum(next => Solver(input, next, target, cache, cancellationToken));
-
-        cache[current] = value;
-
-        return value;
+        return cache.TryGetValue(current, out var value)
+            ? value
+            : cache.FluentAdd(
+                current,
+                current == target
+                    ? 1
+                    : input[current]
+                        .Sum(next => Solver(input, next, target, cache, cancellationToken))
+            );
     }
 }
