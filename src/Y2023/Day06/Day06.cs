@@ -1,7 +1,5 @@
 namespace AoC.Y2023.Day06;
 
-public record Race(long Time, long Distance);
-
 public class Day06 : IAoCRunner<IReadOnlyList<Race>, long>
 {
     public IReadOnlyList<Race> ParseInput(IEnumerable<string> puzzleInput) =>

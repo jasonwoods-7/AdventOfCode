@@ -1,14 +1,5 @@
 ﻿namespace AoC.Y2019.Day06;
 
-public record Node(string Name)
-{
-    public Node? Parent { get; set; }
-    public IList<Node> Children { get; } = new List<Node>();
-
-    public long Height(long currentHeight = 0) =>
-        Parent?.Height(currentHeight + 1) ?? currentHeight;
-}
-
 public class Day06 : IAoCRunner<IReadOnlyDictionary<string, Node>, long>
 {
     public IReadOnlyDictionary<string, Node> ParseInput(IEnumerable<string> puzzleInput)
@@ -19,9 +10,9 @@ public class Day06 : IAoCRunner<IReadOnlyDictionary<string, Node>, long>
 
         var nodes = orbits
             .SelectMany(o => new[] { o.parent, o.child })
-            .Distinct()
+            .Distinct(StringComparer.Ordinal)
             .Select(n => new Node(n))
-            .ToDictionary(n => n.Name);
+            .ToDictionary(n => n.Name, StringComparer.Ordinal);
 
         foreach (var (p, c) in orbits)
         {

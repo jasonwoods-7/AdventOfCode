@@ -2,7 +2,11 @@ namespace AoC.Y2022.Day16;
 
 public partial class Day16 : IAoCRunner<IReadOnlyDictionary<string, Valve>, int>
 {
-    [GeneratedRegex(@"^Valve (\w+) has flow rate=(\d+); tunnels? leads? to valves? (.*)$")]
+    [GeneratedRegex(
+        @"^Valve (?<name>\w+) has flow rate=(?<flowRate>\d+); tunnels? leads? to valves? (?<connections>.*)$",
+        RegexOptions.ExplicitCapture,
+        matchTimeoutMilliseconds: 1_000
+    )]
     private static partial Regex ParseRegex();
 
     public IReadOnlyDictionary<string, Valve> ParseInput(IEnumerable<string> puzzleInput) =>
@@ -12,13 +16,16 @@ public partial class Day16 : IAoCRunner<IReadOnlyDictionary<string, Valve>, int>
                 var match1 = ParseRegex().Match(l);
                 Debug.Assert(match1.Success);
 
-                var name = match1.Groups[1].Value;
-                var flowRate = int.Parse(match1.Groups[2].Value, CultureInfo.CurrentCulture);
-                var connected = match1.Groups[3].Value.Split(", ");
+                var name = match1.Groups["name"].Value;
+                var flowRate = int.Parse(
+                    match1.Groups["flowRate"].Value,
+                    CultureInfo.CurrentCulture
+                );
+                var connected = match1.Groups["connections"].Value.Split(", ");
 
                 return new Valve(name, flowRate, connected);
             })
-            .ToDictionary(v => v.Name);
+            .ToDictionary(v => v.Name, StringComparer.Ordinal);
 
     public int RunPart1(
         IReadOnlyDictionary<string, Valve> input,
@@ -74,11 +81,7 @@ public partial class Day16 : IAoCRunner<IReadOnlyDictionary<string, Valve>, int>
     {
         Debug.Assert(worker1.Distance == 0 || worker2.Distance == 0);
 
-        var nextWorkers = new IReadOnlyList<Worker>[]
-        {
-            System.Array.Empty<Worker>(),
-            System.Array.Empty<Worker>(),
-        };
+        var nextWorkers = new IReadOnlyList<Worker>[] { [], [] };
 
         for (var worker = 0; worker < 2; ++worker)
         {
@@ -86,13 +89,13 @@ public partial class Day16 : IAoCRunner<IReadOnlyDictionary<string, Valve>, int>
 
             if (currentWorker.Distance > 0)
             {
-                nextWorkers[worker] = new[]
-                {
+                nextWorkers[worker] =
+                [
                     currentWorker with
                     {
                         Distance = currentWorker.Distance - 1,
                     },
-                };
+                ];
             }
             else if (unopenedValves.Contains(currentWorker.Valve.Name))
             {
@@ -106,7 +109,7 @@ public partial class Day16 : IAoCRunner<IReadOnlyDictionary<string, Valve>, int>
                 unopenedValves = unopenedValves.Remove(currentWorker.Valve.Name);
 
                 Debug.Assert(currentWorker.Distance == 0);
-                nextWorkers[worker] = new[] { currentWorker };
+                nextWorkers[worker] = [currentWorker];
             }
             else
             {

@@ -1,10 +1,12 @@
 ﻿namespace AoC.Y2023.Day15;
 
-sealed record Lens(string Label, int Value);
-
 public partial class Day15 : IAoCRunner<IEnumerable<string>, int>
 {
-    [GeneratedRegex(@"(\w+)(?:(=\d)|(-))")]
+    [GeneratedRegex(
+        @"(?<label>\w+)(?:(?<lens>=\d)|(-))",
+        RegexOptions.ExplicitCapture,
+        matchTimeoutMilliseconds: 1_000
+    )]
     private partial Regex OperationRegex();
 
     public IEnumerable<string> ParseInput(IEnumerable<string> puzzleInput) =>
@@ -28,16 +30,16 @@ public partial class Day15 : IAoCRunner<IEnumerable<string>, int>
         {
             var match = OperationRegex().Match(current);
 
-            var label = match.Groups[1].Value;
+            var label = match.Groups["label"].Value;
             var hash = Hash(label);
 
-            if (match.Groups[2].Success)
+            if (match.Groups["lens"].Success)
             {
-                AddLens(match.Groups[2].Value[1..].ParseNumber<int>(), boxes[hash], label);
+                AddLens(match.Groups["lens"].Value[1..].ParseNumber<int>(), boxes[hash], label);
             }
             else
             {
-                boxes[hash].RemoveAll(l => l.Label == label);
+                boxes[hash].RemoveAll(l => string.Equals(l.Label, label, StringComparison.Ordinal));
             }
         }
 
@@ -49,7 +51,7 @@ public partial class Day15 : IAoCRunner<IEnumerable<string>, int>
 
     static void AddLens(int lens, List<Lens> box, string label)
     {
-        var existing = box.FindIndex(t => t.Label == label);
+        var existing = box.FindIndex(t => string.Equals(t.Label, label, StringComparison.Ordinal));
         if (existing != -1)
         {
             box[existing] = new Lens(label, lens);

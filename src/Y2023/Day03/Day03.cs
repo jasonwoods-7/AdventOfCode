@@ -1,20 +1,12 @@
 namespace AoC.Y2023.Day03;
 
-public record Number(int StartX, int EndX, int Y, int Value);
-
-public record Symbol(Coord Coord, char Value);
-
-public record Parsed(ImmutableList<Number> Numbers, ImmutableList<Symbol> Symbols) : IMonoid<Parsed>
-{
-    public static Parsed Empty() => new(ImmutableList<Number>.Empty, ImmutableList<Symbol>.Empty);
-
-    public Parsed Append(Parsed other) =>
-        new(this.Numbers.AddRange(other.Numbers), this.Symbols.AddRange(other.Symbols));
-}
-
 public partial class Day03 : IAoCRunner<Parsed, int>
 {
-    [GeneratedRegex(@"(\d+)|([^.])")]
+    [GeneratedRegex(
+        @"(?<number>\d+)|(?<symbol>[^.])",
+        RegexOptions.ExplicitCapture,
+        matchTimeoutMilliseconds: 1_000
+    )]
     private static partial Regex Schematic();
 
     public Parsed ParseInput(IEnumerable<string> puzzleInput) =>
@@ -27,12 +19,12 @@ public partial class Day03 : IAoCRunner<Parsed, int>
                         Schematic()
                             .Matches(current.Item)
                             .Partition(
-                                static m => m.Groups[1].Success,
+                                static m => m.Groups["number"].Success,
                                 (ns, ss) =>
                                 {
                                     var numbers = ns.Select(n =>
                                         {
-                                            var group = n.Groups[1];
+                                            var group = n.Groups["number"];
                                             var x1 = group.Index;
                                             var x2 = x1 + group.Length - 1;
                                             var value = int.Parse(
@@ -46,7 +38,7 @@ public partial class Day03 : IAoCRunner<Parsed, int>
 
                                     var symbols = ss.Select(s =>
                                         {
-                                            var group = s.Groups[2];
+                                            var group = s.Groups["symbol"];
                                             var x = group.Index;
                                             var value = group.Value[0];
 
@@ -104,7 +96,7 @@ public partial class Day03 : IAoCRunner<Parsed, int>
                 var intersect = adj.Intersect(gears);
 
                 return intersect.Count == 0
-                    ? (false, System.Array.Empty<(int number, Coord gear)>())
+                    ? (false, [])
                     : (true, intersect.Select(g => (number: n.Value, gear: g)).ToArray());
             })
             .SelectMany(g => g)

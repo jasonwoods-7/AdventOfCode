@@ -7,7 +7,7 @@ public class Node
 
     public int Height { get; }
 
-    public System.Collections.Generic.HashSet<Node> AdjacentNodes { get; }
+    public ISet<Node> AdjacentNodes { get; }
 
     public Node(int height)
     {

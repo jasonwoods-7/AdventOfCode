@@ -1,9 +1,5 @@
 ﻿namespace AoC.Y2024.Day07;
 
-public record ParsedInput(IReadOnlyList<Equation> Equations);
-
-public record Equation(long Result, IReadOnlyList<long> Values);
-
 public class Day07 : IAoCRunner<ParsedInput, long>
 {
     public ParsedInput ParseInput(IEnumerable<string> puzzleInput) =>

@@ -3,7 +3,9 @@ namespace AoC.Y2022.Day21;
 public class Day21 : IAoCRunner<Tree, long>
 {
     public Tree ParseInput(IEnumerable<string> puzzleInput) =>
-        puzzleInput.ToDictionary(l => l[..4], l => l[6..]).Apply(t => ParseTree("root", t));
+        puzzleInput
+            .ToDictionary(l => l[..4], l => l[6..], StringComparer.Ordinal)
+            .Apply(t => ParseTree("root", t));
 
     public long RunPart1(
         Tree input,
@@ -39,7 +41,7 @@ public class Day21 : IAoCRunner<Tree, long>
     {
         var value = allTrees[name];
 
-        if (long.TryParse(value, out var result))
+        if (long.TryParse(value, null, out var result))
         {
             return new Leaf(name, result);
         }

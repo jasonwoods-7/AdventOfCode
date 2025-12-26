@@ -14,7 +14,7 @@ partial record Module
         {
             if (pulse == Pulse.High)
             {
-                return System.Array.Empty<(string, string, Pulse)>();
+                return [];
             }
 
             On = !On;

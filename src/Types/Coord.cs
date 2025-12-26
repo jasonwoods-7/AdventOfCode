@@ -1,8 +1,10 @@
 using System.Numerics;
+using System.Runtime.InteropServices;
 
 namespace AoC.Types;
 
 [DebuggerDisplay("({X}, {Y})")]
+[StructLayout(LayoutKind.Sequential)]
 public readonly record struct Coord(long X, long Y)
     : IAdditiveIdentity<Coord, Coord>,
         IAdditionOperators<Coord, Coord, Coord>,

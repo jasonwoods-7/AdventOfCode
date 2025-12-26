@@ -10,6 +10,6 @@ partial record Module
             string sender,
             Pulse pulse,
             long buttonPress
-        ) => System.Array.Empty<(string, string, Pulse)>();
+        ) => [];
     }
 }

@@ -2,7 +2,7 @@
 
 partial class DisjointUnionSet<T>
 {
-    class DebugView
+    sealed class DebugView
     {
         readonly DisjointUnionSet<T> _set;
 

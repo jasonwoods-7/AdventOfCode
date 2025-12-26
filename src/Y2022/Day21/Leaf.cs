@@ -12,7 +12,8 @@ sealed class Leaf : Tree
     public override long CalculateValue() => _value;
 
     /// <inheritdoc />
-    public override Tree? Find(string name) => Name == name ? this : null;
+    public override Tree? Find(string name) =>
+        string.Equals(Name, name, StringComparison.Ordinal) ? this : null;
 
     public override string DebuggerDisplay() => $"{_value}";
 

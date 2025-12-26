@@ -4,7 +4,7 @@ namespace AoC.Y2022.Day17;
 
 partial class Day17
 {
-    readonly Dictionary<string, (long, long)> _cache = new();
+    readonly Dictionary<string, (long, long)> _cache = new(StringComparer.Ordinal);
 
     Option<(long height, long rocks)> CheckForRepetition(
         IReadOnlySet<Coord> grid,

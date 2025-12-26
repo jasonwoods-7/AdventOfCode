@@ -7,23 +7,23 @@ public class Day10 : IAoCRunner<IEnumerable<IInstruction>, AnyOf<int, string>>
 
     public AnyOf<int, string> RunPart1(
         IEnumerable<IInstruction> input,
-        object? state1 = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     ) =>
         input.Aggregate(
             new SystemState<InterestingSumCollectionStrategy>(),
-            (state, instruction) => instruction.Accept(state),
-            state => state.CollectionStrategy.InterestingSum
+            static (state, instruction) => instruction.Accept(state),
+            static state => state.CollectionStrategy.InterestingSum
         );
 
     public AnyOf<int, string> RunPart2(
         IEnumerable<IInstruction> input,
-        object? state1 = null,
+        object? state = null,
         CancellationToken cancellationToken = default
     ) =>
         input.Aggregate(
             new SystemState<ConsoleRenderingCollectionStrategy>(),
-            (state, instruction) => instruction.Accept(state),
-            state => state.CollectionStrategy.RenderConsole()
+            static (state, instruction) => instruction.Accept(state),
+            static state => state.CollectionStrategy.RenderConsole()
         );
 }

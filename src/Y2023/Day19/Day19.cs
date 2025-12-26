@@ -50,7 +50,13 @@ public class Day19 : IAoCRunner<Parsed, long>
                     );
                 }
 
-                return (instruction.MatchWorkflow(w => w.Next == "A", () => false), p.Total);
+                return (
+                    instruction.MatchWorkflow(
+                        w => string.Equals(w.Next, "A", StringComparison.Ordinal),
+                        () => false
+                    ),
+                    p.Total
+                );
             })
             .Sum();
 

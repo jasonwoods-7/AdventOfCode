@@ -1,10 +1,5 @@
 ﻿namespace AoC.Y2025.Day05;
 
-public record ParsedInput(
-    ImmutableList<(long lo, long hi)> Ranges,
-    ImmutableList<long> Ingredients
-);
-
 public class Day05 : IAoCRunner<ParsedInput, long>
 {
     public ParsedInput ParseInput(IEnumerable<string> puzzleInput) =>

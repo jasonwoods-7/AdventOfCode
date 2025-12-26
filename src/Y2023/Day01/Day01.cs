@@ -20,8 +20,8 @@ public class Day01 : IAoCRunner<IReadOnlyList<string>, int>
     static int Solve(IReadOnlyList<string> input, string regEx) =>
         (
             from l in input
-            let f = Regex.Match(l, regEx)
-            let t = Regex.Match(l, regEx, RegexOptions.RightToLeft)
+            let f = Regex.Match(l, regEx, RegexOptions.None, TimeSpan.FromSeconds(1))
+            let t = Regex.Match(l, regEx, RegexOptions.RightToLeft, TimeSpan.FromSeconds(1))
             select (ParseValue(f.Value) * 10) + ParseValue(t.Value)
         ).Sum();
 

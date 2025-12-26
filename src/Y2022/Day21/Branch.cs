@@ -29,7 +29,9 @@ sealed class Branch : Tree
 
     /// <inheritdoc />
     public override Tree? Find(string name) =>
-        Name == name ? this : Left.Find(name) ?? Right.Find(name);
+        string.Equals(Name, name, StringComparison.Ordinal)
+            ? this
+            : Left.Find(name) ?? Right.Find(name);
 
     public override string DebuggerDisplay() =>
         $"({Left.DebuggerDisplay()} {_binaryOperator} {Right.DebuggerDisplay()})";

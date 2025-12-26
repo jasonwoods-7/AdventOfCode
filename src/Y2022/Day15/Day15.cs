@@ -1,9 +1,5 @@
 namespace AoC.Y2022.Day15;
 
-public readonly record struct Part1Data(int Value);
-
-public readonly record struct Part2Data(int Value);
-
 public class Day15(AnyOf<Part1Data, Part2Data> data, ILogger<Day15> logger)
     : IAoCRunner<IReadOnlyList<(Coord, Coord)>, long>
 {

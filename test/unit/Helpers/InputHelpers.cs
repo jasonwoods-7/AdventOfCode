@@ -43,7 +43,7 @@ public static partial class InputHelpers
 
         var exists = Path.Exists(fullFileName);
 
-        if (!exists && fileName == "input.txt")
+        if (!exists && string.Equals(fileName, "input.txt", StringComparison.Ordinal))
         {
             var session = ModuleInit.Configuration["session"];
             var match = PathRegex().Match(callerFilePath);

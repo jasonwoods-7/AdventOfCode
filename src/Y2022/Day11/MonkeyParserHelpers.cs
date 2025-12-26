@@ -23,10 +23,7 @@ public static class MonkeyParserHelpers
 
     public static Func<long, int> CreateTestFunc(long testDiv, int trueMonkey, int falseMonkey)
     {
-        var divRemInfo = typeof(Math).GetMethod(
-            nameof(Math.DivRem),
-            new[] { typeof(long), typeof(long) }
-        )!;
+        var divRemInfo = typeof(Math).GetMethod(nameof(Math.DivRem), [typeof(long), typeof(long)])!;
 
         var valueParam = Expression.Parameter(typeof(long), "value");
         var constTest = Expression.Constant(testDiv);

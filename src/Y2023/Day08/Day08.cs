@@ -2,11 +2,6 @@
 
 namespace AoC.Y2023.Day08;
 
-public record Parsed(
-    string Sequence,
-    IReadOnlyDictionary<string, (string left, string right)> Maps
-);
-
 public class Day08 : IAoCRunner<Parsed, long>
 {
     public Parsed ParseInput(IEnumerable<string> puzzleInput) =>
@@ -19,7 +14,11 @@ public class Day08 : IAoCRunner<Parsed, long>
 
                     var maps = rawMaps
                         .Select(m => (m[..3], m[7..10], m[12..15]))
-                        .ToDictionary(t => t.Item1, t => (t.Item2, t.Item3));
+                        .ToDictionary(
+                            t => t.Item1,
+                            t => (t.Item2, t.Item3),
+                            StringComparer.Ordinal
+                        );
 
                     return new Parsed(sequence, maps);
                 }
@@ -29,7 +28,7 @@ public class Day08 : IAoCRunner<Parsed, long>
         Parsed input,
         object? state = null,
         CancellationToken cancellationToken = default
-    ) => FindEnd(input, "AAA", e => e == "ZZZ", 0);
+    ) => FindEnd(input, "AAA", e => string.Equals(e, "ZZZ", StringComparison.Ordinal), 0);
 
     public long RunPart2(
         Parsed input,

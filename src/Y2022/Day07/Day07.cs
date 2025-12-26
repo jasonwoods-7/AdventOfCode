@@ -9,7 +9,7 @@ public class Day07 : IAoCRunner<Directory, int>
 
         foreach (var command in puzzleInput.Skip(1))
         {
-            if (command == "$ cd ..")
+            if (string.Equals(command, "$ cd ..", StringComparison.Ordinal))
             {
                 currentDirectory = currentDirectory.Parent!;
             }
@@ -17,10 +17,10 @@ public class Day07 : IAoCRunner<Directory, int>
             {
                 var newDirectory = command[5..];
                 currentDirectory = currentDirectory.Subdirectories.First(d =>
-                    d.Name == newDirectory
+                    string.Equals(d.Name, newDirectory, StringComparison.Ordinal)
                 );
             }
-            else if (command == "$ ls") { }
+            else if (string.Equals(command, "$ ls", StringComparison.Ordinal)) { }
             else if (command.StartsWith("dir ", StringComparison.Ordinal))
             {
                 var name = command[4..];

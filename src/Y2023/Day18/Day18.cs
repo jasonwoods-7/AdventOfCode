@@ -2,7 +2,11 @@
 
 public partial class Day18 : IAoCRunner<IReadOnlyList<DigInstruction>, long>
 {
-    [GeneratedRegex(@"([ULDR]) (\d+) \(#([0-9a-f]{6})\)")]
+    [GeneratedRegex(
+        @"(?<direction>[ULDR]) (?<steps>\d+) \(#(?<color>[0-9a-f]{6})\)",
+        RegexOptions.ExplicitCapture,
+        matchTimeoutMilliseconds: 1_000
+    )]
     private static partial Regex InstructionParser();
 
     public IReadOnlyList<DigInstruction> ParseInput(IEnumerable<string> puzzleInput) =>
@@ -11,7 +15,7 @@ public partial class Day18 : IAoCRunner<IReadOnlyList<DigInstruction>, long>
                 InstructionParser()
                     .Match(l)
                     .Apply(static m => new DigInstruction(
-                        m.Groups[1].Value[0] switch
+                        m.Groups["direction"].Value[0] switch
                         {
                             'U' => Coord.Up,
                             'L' => Coord.Left,
@@ -19,9 +23,9 @@ public partial class Day18 : IAoCRunner<IReadOnlyList<DigInstruction>, long>
                             'R' => Coord.Right,
                             _ => throw new InvalidOperationException(),
                         },
-                        m.Groups[2].Value.ParseNumber<int>(),
+                        m.Groups["steps"].Value.ParseNumber<int>(),
                         int.Parse(
-                            m.Groups[3].Value,
+                            m.Groups["color"].Value,
                             NumberStyles.HexNumber,
                             CultureInfo.CurrentCulture
                         )

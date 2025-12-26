@@ -1,5 +1,8 @@
-﻿namespace AoC.Types;
+﻿using System.Runtime.InteropServices;
 
+namespace AoC.Types;
+
+[StructLayout(LayoutKind.Sequential)]
 public readonly record struct Bounds(Coord TopLeft, Coord BottomRight)
 {
     public static Bounds FindBounds(IEnumerable<Coord> coords) =>

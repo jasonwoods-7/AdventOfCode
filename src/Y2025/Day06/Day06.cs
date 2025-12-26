@@ -2,8 +2,6 @@
 
 namespace AoC.Y2025.Day06;
 
-public record ParsedInput(ReadOnlyMemory2D<char> Digits, ImmutableList<char> Operators);
-
 public class Day06 : IAoCRunner<ParsedInput, long>
 {
     public ParsedInput ParseInput(IEnumerable<string> puzzleInput) =>

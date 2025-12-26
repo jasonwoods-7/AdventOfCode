@@ -49,7 +49,7 @@ public class Day11 : IAoCRunner<ParsedInput, long>
             ? value
             : cache.FluentAdd(
                 current,
-                current == target
+                string.Equals(current, target, StringComparison.Ordinal)
                     ? 1
                     : input[current]
                         .Sum(next => Solver(input, next, target, cache, cancellationToken))

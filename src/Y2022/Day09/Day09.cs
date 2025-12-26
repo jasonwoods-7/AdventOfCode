@@ -94,8 +94,7 @@ public class Day09 : IAoCRunner<IEnumerable<(Direction, int)>, int>
         );
 
         static (int, int)[] AdjacentVertices((int x, int y) point) =>
-            new[]
-            {
+            [
                 (point.x - 1, point.y - 1),
                 (point.x - 1, point.y - 0),
                 (point.x - 1, point.y + 1),
@@ -105,6 +104,6 @@ public class Day09 : IAoCRunner<IEnumerable<(Direction, int)>, int>
                 (point.x + 1, point.y - 1),
                 (point.x + 1, point.y - 0),
                 (point.x + 1, point.y + 1),
-            };
+            ];
     }
 }

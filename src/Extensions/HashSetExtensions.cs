@@ -7,10 +7,7 @@ public static class HashSetExtensions
         IEnumerable<T> range
     ) => range.Aggregate(source, static (result, current) => result.Add(current));
 
-    public static System.Collections.Generic.HashSet<T> FluentRemove<T>(
-        this System.Collections.Generic.HashSet<T> source,
-        T item
-    )
+    public static ISet<T> FluentRemove<T>(this ISet<T> source, T item)
     {
         source.Remove(item);
         return source;

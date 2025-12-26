@@ -21,7 +21,7 @@ public class Day20 : IAoCRunner<IReadOnlyDictionary<string, Module>, long>
                 };
             })
             .Append(new Module.Conjunction("rx", ImmutableArray<string>.Empty))
-            .ToDictionary(m => m.Name);
+            .ToDictionary(m => m.Name, StringComparer.Ordinal);
 
         foreach (var module in modules)
         {
@@ -30,7 +30,7 @@ public class Day20 : IAoCRunner<IReadOnlyDictionary<string, Module>, long>
                 {
                     foreach (
                         var current in modules.Where(m =>
-                            m.Value.DestinationModules.Contains(c.Name)
+                            m.Value.DestinationModules.Contains(c.Name, StringComparer.Ordinal)
                         )
                     )
                     {
@@ -50,7 +50,7 @@ public class Day20 : IAoCRunner<IReadOnlyDictionary<string, Module>, long>
         CancellationToken cancellationToken = default
     )
     {
-        var untyped = new Dictionary<string, Module>();
+        var untyped = new Dictionary<string, Module>(StringComparer.Ordinal);
 
         for (var i = 0; i < 1000; i++)
         {
@@ -77,7 +77,7 @@ public class Day20 : IAoCRunner<IReadOnlyDictionary<string, Module>, long>
             .UnwrapConjunction()
             .GetInputs()
             .ToList();
-        var cycles = new Dictionary<string, long>();
+        var cycles = new Dictionary<string, long>(StringComparer.Ordinal);
 
         var finished = false;
 
@@ -94,7 +94,7 @@ public class Day20 : IAoCRunner<IReadOnlyDictionary<string, Module>, long>
             };
         }
 
-        var untyped = new Dictionary<string, Module>();
+        var untyped = new Dictionary<string, Module>(StringComparer.Ordinal);
         var buttonPress = 0L;
 
         while (!finished)

@@ -1,22 +1,14 @@
 namespace AoC.Y2022.Day07;
 
-public class Directory
+public class Directory(string name, Directory? parent)
 {
-    public Directory(string name, Directory? parent)
-    {
-        Name = name;
-        Parent = parent;
-        Subdirectories = new List<Directory>();
-        Files = new List<(string, int)>();
-    }
+    public string Name { get; } = name;
 
-    public string Name { get; }
+    public Directory? Parent { get; } = parent;
 
-    public Directory? Parent { get; }
+    public IList<Directory> Subdirectories { get; } = new List<Directory>();
 
-    public List<Directory> Subdirectories { get; }
-
-    public List<(string name, int size)> Files { get; }
+    public IList<(string name, int size)> Files { get; } = new List<(string, int)>();
 
     public int CalculateSize() =>
         Files.Sum(f => f.size) + Subdirectories.Sum(d => d.CalculateSize());

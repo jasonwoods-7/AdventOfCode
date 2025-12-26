@@ -1,7 +1,5 @@
 ﻿namespace AoC.Y2024.Day02;
 
-public record Report(IReadOnlyList<int> Levels);
-
 public class Day02 : IAoCRunner<IReadOnlyList<Report>, int>
 {
     public IReadOnlyList<Report> ParseInput(IEnumerable<string> puzzleInput) =>

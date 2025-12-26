@@ -1,11 +1,5 @@
 ﻿namespace AoC.Y2024.Day05;
 
-public record ParsedInput(IReadOnlyList<Rule> Rules, IReadOnlyList<Update> Updates);
-
-public record Rule(int Before, int After);
-
-public record Update(IReadOnlyList<int> Pages);
-
 public class Day05 : IAoCRunner<ParsedInput, int>
 {
     public ParsedInput ParseInput(IEnumerable<string> puzzleInput) =>
@@ -47,19 +41,4 @@ public class Day05 : IAoCRunner<ParsedInput, int>
             .Select(r => (b: pages.IndexOf(r.Before), a: pages.IndexOf(r.After)))
             .Where(t => t.b != -1 && t.a != -1)
             .All(t => t.b < t.a);
-}
-
-sealed class UpdateComparer(IReadOnlyList<Rule> rules) : IComparer<int>
-{
-    public int Compare(int x, int y) =>
-        rules
-            .Choose(r =>
-                r switch
-                {
-                    _ when r.Before == x && r.After == y => (true, -1),
-                    _ when r.Before == y && r.After == x => (true, 1),
-                    _ => (false, 0),
-                }
-            )
-            .First();
 }

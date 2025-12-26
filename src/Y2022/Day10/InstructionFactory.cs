@@ -4,7 +4,7 @@ static class InstructionFactory
 {
     public static IInstruction CreateInstruction(string instruction)
     {
-        if (instruction == "noop")
+        if (string.Equals(instruction, "noop", StringComparison.Ordinal))
         {
             return CreateCycle(1, new NoopInstruction());
         }

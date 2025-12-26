@@ -1,12 +1,12 @@
 namespace AoC.Y2023.Day02;
 
-public record Round(int Count, string Color);
-
-public record Game(int Id, IReadOnlyList<Round> Rounds);
-
 public partial class Day02 : IAoCRunner<IReadOnlyList<Game>, int>
 {
-    [GeneratedRegex(@"(\d+) (red|green|blue)")]
+    [GeneratedRegex(
+        @"(?<count>\d+) (?<color>red|green|blue)",
+        RegexOptions.ExplicitCapture,
+        matchTimeoutMilliseconds: 1_000
+    )]
     private static partial Regex Pull();
 
     public IReadOnlyList<Game> ParseInput(IEnumerable<string> puzzleInput) =>
@@ -21,8 +21,8 @@ public partial class Day02 : IAoCRunner<IReadOnlyList<Game>, int>
                         static r => Pull().Matches(r),
                         static (_, m) =>
                             new Round(
-                                int.Parse(m.Groups[1].Value, CultureInfo.CurrentCulture),
-                                m.Groups[2].Value
+                                int.Parse(m.Groups["count"].Value, CultureInfo.CurrentCulture),
+                                m.Groups["color"].Value
                             )
                     )
                     .ToList()
@@ -55,7 +55,7 @@ public partial class Day02 : IAoCRunner<IReadOnlyList<Game>, int>
     ) =>
         input.Sum(g =>
         {
-            var cubes = new Dictionary<string, int>
+            var cubes = new Dictionary<string, int>(StringComparer.Ordinal)
             {
                 ["red"] = 0,
                 ["green"] = 0,
