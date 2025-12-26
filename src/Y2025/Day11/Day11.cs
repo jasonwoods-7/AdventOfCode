@@ -50,9 +50,10 @@ public class Day11 : IAoCRunner<ParsedInput, long>
             return value;
         }
 
-        value = current == target
-            ? 1
-            : input[current].Sum(next => Solver(input, next, target, cache, cancellationToken));
+        value =
+            current == target
+                ? 1
+                : input[current].Sum(next => Solver(input, next, target, cache, cancellationToken));
 
         cache[current] = value;
 
