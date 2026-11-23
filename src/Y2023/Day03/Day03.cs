@@ -7,49 +7,47 @@ public partial class Day03 : IAoCRunner<Parsed, int>
         RegexOptions.ExplicitCapture,
         matchTimeoutMilliseconds: 1_000
     )]
-    private static partial Regex Schematic();
+    private static partial Regex Schematic { get; }
 
     public Parsed ParseInput(IEnumerable<string> puzzleInput) =>
         puzzleInput
             .Index()
-            .Aggregate(
-                Parsed.Empty(),
-                static (result, current) =>
-                    result.Append(
-                        Schematic()
-                            .Matches(current.Item)
-                            .Partition(
-                                static m => m.Groups["number"].Success,
-                                (ns, ss) =>
-                                {
-                                    var numbers = ns.Select(n =>
-                                        {
-                                            var group = n.Groups["number"];
-                                            var x1 = group.Index;
-                                            var x2 = x1 + group.Length - 1;
-                                            var value = int.Parse(
-                                                group.Value,
-                                                CultureInfo.CurrentCulture
-                                            );
+            .Aggregate(Parsed.Empty(), static (result, current) =>
+                result.Append(
+                    Schematic
+                        .Matches(current.Item)
+                        .Partition(
+                            static m => m.Groups["number"].Success,
+                            (ns, ss) =>
+                            {
+                                var numbers = ns.Select(n =>
+                                    {
+                                        var group = n.Groups["number"];
+                                        var x1 = group.Index;
+                                        var x2 = x1 + group.Length - 1;
+                                        var value = int.Parse(
+                                            group.Value,
+                                            CultureInfo.CurrentCulture
+                                        );
 
-                                            return new Number(x1, x2, current.Index, value);
-                                        })
-                                        .ToImmutableList();
+                                        return new Number(x1, x2, current.Index, value);
+                                    })
+                                    .ToImmutableList();
 
-                                    var symbols = ss.Select(s =>
-                                        {
-                                            var group = s.Groups["symbol"];
-                                            var x = group.Index;
-                                            var value = group.Value[0];
+                                var symbols = ss.Select(s =>
+                                    {
+                                        var group = s.Groups["symbol"];
+                                        var x = group.Index;
+                                        var value = group.Value[0];
 
-                                            return new Symbol(new Coord(x, current.Index), value);
-                                        })
-                                        .ToImmutableList();
+                                        return new Symbol(new Coord(x, current.Index), value);
+                                    })
+                                    .ToImmutableList();
 
-                                    return new Parsed(numbers, symbols);
-                                }
-                            )
-                    )
+                                return new Parsed(numbers, symbols);
+                            }
+                        )
+                )
             );
 
     public int RunPart1(

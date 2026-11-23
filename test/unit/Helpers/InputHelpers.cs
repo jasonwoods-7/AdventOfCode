@@ -32,7 +32,7 @@ public static partial class InputHelpers
         });
 
     [GeneratedRegex(@"Y(?<year>\d+)[/\\]Day(?<day>\d+)", RegexOptions.ExplicitCapture, 1_000)]
-    private static partial Regex PathRegex();
+    private static partial Regex PathRegex { get; }
 
     public static async Task<IEnumerable<string>> ReadInputFileAsync(
         string fileName = "input.txt",
@@ -46,7 +46,7 @@ public static partial class InputHelpers
         if (!exists && string.Equals(fileName, "input.txt", StringComparison.Ordinal))
         {
             var session = ModuleInit.Configuration["session"];
-            var match = PathRegex().Match(callerFilePath);
+            var match = PathRegex.Match(callerFilePath);
 
             if (session is not null && match.Success)
             {

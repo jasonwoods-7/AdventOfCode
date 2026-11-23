@@ -29,9 +29,8 @@ public class Day07 : IAoCRunner<ParsedInput, long>
         input
             .Equations.Where(eq =>
                 eq.Values.Tail()
-                    .Aggregate(
-                        new List<long> { eq.Values.Head() },
-                        (res, cur) => res.SelectMany(c => next(cur, c)).ToList()
+                    .Aggregate(new List<long> { eq.Values.Head() }, (res, cur) =>
+                        res.SelectMany(c => next(cur, c)).ToList()
                     )
                     .Contains(eq.Result)
             )

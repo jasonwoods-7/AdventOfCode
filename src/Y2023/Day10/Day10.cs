@@ -25,16 +25,14 @@ public class Day10(ILogger<Day10> logger) : IAoCRunner<IReadOnlyDictionary<Coord
     {
         var pipes = FindPipes(input);
 
-        var (maxX, maxY) = input.Keys.Aggregate(
-            (x: -1L, y: -1L),
-            (max, current) =>
-                (current.X > max.x, current.Y > max.y) switch
-                {
-                    (true, true) => (current.X, current.Y),
-                    (true, false) => (current.X, max.x),
-                    (false, true) => (max.x, current.Y),
-                    (false, false) => max,
-                }
+        var (maxX, maxY) = input.Keys.Aggregate((x: -1L, y: -1L), (max, current) =>
+            (current.X > max.x, current.Y > max.y) switch
+            {
+                (true, true) => (current.X, current.Y),
+                (true, false) => (current.X, max.x),
+                (false, true) => (max.x, current.Y),
+                (false, false) => max,
+            }
         );
 
         var map = new Dictionary<Coord, char>();

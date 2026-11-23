@@ -41,66 +41,55 @@ public class Day05 : IAoCRunner<(Cargo, Instruction[]), string>
         (Cargo, (int, int, int)[]) input,
         object? state = null,
         CancellationToken cancellationToken = default
-    ) =>
-        MoveCrates(
-            input,
-            static (cargo, instruction) =>
+    ) => MoveCrates(input, static (cargo, instruction) =>
+        {
+            var (count, source, destination) = instruction;
+
+            var nextCargo = cargo;
+
+            for (var counter = 0; counter < count; ++counter)
             {
-                var (count, source, destination) = instruction;
-
-                var nextCargo = cargo;
-
-                for (var counter = 0; counter < count; ++counter)
-                {
-                    nextCargo = nextCargo.SetItem(source, nextCargo[source].Pop(out var value));
-                    nextCargo = nextCargo.SetItem(destination, nextCargo[destination].Push(value));
-                }
-
-                return nextCargo;
+                nextCargo = nextCargo.SetItem(source, nextCargo[source].Pop(out var value));
+                nextCargo = nextCargo.SetItem(destination, nextCargo[destination].Push(value));
             }
-        );
+
+            return nextCargo;
+        });
 
     public string RunPart2(
         (Cargo, (int, int, int)[]) input,
         object? state = null,
         CancellationToken cancellationToken = default
-    ) =>
-        MoveCrates(
-            input,
-            static (cargo, instruction) =>
+    ) => MoveCrates(input, static (cargo, instruction) =>
+        {
+            var (count, source, destination) = instruction;
+
+            var nextCargo = cargo;
+
+            var sourceCrates = new Stack<char>();
+
+            for (var counter = 0; counter < count; ++counter)
             {
-                var (count, source, destination) = instruction;
-
-                var nextCargo = cargo;
-
-                var sourceCrates = new Stack<char>();
-
-                for (var counter = 0; counter < count; ++counter)
-                {
-                    nextCargo = nextCargo.SetItem(source, nextCargo[source].Pop(out var value));
-                    sourceCrates.Push(value);
-                }
-
-                for (var counter = 0; counter < count; ++counter)
-                {
-                    nextCargo = nextCargo.SetItem(
-                        destination,
-                        nextCargo[destination].Push(sourceCrates.Pop())
-                    );
-                }
-
-                return nextCargo;
+                nextCargo = nextCargo.SetItem(source, nextCargo[source].Pop(out var value));
+                sourceCrates.Push(value);
             }
-        );
+
+            for (var counter = 0; counter < count; ++counter)
+            {
+                nextCargo = nextCargo.SetItem(
+                    destination,
+                    nextCargo[destination].Push(sourceCrates.Pop())
+                );
+            }
+
+            return nextCargo;
+        });
 
     static string MoveCrates(
         (Cargo cargo, Instruction[] instructions) input,
         Func<Cargo, Instruction, Cargo> calculateMoves
     ) =>
-        input.instructions.Aggregate(
-            input.cargo,
-            calculateMoves,
-            static c =>
-                c.OrderBy(static c => c.Key).Aggregate("", static (s, c) => s + c.Value.Peek())
+        input.instructions.Aggregate(input.cargo, calculateMoves, static c =>
+            c.OrderBy(static c => c.Key).Aggregate("", static (s, c) => s + c.Value.Peek())
         );
 }

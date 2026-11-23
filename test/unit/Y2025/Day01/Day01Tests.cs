@@ -64,23 +64,23 @@ public class Day01Tests : AoCRunnerTests<AoC.Y2025.Day01.Day01>
     [InlineData("R150", 2)]
     [InlineData(
         """
-            L50
-            R101
-            """,
+        L50
+        R101
+        """,
         2
     )]
     [InlineData(
         """
-            R50
-            R50
-            L50
-            L50
-            R75
-            L50
-            L25
-            L75
-            R50
-            """,
+        R50
+        R50
+        L50
+        L50
+        R75
+        L50
+        L25
+        L75
+        R50
+        """,
         6
     )]
     public void Part2EdgeCases(string rawInput, int expected)

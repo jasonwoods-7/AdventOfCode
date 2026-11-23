@@ -7,7 +7,7 @@ public partial class Day02 : IAoCRunner<IReadOnlyList<Game>, int>
         RegexOptions.ExplicitCapture,
         matchTimeoutMilliseconds: 1_000
     )]
-    private static partial Regex Pull();
+    private static partial Regex Pull { get; }
 
     public IReadOnlyList<Game> ParseInput(IEnumerable<string> puzzleInput) =>
         (
@@ -18,7 +18,7 @@ public partial class Day02 : IAoCRunner<IReadOnlyList<Game>, int>
                 parts
                     .Skip(1)
                     .SelectMany(
-                        static r => Pull().Matches(r),
+                        static r => Pull.Matches(r),
                         static (_, m) =>
                             new Round(
                                 int.Parse(m.Groups["count"].Value, CultureInfo.CurrentCulture),

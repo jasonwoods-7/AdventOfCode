@@ -1,27 +1,19 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net10.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
     <NoWarn>$(NoWarn);CA1848;CA1873</NoWarn>
   </PropertyGroup>
 
-  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+  <PropertyGroup Condition="'$(Configuration)'=='Debug'">
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AnyOf" Version="0.5.0.1" />
-    <PackageReference Include="CommunityToolkit.HighPerformance" Version="8.4.0" />
-    <PackageReference Include="Dunet" Version="1.11.3" />
-    <PackageReference Include="JetBrains.Annotations" Version="2025.2.4" />
-    <PackageReference Include="LanguageExt.Core" Version="4.4.9" />
-    <PackageReference Include="Meziantou.Analyzer" Version="2.0.264">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.1" />
-    <PackageReference Include="SuperLinq" Version="6.4.1" />
+    <PackageReference Include="AnyOf" />
+    <PackageReference Include="CommunityToolkit.HighPerformance" />
+    <PackageReference Include="Dunet" />
+    <PackageReference Include="JetBrains.Annotations" />
+    <PackageReference Include="LanguageExt.Core" />
+    <PackageReference Include="SuperLinq" />
   </ItemGroup>
 
   <ItemGroup>

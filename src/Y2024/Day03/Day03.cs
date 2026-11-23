@@ -7,14 +7,14 @@ public partial class Day03 : IAoCRunner<IReadOnlyList<string>, int>
         RegexOptions.ExplicitCapture,
         matchTimeoutMilliseconds: 1_000
     )]
-    private partial Regex Part1Instructions();
+    private partial Regex Part1Instructions { get; }
 
     [GeneratedRegex(
         @"mul\((?<ins1>\d{1,3}),(?<ins2>\d{1,3})\)|do(?:n't)?\(\)",
         RegexOptions.ExplicitCapture,
         matchTimeoutMilliseconds: 1_000
     )]
-    private partial Regex Part2Instructions();
+    private partial Regex Part2Instructions { get; }
 
     public IReadOnlyList<string> ParseInput(IEnumerable<string> puzzleInput) =>
         puzzleInput.ToList();
@@ -23,7 +23,7 @@ public partial class Day03 : IAoCRunner<IReadOnlyList<string>, int>
         IReadOnlyList<string> input,
         object? state = null,
         CancellationToken cancellationToken = default
-    ) => input.SelectMany(s => Part1Instructions().Matches(s), (_, m) => MultiplyValues(m)).Sum();
+    ) => input.SelectMany(s => Part1Instructions.Matches(s), (_, m) => MultiplyValues(m)).Sum();
 
     public int RunPart2(
         IReadOnlyList<string> input,
@@ -31,7 +31,7 @@ public partial class Day03 : IAoCRunner<IReadOnlyList<string>, int>
         CancellationToken cancellationToken = default
     ) =>
         input
-            .SelectMany(s => Part2Instructions().Matches(s))
+            .SelectMany(s => Part2Instructions.Matches(s))
             .Aggregate(
                 (true, 0),
                 (result, current) =>

@@ -7,7 +7,7 @@ public partial class Day15 : IAoCRunner<IEnumerable<string>, int>
         RegexOptions.ExplicitCapture,
         matchTimeoutMilliseconds: 1_000
     )]
-    private partial Regex OperationRegex();
+    private partial Regex OperationRegex { get; }
 
     public IEnumerable<string> ParseInput(IEnumerable<string> puzzleInput) =>
         puzzleInput.SelectMany(l => l.Split(','));
@@ -28,7 +28,7 @@ public partial class Day15 : IAoCRunner<IEnumerable<string>, int>
 
         foreach (var current in input)
         {
-            var match = OperationRegex().Match(current);
+            var match = OperationRegex.Match(current);
 
             var label = match.Groups["label"].Value;
             var hash = Hash(label);

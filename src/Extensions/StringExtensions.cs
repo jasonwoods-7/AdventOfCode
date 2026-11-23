@@ -9,11 +9,11 @@ public static partial class StringExtensions
         RegexOptions.ExplicitCapture,
         matchTimeoutMilliseconds: 1_000
     )]
-    private static partial Regex NumberRegex();
+    private static partial Regex NumberRegex { get; }
 
     public static IEnumerable<T> FindNumbers<T>(this string source)
         where T : IParsable<T>, INumber<T> =>
-        NumberRegex().Matches(source).Select(m => T.Parse(m.Value, CultureInfo.CurrentCulture));
+        NumberRegex.Matches(source).Select(m => T.Parse(m.Value, CultureInfo.CurrentCulture));
 
     public static T ParseNumber<T>(this string source)
         where T : IParsable<T>, INumber<T> => T.Parse(source, CultureInfo.CurrentCulture);

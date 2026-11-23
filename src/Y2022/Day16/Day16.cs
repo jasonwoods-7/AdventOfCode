@@ -7,13 +7,13 @@ public partial class Day16 : IAoCRunner<IReadOnlyDictionary<string, Valve>, int>
         RegexOptions.ExplicitCapture,
         matchTimeoutMilliseconds: 1_000
     )]
-    private static partial Regex ParseRegex();
+    private static partial Regex ParseRegex { get; }
 
     public IReadOnlyDictionary<string, Valve> ParseInput(IEnumerable<string> puzzleInput) =>
         puzzleInput
             .Select(static l =>
             {
-                var match1 = ParseRegex().Match(l);
+                var match1 = ParseRegex.Match(l);
                 Debug.Assert(match1.Success);
 
                 var name = match1.Groups["name"].Value;
@@ -52,7 +52,9 @@ public partial class Day16 : IAoCRunner<IReadOnlyDictionary<string, Valve>, int>
             .OrderByDescending(v => v.FlowRate)
             .ToList();
 
-        var unopenedValves = valvesToVisit.Select(v => v.Name).ToImmutableHashSet();
+        var unopenedValves = valvesToVisit
+            .Select(v => v.Name)
+            .ToImmutableHashSet(StringComparer.Ordinal);
 
         var distanceFinder = new DistanceFinder(valves);
 

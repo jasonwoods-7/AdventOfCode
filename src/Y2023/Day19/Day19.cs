@@ -20,7 +20,7 @@ public class Day19 : IAoCRunner<Parsed, long>
                             );
                             return (name, instruction);
                         })
-                        .ToDictionary();
+                        .ToDictionary(StringComparer.Ordinal);
 
                     var parts = rawParts
                         .Select(p =>

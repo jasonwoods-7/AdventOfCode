@@ -9,15 +9,26 @@ public class Day11 : IAoCRunner<ParsedInput, long>
 {
     public ParsedInput ParseInput(IEnumerable<string> puzzleInput) =>
         puzzleInput
-            .Select(l => l.Replace(":", "").Split(' '))
+            .Select(l => l.Replace(":", "", StringComparison.Ordinal).Split(' '))
             .Append(["out"])
-            .ToImmutableDictionary(s => s[0], s => s[1..].ToImmutableList());
+            .ToImmutableDictionary(
+                s => s[0],
+                s => s[1..].ToImmutableList(),
+                StringComparer.Ordinal
+            );
 
     public long RunPart1(
         ParsedInput input,
         object? state = null,
         CancellationToken cancellationToken = default
-    ) => Solver(input, "you", "out", [], cancellationToken);
+    ) =>
+        Solver(
+            input,
+            "you",
+            "out",
+            new Dictionary<string, long>(StringComparer.Ordinal),
+            cancellationToken
+        );
 
     public long RunPart2(
         ParsedInput input,
@@ -25,14 +36,50 @@ public class Day11 : IAoCRunner<ParsedInput, long>
         CancellationToken cancellationToken = default
     ) =>
         (
-            Solver(input, "svr", "fft", [], cancellationToken)
-            * Solver(input, "fft", "dac", [], cancellationToken)
-            * Solver(input, "dac", "out", [], cancellationToken)
+            Solver(
+                input,
+                "svr",
+                "fft",
+                new Dictionary<string, long>(StringComparer.Ordinal),
+                cancellationToken
+            )
+            * Solver(
+                input,
+                "fft",
+                "dac",
+                new Dictionary<string, long>(StringComparer.Ordinal),
+                cancellationToken
+            )
+            * Solver(
+                input,
+                "dac",
+                "out",
+                new Dictionary<string, long>(StringComparer.Ordinal),
+                cancellationToken
+            )
         )
         + (
-            Solver(input, "svr", "dac", [], cancellationToken)
-            * Solver(input, "dac", "fft", [], cancellationToken)
-            * Solver(input, "fft", "out", [], cancellationToken)
+            Solver(
+                input,
+                "svr",
+                "dac",
+                new Dictionary<string, long>(StringComparer.Ordinal),
+                cancellationToken
+            )
+            * Solver(
+                input,
+                "dac",
+                "fft",
+                new Dictionary<string, long>(StringComparer.Ordinal),
+                cancellationToken
+            )
+            * Solver(
+                input,
+                "fft",
+                "out",
+                new Dictionary<string, long>(StringComparer.Ordinal),
+                cancellationToken
+            )
         );
 
     static long Solver(

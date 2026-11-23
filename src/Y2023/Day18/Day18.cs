@@ -7,12 +7,12 @@ public partial class Day18 : IAoCRunner<IReadOnlyList<DigInstruction>, long>
         RegexOptions.ExplicitCapture,
         matchTimeoutMilliseconds: 1_000
     )]
-    private static partial Regex InstructionParser();
+    private static partial Regex InstructionParser { get; }
 
     public IReadOnlyList<DigInstruction> ParseInput(IEnumerable<string> puzzleInput) =>
         puzzleInput
             .Select(static l =>
-                InstructionParser()
+                InstructionParser
                     .Match(l)
                     .Apply(static m => new DigInstruction(
                         m.Groups["direction"].Value[0] switch
